@@ -1,24 +1,17 @@
 <template>
-  <div id="app">
+  <v-app>
     <router-view></router-view>
-  </div>
+  </v-app>
 </template>
 
 <script>
 
 export default {
-  name: 'app',
-    components: {
-    
-  },
+  name: 'App',
   data () {
     return {
-      
+      //
     }
   }
 }
 </script>
-
-<style>
-
-</style>
