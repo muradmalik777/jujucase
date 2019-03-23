@@ -16,6 +16,13 @@
                 <p class="uppercase">registered users</p>
                 <p class="count c-orange">4834019841</p>
             </div>
+            <div class="social-links">
+                <i class="fab fa-steam-symbol icon"></i>
+                <i class="fab fa-facebook-square icon"></i>
+                <i class="fab fa-instagram icon"></i>
+                <i class="fab fa-twitter icon"></i>
+
+            </div>
         </v-navigation-drawer>
     </div>
 </template>
@@ -71,9 +78,19 @@ export default {
             padding: 15px 50px;
             p{
                 font-size: 12px;
+                margin: 0px;
             }
             .count{
                 font-size: 22px;
+            }
+        }
+        .social-links{
+            display: block;
+            width: fit-content;
+            margin: auto;
+            .icon{
+                margin: 8px;
+                font-size: 20px;
             }
         }
     }
