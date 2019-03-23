@@ -1,0 +1,51 @@
+@import "variables.scss";
+@import "util.scss";
+
+
+*{
+  box-sizing: border-box !important;
+}
+body{
+  background: $purple-dull !important;
+  font-size: 16px;
+   *{
+     color: #dddddd;
+     font-weight: 500;
+   }
+}
+.bg-purple-dull{
+  background: $purple-dull !important;
+}
+.bg-purple-bright{
+  background: $purple-bright !important;
+}
+.bg-purple-dark{
+  background: $purple-dark !important;
+}
+.c-green-dull{
+  color: $green-dull !important;
+}
+.c-green-bright{
+  color: $green-bright !important;
+}
+.c-orange{
+  color: $orange-dull !important;
+}
+.c-orange{
+  color: $orange-dull !important;
+}
+.t-c{
+  text-align: center !important;
+}
+.uppercase{
+  text-transform: uppercase;
+}
+.t-l{
+  text-align: left;
+}
+.t-r{
+  text-align: right;
+}
+.pointer {
+  cursor: pointer;
+}

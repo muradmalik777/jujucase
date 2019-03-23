@@ -4,6 +4,8 @@ import App from './App.vue'
 import router from "./router";
 import "./mixins/Global";
 import Vuetify from 'vuetify'
+import "./assets/scss/theme.scss"
+
 
 Vue.use(Vuetify)
 
