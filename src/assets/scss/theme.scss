@@ -10,9 +10,17 @@ body{
   background: $purple-dull !important;
   font-size: 16px;
    *{
-     color: #dddddd;
-     font-weight: 500;
-     font-family: 'jujucase-regular'
+     color: #eeeeee;
+     font-family: 'jujucase-medium';
+     letter-spacing: 0.05rem;
+   }
+   h1,h2,h3,h4,h5,h6{
+     font-family: 'jujucase-semibold';
+     font-weight: 600;
+   }
+   p{
+     font-family: 'jujucase-medium';
+     font-size: 18px;
    }
 }
 .bg-purple-dull{

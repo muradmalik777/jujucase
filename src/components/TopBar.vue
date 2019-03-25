@@ -72,11 +72,11 @@ export default {
         padding: 0px;
     }
     .flex:first-child{
-        border-left: 1px solid #88888855;
+        border-left: 1px solid #99999965;
     }
     .deposit, .withdraw, .bell{
         width: 25%;
-        border-right: 1px solid #88888855;
+        border-right: 1px solid #99999965;
         height: 100px;
         padding: 25px 10px;
         float: left;
@@ -90,7 +90,7 @@ export default {
         display: block;
         text-align: center;
         font-weight: 300;
-        color: #dddddd;
+        color: #eeeeee;
         margin: 10px;
     }
     .bell{

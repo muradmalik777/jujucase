@@ -36,7 +36,7 @@ export default {
                 {name:"Case creator", icon:"edit", to: "caseCreator"}, 
                 {name:"affliates", icon:"person", to: "profile"}, 
                 {name:"support/faq", icon:"help", to: "faq"},
-                {name:"terms of service", icon:"help", to: "tos"},
+                {name:"terms of service", icon:"info", to: "tos"},
                 {name:"about", icon:"error_outline", to: "about"}
             ]
         }
@@ -64,12 +64,14 @@ export default {
                 margin: 5px 0px;
                 padding: 0px 40px;
                 height: 45px;
-                color: #cccccc;
+                color: #eeeeee;
+                font-weight: 600;
+                letter-spacing: 1px;
             }
             .v-btn.v-btn--active{
                 background: #aaaaaa40;
-                border: 1px solid #cccccc70;
-                border-left: 5px solid #cccccc;
+                border: 1px solid #eeeeee70;
+                border-left: 5px solid #eeeeee;
             }
             .v-btn__content{
                 justify-content: left;
