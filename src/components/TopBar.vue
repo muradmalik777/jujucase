@@ -117,8 +117,8 @@ export default {
     }
     .login{
         margin: 10px;
-        width: 215px;
-        height: 30px;
+        width: 195px;
+        height: 25px;
         box-shadow: 0px 2px 2px #333333;
         border-radius: 5px;
     }
