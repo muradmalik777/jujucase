@@ -21,7 +21,6 @@
                 <i class="fab fa-facebook-square icon"></i>
                 <i class="fab fa-instagram icon"></i>
                 <i class="fab fa-twitter icon"></i>
-
             </div>
         </v-navigation-drawer>
     </div>
@@ -36,7 +35,8 @@ export default {
                 {name:"home", icon:"home", to:"/"}, 
                 {name:"Case creator", icon:"edit", to: "caseCreator"}, 
                 {name:"affliates", icon:"person", to: "profile"}, 
-                {name:"support/faq", icon:"help", to: "faq"}, 
+                {name:"support/faq", icon:"help", to: "faq"},
+                {name:"terms of service", icon:"help", to: "tos"},
                 {name:"about", icon:"error_outline", to: "about"}
             ]
         }
@@ -67,6 +67,7 @@ export default {
                 color: #cccccc;
             }
             .v-btn.v-btn--active{
+                background: #aaaaaa40;
                 border: 1px solid #cccccc70;
                 border-left: 5px solid #cccccc;
             }

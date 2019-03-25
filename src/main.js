@@ -5,8 +5,9 @@ import router from "./router";
 import "./mixins/Global";
 import Vuetify from 'vuetify'
 import "./assets/scss/theme.scss"
+import VueSession from 'vue-session'
 
-
+Vue.use(VueSession)
 Vue.use(Vuetify)
 
 Vue.config.productionTip = false

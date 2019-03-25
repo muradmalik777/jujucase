@@ -1,6 +1,6 @@
 <template>
     <div class="topbar">
-       <v-toolbar flat class="bg-purple-dull">
+       <v-toolbar flat class="bg-purple-bright">
             <v-container>
                 <v-layout justify-end row>
                     <v-flex xs8>
@@ -30,9 +30,12 @@
                             <div class="left">
                                 <v-img :src="require('@/assets/imgs/default-icon.png')" class="user-icon"></v-img>
                             </div>
-                            <div class="right">
+                            <div class="right" v-if="this.$is_logged_in">
                                 <h4>Murad Malik</h4>
                                 <p class="c-green-bright">$1700</p>
+                            </div>
+                            <div v-else>
+                                <v-img :src="require('@/assets/imgs/steam.png')" class="login pointer"></v-img>
                             </div>
                         </div>
                     </v-flex>
@@ -83,11 +86,11 @@ export default {
         float: left;
     }
     .v-icon{
-        font-size: 30px !important;
+        font-size: 35px !important;
         display: block;
         text-align: center;
         font-weight: 300;
-        color: #cccccc;
+        color: #dddddd;
         margin: 10px;
     }
     .bell{
@@ -111,6 +114,13 @@ export default {
         .right{
             width: 70%;
         }
-    }   
+    }
+    .login{
+        margin: 10px;
+        width: 215px;
+        height: 30px;
+        box-shadow: 0px 2px 2px #333333;
+        border-radius: 5px;
+    }
 }
 </style>
