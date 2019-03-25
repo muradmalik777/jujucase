@@ -40,6 +40,9 @@ body{
 .uppercase{
   text-transform: uppercase;
 }
+.capitalize{
+  text-transform: capitalize;
+}
 .t-l{
   text-align: left;
 }
@@ -48,4 +51,7 @@ body{
 }
 .pointer {
   cursor: pointer;
+}
+.spacing{
+  padding: 60px 50px;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="faq">
+    <div class="tos spacing">
         <h1>TOS</h1>
     </div>
 </template>

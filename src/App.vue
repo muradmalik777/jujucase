@@ -29,9 +29,9 @@ export default {
     width: calc(100% - 300px);
     height: 100%;
     position: fixed;
+    overflow: scroll;
     top: 100px;
     left: 300px;
-    padding: 20px;
 }
 </style>
 
