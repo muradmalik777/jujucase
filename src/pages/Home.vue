@@ -4,7 +4,7 @@
             <h2 class="uppercase t-c">add banner</h2>
         </div>
         <div class="bid-cases">
-            <h2 class="uppercase m-t-3">bid cases <span class="uppercase c-purple-bright">start bidding</span></h2>
+            <h2 class="uppercase m-t-3">Open cases <span class="uppercase c-purple-bright">view selection</span></h2>
             <div class="case pointer m-t-3 m-b-3" v-for="item in 10" :key="item">
                 <h4 class="t-c capitalize">Empty Slot</h4>
                 <v-img :src="require('@/assets/imgs/case.png')" class="case-image"></v-img>
