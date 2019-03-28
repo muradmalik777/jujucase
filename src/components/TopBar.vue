@@ -1,12 +1,14 @@
 <template>
     <div class="topbar">
-       <v-toolbar flat class="bg-purple-bright">
+       <v-toolbar class="bg-purple-bright">
             <v-container>
                 <v-layout justify-end row>
                     <v-flex xs8>
                         <div class="deposit">
                             <div class="left">
-                                <v-icon>account_balance_wallet</v-icon>
+                                <div class="circle">
+                                    <v-img :src="require('@/assets/imgs/svg/purse.svg')" class="topbar-icon"></v-img>
+                                </div>
                             </div>
                             <div class="right">
                                 <h4>Deposit</h4>
@@ -15,7 +17,9 @@
                         </div>
                         <div class="withdraw">
                             <div class="left">
-                                <v-icon>monetization_on</v-icon>
+                                <div class="circle">
+                                    <v-img :src="require('@/assets/imgs/svg/money.svg')" class="topbar-icon"></v-img>
+                                </div>
                             </div>
                             <div class="right">
                                 <h4>Withdraw</h4>
@@ -23,7 +27,7 @@
                             </div>
                         </div>
                         <div class="bell">
-                            <v-icon>notifications</v-icon>
+                            <v-img :src="require('@/assets/imgs/svg/notification.svg')" class="topbar-icon"></v-img>
                         </div>
 
                         <div class="user">
@@ -51,6 +55,8 @@ export default {
         return{
             drawer: true,
         }
+    },
+    methods: {
     }
     
 }
@@ -85,16 +91,32 @@ export default {
         width: 50%;
         float: left;
     }
-    .v-icon{
-        font-size: 35px !important;
+    .circle{
+        width: 65px;
+        height: 65px;
+        padding: 5px;
+        border: 1px solid #99999965;
+        border-radius: 50%;
+        margin: auto;
+    }
+    .topbar-icon{
+        width: 32px;
+        height: 29px;
         display: block;
-        text-align: center;
-        font-weight: 300;
-        color: #eeeeee;
-        margin: 10px;
+        margin: 10px auto;
+    }
+    .topbar-icon.money{
+        height: 31px;
     }
     .bell{
         width: 15%;
+        .topbar-icon{
+            font-size: 35px !important;
+            width: 25px;
+            height: 28px;
+            display: block;
+            margin: 10px auto;
+        }
     }
     .user{
         width: 35%;
