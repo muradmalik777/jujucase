@@ -2,7 +2,7 @@
   <v-app>
     <sidebar></sidebar>
     <topbar></topbar>
-    <div class="content bg-purple-dark">
+    <div class="content">
         <router-view></router-view>
     </div>
   </v-app>
@@ -33,6 +33,9 @@ export default {
     top: 100px;
     left: 300px;
     padding-bottom: 100px;
+    background-image: url('assets/imgs/svg/41.svg');
+    position: relative;
+    background-size: 100% auto;
 }
 </style>
 
