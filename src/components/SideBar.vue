@@ -3,8 +3,9 @@
         <v-navigation-drawer class="bg-purple-dull" v-model="drawer" permanent fixed>
             <v-img :src="require('@/assets/imgs/logo.png')" class="logo"></v-img>
             <div class="menu">
-                <v-list dense >
+                <v-list dense>
                     <v-list-tile
+                        v-ripple
                         class="menu-item"
                         active-class="is-active"
                         v-for="(item, index) in menu"
