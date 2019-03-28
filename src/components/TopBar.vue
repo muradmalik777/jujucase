@@ -35,7 +35,9 @@
                                 <p class="c-green-bright">$1700</p>
                             </div>
                             <div v-else>
-                                <v-img :src="require('@/assets/imgs/steam.png')" class="login pointer"></v-img>
+                                <a href="http://localhost:8000/api/users/steam">
+                                    <v-img :src="require('@/assets/imgs/steam.png')" class="login pointer" ></v-img>
+                                </a>
                             </div>
                         </div>
                     </v-flex>
@@ -45,12 +47,27 @@
     </div>
 </template>
 <script>
+import Api from '../services/Api.js';
+
 export default {
     name: 'navbar',
     data: function(){
         return{
             drawer: true,
         }
+    },
+    created: function () {
+        var params = {};
+        var query = window.location.search;
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+            params[pair[0]] = decodeURIComponent(pair[1]);
+        }
+        debugger;
+    },
+    methods: {
+        
     }
     
 }
