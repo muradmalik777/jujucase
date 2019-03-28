@@ -1,10 +1,10 @@
 <template>
     <div class="topbar">
-       <v-toolbar class="bg-purple-bright">
+       <v-toolbar flat class="bg-purple-bright">
             <v-container>
                 <v-layout justify-end row>
                     <v-flex xs8>
-                        <div class="deposit">
+                        <div class="deposit pointer">
                             <div class="left">
                                 <div class="circle">
                                     <v-img :src="require('@/assets/imgs/svg/purse.svg')" class="topbar-icon"></v-img>
@@ -12,10 +12,10 @@
                             </div>
                             <div class="right">
                                 <h4>Deposit</h4>
-                                <p class="c-green-bright">$1700</p>
+                                <p class="c-green-bright"></p>
                             </div>
                         </div>
-                        <div class="withdraw">
+                        <div class="withdraw pointer">
                             <div class="left">
                                 <div class="circle">
                                     <v-img :src="require('@/assets/imgs/svg/money.svg')" class="topbar-icon"></v-img>
@@ -23,10 +23,10 @@
                             </div>
                             <div class="right">
                                 <h4>Withdraw</h4>
-                                <p class="c-green-bright">$1700</p>
+                                <p class="c-green-bright"></p>
                             </div>
                         </div>
-                        <div class="bell">
+                        <div class="bell pointer">
                             <v-img :src="require('@/assets/imgs/svg/notification.svg')" class="topbar-icon"></v-img>
                         </div>
 
@@ -35,8 +35,8 @@
                                 <v-img :src="require('@/assets/imgs/default-icon.png')" class="user-icon"></v-img>
                             </div>
                             <div class="right" v-if="this.$is_logged_in">
-                                <h4>Murad Malik</h4>
-                                <p class="c-green-bright">$1700</p>
+                                <h4 class="pointer">Murad Malik</h4>
+                                <p class="c-green-bright">$0</p>
                             </div>
                             <div v-else>
                                 <a href="http://localhost:8000/api/users/steam">
@@ -98,7 +98,7 @@ export default {
         width: 25%;
         border-right: 1px solid #99999965;
         height: 100px;
-        padding: 25px 10px;
+        padding: 20px 10px;
         float: left;
     }
     .left, .right{
@@ -109,7 +109,7 @@ export default {
         width: 65px;
         height: 65px;
         padding: 5px;
-        border: 1px solid #99999965;
+        border: 1px solid #99999995;
         border-radius: 50%;
         margin: auto;
     }

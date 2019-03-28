@@ -3,10 +3,29 @@
         <v-navigation-drawer class="bg-purple-dull" v-model="drawer" permanent fixed>
             <v-img :src="require('@/assets/imgs/logo.png')" class="logo"></v-img>
             <div class="menu">
-                <v-btn flat v-for="(item, index) in menu" :key="index" :to="item.to">
+                <v-list dense >
+                    <v-list-tile
+                        class="menu-item"
+                        active-class="is-active"
+                        v-for="(item, index) in menu"
+                        :key="index"
+                        :to="item.to">
+                        <v-list-tile-action>
+                        <v-img contain :src="require('@/assets/imgs/svg/' + item.icon + '.svg')" class="menu-btn-icon"></v-img>
+                        </v-list-tile-action>
+
+                        <v-list-tile-content>
+                        <v-list-tile-title class="menu-btn uppercase">{{ item.name }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-list>
+                <!-- <v-btn flat v-for="(item, index) in menu" :key="index" :to="item.to">
+                    <v-avatar size="30px">
+                        <v-img :src="require('@/assets/imgs/svg/' + item.icon + '.svg')" class="logo"></v-img>
+                    </v-avatar>
                     <v-icon left light>{{item.icon}}</v-icon>
                     {{item.name}}
-                </v-btn>
+                </v-btn> -->
             </div>
             <div class="cases-count m-t b-t">
                 <p class="uppercase">cases opened</p>
@@ -33,11 +52,11 @@ export default {
             drawer: true,
             menu: [
                 {name:"home", icon:"home", to:"/"}, 
-                {name:"Case creator", icon:"edit", to: "caseCreator"}, 
-                {name:"affliates", icon:"person", to: "profile"}, 
-                {name:"support/faq", icon:"help", to: "faq"},
+                {name:"Case creator", icon:"pen", to: "caseCreator"}, 
+                {name:"affliates", icon:"avatar", to: "profile"}, 
+                {name:"support/faq", icon:"support", to: "faq"},
                 {name:"terms of service", icon:"info", to: "tos"},
-                {name:"about", icon:"error_outline", to: "about"}
+                {name:"about", icon:"info", to: "about"}
             ]
         }
     }
@@ -59,23 +78,35 @@ export default {
         .menu{
             width: 100%;
             margin: 50px 0px;
-            .v-btn{
+            .menu-item{
+                &:hover{
+                    background: #612468;
+                }
+            }
+            .menu-btn{
                 width: 100%;
                 margin: 5px 0px;
-                padding: 0px 40px;
+                padding: 7px 20px;
                 height: 45px;
-                color: #eeeeee;
+                color: #cccccc;
                 font-weight: 600;
                 letter-spacing: 1px;
+                margin: 2px;
             }
-            .v-btn.v-btn--active{
-                background: #aaaaaa40;
-                border: 1px solid #eeeeee70;
-                border-left: 5px solid #eeeeee;
+            .is-active{
+                background: #7d3684;
+                border-left: 4px solid #eeeeee;
             }
-            .v-btn__content{
-                justify-content: left;
+            .menu-btn-icon{
+                width: 20px;
+                height: 20px;
             }
+            // .v-btn__content{
+            //     justify-content: left;
+            // }
+            // .v-icon{
+            //     font-weight: 300;
+            // }
         }
         .cases-count, .user-count{
             padding: 15px 50px;
