@@ -3,30 +3,12 @@
         <v-navigation-drawer class="bg-purple-dull" v-model="drawer" permanent fixed>
             <v-img :src="require('@/assets/imgs/logo.png')" class="logo"></v-img>
             <div class="menu">
-                <v-list dense>
-                    <v-list-tile
-                        v-ripple
-                        class="menu-item"
-                        active-class="is-active"
-                        v-for="(item, index) in menu"
-                        :key="index"
-                        :to="item.to">
-                        <v-list-tile-action>
+                <v-btn flat v-for="(item, index) in menu" :key="index" :to="item.to" class="menu-btn">
+                    <v-avatar size="50px">
                         <v-img contain :src="require('@/assets/imgs/svg/' + item.icon + '.svg')" class="menu-btn-icon"></v-img>
-                        </v-list-tile-action>
-
-                        <v-list-tile-content>
-                        <v-list-tile-title class="menu-btn uppercase">{{ item.name }}</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </v-list>
-                <!-- <v-btn flat v-for="(item, index) in menu" :key="index" :to="item.to">
-                    <v-avatar size="30px">
-                        <v-img :src="require('@/assets/imgs/svg/' + item.icon + '.svg')" class="logo"></v-img>
                     </v-avatar>
-                    <v-icon left light>{{item.icon}}</v-icon>
                     {{item.name}}
-                </v-btn> -->
+                </v-btn>
             </div>
             <div class="cases-count m-t b-t">
                 <p class="uppercase">cases opened</p>
@@ -94,20 +76,19 @@ export default {
                 letter-spacing: 1px;
                 margin: 2px;
             }
-            .is-active{
+            .menu-btn.v-btn--active{
                 background: #7d3684;
                 border-left: 4px solid #eeeeee;
             }
             .menu-btn-icon{
                 width: 20px;
                 height: 20px;
+                margin-right: 15px;
             }
-            // .v-btn__content{
-            //     justify-content: left;
-            // }
-            // .v-icon{
-            //     font-weight: 300;
-            // }
+            .v-btn__content{
+                justify-content: left;
+                margin-left: 15px;
+            }
         }
         .cases-count, .user-count{
             padding: 15px 50px;
