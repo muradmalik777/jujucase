@@ -72,3 +72,41 @@ body{
 .para-padding {
   padding: 25px;
 }
+
+
+
+// Data Table Styling
+
+.trades-table {
+  .v-table {
+    background-color: $purple-dull;
+    thead tr:first-child, tbody tr:not(:last-child) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    thead th {
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0px 15px !important;
+    }
+    tbody td {
+      color: rgba(255, 255, 255, 0.5);
+      padding: 15px !important;
+    }
+    tbody tr:hover:not(.v-datatable__expand-row) {
+      background-color: $purple-bright;
+    }
+  }
+}
+
+.v-pagination .v-pagination__navigation {
+  background-color: #73337a !important;
+  .v-icon {
+    color: #fff !important;
+  }
+}
+
+.v-pagination__item {
+  background-color: #73337a !important;
+  color: #fff !important;
+}
