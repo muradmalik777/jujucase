@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from '@/pages/Home'
 import FAQ from '@/pages/FAQ'
 import TOS from '@/pages/TOS'
@@ -13,6 +14,9 @@ import ProfileTransactions from '@/components/Profile/Transactions'
 Vue.use(Router);
 
 export default new Router({
+    scrollBehavior() {
+        return { x: 0, y: 0 }
+    },
     linkActiveClass: 'active',
     mode: 'history',
     routes: [
@@ -24,7 +28,7 @@ export default new Router({
             children: [
                 { path: 'cases', component: ProfileCases },
                 { path: 'trades', component: ProfileTrades },
-                { path: 'cases', component: ProfileTransactions }
+                { path: 'transactions', component: ProfileTransactions }
             ]
         }
     ]

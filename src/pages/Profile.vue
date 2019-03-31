@@ -44,11 +44,11 @@
                 </router-link>
             </v-flex>
             </v-layout>
-        </v-container>
 
-        <v-container>
-            <router-view></router-view>
-        </v-container>    
+            <v-layout row>
+                <router-view></router-view>
+            </v-layout>
+        </v-container>
     </div>
 </template>
 <script>

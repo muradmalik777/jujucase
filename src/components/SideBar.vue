@@ -35,11 +35,11 @@ export default {
             drawer: true,
             menu: [
                 {name:"home", icon:"home", to:"/"}, 
-                {name:"Case creator", icon:"pen", to: "caseCreator"}, 
-                {name:"affliates", icon:"avatar", to: "profile"}, 
-                {name:"support/faq", icon:"support", to: "faq"},
-                {name:"terms of service", icon:"info", to: "tos"},
-                {name:"about", icon:"info", to: "about"}
+                {name:"Case creator", icon:"pen", to: "/caseCreator"}, 
+                {name:"affliates", icon:"avatar", to: "/profile/cases"}, 
+                {name:"support/faq", icon:"support", to: "/faq"},
+                {name:"terms of service", icon:"info", to: "/tos"},
+                {name:"about", icon:"info", to: "/about"}
             ]
         }
     }
