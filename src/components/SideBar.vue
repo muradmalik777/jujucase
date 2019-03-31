@@ -50,13 +50,12 @@ export default {
 .sidebar{
     .v-navigation-drawer{
         width: 300px;
-        height: 100vh;
 
         .logo{
             width: 120px;
             height: 120px;
             display: block;
-            margin: 20px auto 100px;
+            margin: 50px auto;
         }
         .menu{
             width: 100%;
@@ -74,7 +73,8 @@ export default {
                 color: #cccccc;
                 font-weight: 600;
                 letter-spacing: 1px;
-                margin: 2px;
+                margin: 0px;
+                font-size: 14px;
             }
             .menu-btn.v-btn--active{
                 background: #7d3684;
