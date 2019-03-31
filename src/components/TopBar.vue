@@ -34,12 +34,12 @@
                             <div class="left">
                                 <v-img :src="require('@/assets/imgs/default-icon.png')" class="user-icon"></v-img>
                             </div>
-                            <div class="right" v-if="this.$is_logged_in">
-                                <h4 class="pointer">Murad Malik</h4>
+                            <div class="right" v-if="this.$isLoggedIn">
+                                <h4 class="pointer">{{this.$user.user_name}}</h4>
                                 <p class="c-green-bright">$0</p>
                             </div>
                             <div v-else>
-                                <a href="http://localhost:8000/api/users/steam">
+                                <a href="http://localhost:3000/steam">
                                     <v-img :src="require('@/assets/imgs/steam.png')" class="login pointer" ></v-img>
                                 </a>
                             </div>
@@ -60,17 +60,27 @@ export default {
             drawer: true,
         }
     },
+    mounted: function () {
+        if(!this.$user){
+            this.getLoggedInUserData()
+        }
+    },
     methods: {
-      created: function () {
-          var params = {};
-          var query = window.location.search;
-          var vars = query.split('&');
-          for (var i = 0; i < vars.length; i++) {
-              var pair = vars[i].split('=');
-              params[pair[0]] = decodeURIComponent(pair[1]);
-          }
-          debugger;
-      },
+        getLoggedInUserData: function(){
+            var urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('openid.claimed_id')){
+                let id = urlParams.get('openid.claimed_id').split("/")
+                id = id[id.length-1]
+                let params = { id: id}
+                let userObject = new Api()
+                userObject.raw('post', '/user', params).then(response =>{
+                    this.$session.start();
+                    this.$session.set("user", response)
+                }).catch(() => {
+
+                })
+            }
+        }
     }
     
 }
