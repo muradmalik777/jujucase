@@ -6,13 +6,10 @@ Vue.mixin({
       let user = this.$session.get('user')
       return user
     },
-    $is_logged_in: function() {
+    $steamId: function () {
       let user = this.$session.get('user')
-      if (user){
-        return true
-      }
-      return false
-    }
+      return user.steam_id
+    },
   },
   methods: {
 

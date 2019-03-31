@@ -18,7 +18,7 @@
                         <div class="withdraw pointer">
                             <div class="left">
                                 <div class="circle">
-                                    <v-img :src="require('@/assets/imgs/svg/money.svg')" class="topbar-icon"></v-img>
+                                    <v-img :src="require('@/assets/imgs/svg/money.svg')" class="topbar-icon money"></v-img>
                                 </div>
                             </div>
                             <div class="right">
@@ -34,12 +34,12 @@
                             <div class="left">
                                 <v-img :src="require('@/assets/imgs/default-icon.png')" class="user-icon"></v-img>
                             </div>
-                            <div class="right" v-if="this.$is_logged_in">
-                                <h4 class="pointer">Murad Malik</h4>
+                            <div class="right" v-if="user">
+                                <h4 class="pointer">{{this.user.user_name}}</h4>
                                 <p class="c-green-bright">$0</p>
                             </div>
-                            <div v-else>
-                                <a href="http://localhost:8000/api/users/steam">
+                            <div v-if="!user">
+                                <a href="http://localhost:3000/steam">
                                     <v-img :src="require('@/assets/imgs/steam.png')" class="login pointer" ></v-img>
                                 </a>
                             </div>
@@ -58,19 +58,30 @@ export default {
     data: function(){
         return{
             drawer: true,
+            user: null
         }
     },
+    mounted: function () {
+        this.getLoggedInUserData()
+    },
     methods: {
-      created: function () {
-          var params = {};
-          var query = window.location.search;
-          var vars = query.split('&');
-          for (var i = 0; i < vars.length; i++) {
-              var pair = vars[i].split('=');
-              params[pair[0]] = decodeURIComponent(pair[1]);
-          }
-          debugger;
-      },
+        getLoggedInUserData: function(){
+            this.user = this.$user
+            var urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('openid.claimed_id')){
+                let id = urlParams.get('openid.claimed_id').split("/")
+                id = id[id.length-1]
+                let params = { id: id}
+                let userObject = new Api()
+                userObject.raw('post', '/user', params).then(response =>{
+                    this.$session.start();
+                    this.$session.set("user", response)
+                    this.user = response
+                }).catch(() => {
+
+                })
+            }
+        },
     }
     
 }
@@ -114,22 +125,23 @@ export default {
         margin: auto;
     }
     .topbar-icon{
-        width: 32px;
-        height: 29px;
+        width: 28px;
+        height: 25px;
         display: block;
         margin: 10px auto;
     }
     .topbar-icon.money{
-        height: 31px;
+        width: 27px;
+        height: 27px;
     }
     .bell{
         width: 15%;
         .topbar-icon{
             font-size: 35px !important;
-            width: 25px;
-            height: 28px;
+            width: 22px;
+            height: 25px;
             display: block;
-            margin: 10px auto;
+            margin: 15px auto;
         }
     }
     .user{
