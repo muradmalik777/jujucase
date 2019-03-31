@@ -4,7 +4,7 @@
             <v-container>
                 <v-layout justify-end row>
                     <v-flex xs8>
-                        <div class="deposit pointer">
+                        <div class="deposit pointer" v-ripple>
                             <div class="left">
                                 <div class="circle">
                                     <v-img :src="require('@/assets/imgs/svg/purse.svg')" class="topbar-icon"></v-img>
@@ -15,7 +15,7 @@
                                 <p class="c-green-bright"></p>
                             </div>
                         </div>
-                        <div class="withdraw pointer">
+                        <div class="withdraw pointer" v-ripple>
                             <div class="left">
                                 <div class="circle">
                                     <v-img :src="require('@/assets/imgs/svg/money.svg')" class="topbar-icon money"></v-img>
@@ -26,7 +26,7 @@
                                 <p class="c-green-bright"></p>
                             </div>
                         </div>
-                        <div class="bell pointer">
+                        <div class="bell pointer" v-ripple>
                             <v-img :src="require('@/assets/imgs/svg/notification.svg')" class="topbar-icon"></v-img>
                         </div>
 
@@ -35,8 +35,22 @@
                                 <v-img :src="require('@/assets/imgs/default-icon.png')" class="user-icon"></v-img>
                             </div>
                             <div class="right" v-if="user">
-                                <h4 class="pointer">{{this.user.user_name}}</h4>
-                                <p class="c-green-bright">$0</p>
+                                <v-menu offset-y max-width="180" min-width="150" >
+                                    <template v-slot:activator="{ on }">
+                                        <h4 v-ripple v-on="on" class="pointer">{{user.user_name}}</h4>
+                                        <p class="c-green-bright">$0</p>
+                                    </template>
+                                    <!-- <router-link to="profile"></router-link> -->
+                                     <v-list dark>
+                                        <v-list-tile to="profile" class="user-menu pointer c-purple-bright">
+                                            <v-list-tile-title>Profile</v-list-tile-title>
+                                        </v-list-tile>
+                                        <v-list-tile @click="logout()" class="user-menu pointer">
+                                            <v-list-tile-title>Logout</v-list-tile-title>
+                                        </v-list-tile>
+                                    </v-list>
+                                </v-menu>
+                                
                             </div>
                             <div v-if="!user">
                                 <a href="http://localhost:3000/steam">
@@ -58,7 +72,7 @@ export default {
     data: function(){
         return{
             drawer: true,
-            user: null
+            user: null,
         }
     },
     mounted: function () {
@@ -169,6 +183,9 @@ export default {
         height: 25px;
         box-shadow: 0px 2px 2px #333333;
         border-radius: 5px;
+    }
+    .user-menu{
+        color: #333333 !important;
     }
 }
 </style>
