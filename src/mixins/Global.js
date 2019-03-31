@@ -15,9 +15,7 @@ Vue.mixin({
     logout: function(){
       this.$session.destroy()
       this.$router.push('/')
-      location.reload()
     }
-
   },
   filters: {
 
