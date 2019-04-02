@@ -58,6 +58,9 @@ export default {
         return {
             text: 'abc'
         }
+    },
+    mounted: function(){
+        this.$router.push("/profile/cases")
     }
 }
 </script>

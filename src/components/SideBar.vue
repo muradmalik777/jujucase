@@ -36,7 +36,7 @@ export default {
             menu: [
                 {name:"home", icon:"home", to:"/"}, 
                 {name:"Case creator", icon:"pen", to: "/caseCreator"}, 
-                {name:"affliates", icon:"avatar", to: "/profile/cases"}, 
+                {name:"affliates", icon:"avatar", to: "/affiliates"}, 
                 {name:"support/faq", icon:"support", to: "/faq"},
                 {name:"terms of service", icon:"info", to: "/tos"},
                 {name:"about", icon:"info", to: "/about"}

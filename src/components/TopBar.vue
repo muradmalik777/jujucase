@@ -37,15 +37,15 @@
                             <div class="right" v-if="user">
                                 <v-menu offset-y max-width="180" min-width="150" >
                                     <template v-slot:activator="{ on }">
-                                        <h4 v-ripple v-on="on" class="pointer">{{user.user_name}}</h4>
+                                        <h4 v-ripple v-on="on" class="pointer user-name">{{user.user_name}}</h4>
                                         <p class="c-green-bright">$0</p>
                                     </template>
                                     <!-- <router-link to="profile"></router-link> -->
                                      <v-list dark>
-                                        <v-list-tile to="profile" class="user-menu pointer c-purple-bright">
+                                        <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
                                             <v-list-tile-title>Profile</v-list-tile-title>
                                         </v-list-tile>
-                                        <v-list-tile @click="logout()" class="user-menu pointer">
+                                        <v-list-tile @click="signout()" class="user-menu pointer">
                                             <v-list-tile-title>Logout</v-list-tile-title>
                                         </v-list-tile>
                                     </v-list>
@@ -76,11 +76,11 @@ export default {
         }
     },
     mounted: function () {
+        this.user = this.$user
         this.getLoggedInUserData()
     },
     methods: {
         getLoggedInUserData: function(){
-            this.user = this.$user
             var urlParams = new URLSearchParams(window.location.search);
             if(urlParams.has('openid.claimed_id')){
                 let id = urlParams.get('openid.claimed_id').split("/")
@@ -96,6 +96,10 @@ export default {
                 })
             }
         },
+        signout: function(){
+            this.user = null
+            this.logout()
+        }
     }
     
 }
@@ -186,6 +190,9 @@ export default {
     }
     .user-menu{
         color: #333333 !important;
+    }
+    .user-name{
+        width: fit-content;
     }
 }
 </style>
