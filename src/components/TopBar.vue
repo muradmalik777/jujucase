@@ -34,10 +34,10 @@
                             <div class="left">
                                 <v-img :src="require('@/assets/imgs/default-icon.png')" class="user-icon"></v-img>
                             </div>
-                            <div class="right" v-if="user">
+                            <div class="right" v-if="this.$store.state.userData">
                                 <v-menu offset-y max-width="180" min-width="150" >
                                     <template v-slot:activator="{ on }">
-                                        <h4 v-ripple v-on="on" class="pointer">{{user.user_name}}</h4>
+                                        <h4 v-ripple v-on="on" class="pointer">{{$store.state.userData.user_name}}</h4>
                                         <p class="c-green-bright">$0</p>
                                     </template>
                                     <!-- <router-link to="profile"></router-link> -->
@@ -52,7 +52,7 @@
                                 </v-menu>
                                 
                             </div>
-                            <div v-if="!user">
+                            <div v-else>
                                 <a href="http://localhost:3000/steam">
                                     <v-img :src="require('@/assets/imgs/steam.png')" class="login pointer" ></v-img>
                                 </a>
@@ -76,11 +76,11 @@ export default {
         }
     },
     mounted: function () {
+        // console.log(this.$store.state.userData.user_name)
         this.getLoggedInUserData()
     },
     methods: {
         getLoggedInUserData: function(){
-            this.user = this.$user
             var urlParams = new URLSearchParams(window.location.search);
             if(urlParams.has('openid.claimed_id')){
                 let id = urlParams.get('openid.claimed_id').split("/")
@@ -88,16 +88,13 @@ export default {
                 let params = { id: id}
                 let userObject = new Api()
                 userObject.raw('post', '/user', params).then(response =>{
-                    this.$session.start();
-                    this.$session.set("user", response)
-                    this.user = response
+                    this.$store.commit('addUser', response)
                 }).catch(() => {
 
                 })
             }
         },
     }
-    
 }
 </script>
 <style lang="scss">
