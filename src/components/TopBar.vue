@@ -42,10 +42,10 @@
                                     </template>
                                     <!-- <router-link to="profile"></router-link> -->
                                      <v-list dark>
-                                        <v-list-tile to="profile" class="user-menu pointer c-purple-bright">
+                                        <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
                                             <v-list-tile-title>Profile</v-list-tile-title>
                                         </v-list-tile>
-                                        <v-list-tile @click="logout()" class="user-menu pointer">
+                                        <v-list-tile @click="signout()" class="user-menu pointer">
                                             <v-list-tile-title>Logout</v-list-tile-title>
                                         </v-list-tile>
                                     </v-list>
@@ -76,7 +76,6 @@ export default {
         }
     },
     mounted: function () {
-        // console.log(this.$store.state.userData.user_name)
         this.getLoggedInUserData()
     },
     methods: {
@@ -94,6 +93,10 @@ export default {
                 })
             }
         },
+        signout: function(){
+            this.user = null
+            this.logout()
+        }
     }
 }
 </script>
@@ -183,6 +186,9 @@ export default {
     }
     .user-menu{
         color: #333333 !important;
+    }
+    .user-name{
+        width: fit-content;
     }
 }
 </style>
