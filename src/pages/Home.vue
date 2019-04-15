@@ -5,7 +5,7 @@
         </div>
         <div class="bid-cases">
             <h2 class="uppercase m-t-3">Open cases <span class="uppercase c-purple-bright">view selection</span></h2>
-            <div class="case pointer m-t-3 m-b-3" v-for="item in 16" :key="item">
+            <div class="case pointer m-t-3 m-b-3" v-for="item in 16" :key="item" @click="openCase(item)">
                 <h4 class="t-c capitalize">Empty Slot</h4>
                 <v-img :src="require('@/assets/imgs/svg/case2.svg')" class="case-image"></v-img>
                 <h4 class="t-c capitalize price m-b-2">$0.07 <i class="fas fa-coins coins"></i></h4>
@@ -18,6 +18,11 @@
 
 export default {
     name: 'home',
+    methods: {
+        openCase: function (caseId) {
+            this.$router.push('case');
+        }
+    }
 
 }
 </script>
