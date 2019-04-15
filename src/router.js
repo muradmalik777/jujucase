@@ -8,6 +8,7 @@ import About from '@/pages/About'
 import Profile from '@/pages/Profile'
 import ProfileCases from '@/components/Profile/Cases'
 import ProfileTrades from '@/components/Profile/Trades'
+import TradeDetails from '@/components/Profile/TradeDetails'
 import ProfileTransactions from '@/components/Profile/Transactions'
 
 
@@ -28,7 +29,7 @@ export default new Router({
             children: [
                 { path: 'cases', component: ProfileCases },
                 { path: 'trades', component: ProfileTrades },
-                { path: 'transactions', component: ProfileTransactions }
+                { path: 'transactions', component: TradeDetails }
             ]
         }
     ]
