@@ -25,7 +25,6 @@ body{
 }
 .full-width{
   width: 100%;
-  background: #ffffff;
 }
 .bg-purple-dull{
   background: $purple-dull !important;
@@ -96,6 +95,7 @@ body{
     tbody td {
       color: rgba(255, 255, 255, 0.5);
       padding: 15px !important;
+      text-align: left;
     }
     tbody tr:hover:not(.v-datatable__expand-row) {
       background-color: $purple-bright;

@@ -30,6 +30,7 @@ export default {
 @import '../../assets/scss/variables.scss';
 
 .section-container {
+    text-align: left !important;
     .winning {
         display: inline-block;
         .winning-img {
