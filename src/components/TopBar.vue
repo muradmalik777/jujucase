@@ -1,6 +1,7 @@
 <template>
     <div class="topbar">
-       <v-toolbar flat class="bg-purple-bright">
+        <loader v-if="loading"></loader>
+        <v-toolbar v-else flat class="bg-purple-bright">
             <v-container>
                 <v-layout justify-end row>
                     <v-flex xs8>
@@ -37,7 +38,7 @@
                             <div class="right" v-if="this.$store.state.userData">
                                 <v-menu offset-y max-width="180" min-width="150" >
                                     <template v-slot:activator="{ on }">
-                                        <h4 v-ripple v-on="on" class="pointer">{{$store.state.userData.user_name}}</h4>
+                                        <h4 v-ripple v-on="on" class="pointer user-name">{{$store.state.userData.user_name}}</h4>
                                         <p class="c-green-bright">$0</p>
                                     </template>
                                     <!-- <router-link to="profile"></router-link> -->
@@ -66,13 +67,18 @@
 </template>
 <script>
 import Api from '../services/Api.js';
+import Loader from '@/components/Loader'
 
 export default {
     name: 'navbar',
+    components: {
+        'loader': Loader
+    },
     data: function(){
         return{
             drawer: true,
             user: null,
+            loading: false,
         }
     },
     mounted: function () {
@@ -82,12 +88,14 @@ export default {
         getLoggedInUserData: function(){
             var urlParams = new URLSearchParams(window.location.search);
             if(urlParams.has('openid.claimed_id')){
+                this.loading = true
                 let id = urlParams.get('openid.claimed_id').split("/")
                 id = id[id.length-1]
                 let params = { id: id}
                 let userObject = new Api()
                 userObject.raw('post', '/user', params).then(response =>{
                     this.$store.commit('addUser', response)
+                    this.loading = false
                 }).catch(() => {
 
                 })
