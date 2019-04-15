@@ -9,6 +9,7 @@ import Profile from '@/pages/Profile'
 import ProfileCases from '@/components/Profile/Cases'
 import ProfileTrades from '@/components/Profile/Trades'
 import ProfileTransactions from '@/components/Profile/Transactions'
+import SingleCase from '@/components/SingleCase'
 
 
 Vue.use(Router);
@@ -21,6 +22,7 @@ export default new Router({
     mode: 'history',
     routes: [
         { path: '/', component: Home },
+        { path: '/case', component: SingleCase },
         { path: '/about', component: About },
         { path: '/faq', component: FAQ },
         { path: '/tos', component: TOS },
