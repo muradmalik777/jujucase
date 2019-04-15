@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/pages/Home'
+import CaseCreator from '@/pages/CaseCreator'
 import FAQ from '@/pages/FAQ'
 import TOS from '@/pages/TOS'
 import About from '@/pages/About'
@@ -23,6 +24,7 @@ export default new Router({
     mode: 'history',
     routes: [
         { path: '/', component: Home },
+        { path: '/caseCreator', component: CaseCreator },
         { path: '/case', component: SingleCase },
         { path: '/about', component: About },
         { path: '/faq', component: FAQ },
