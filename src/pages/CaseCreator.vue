@@ -12,7 +12,24 @@
                 </div>
                 <div class="search m-t-2">
                     <h3 class="uppercase m-b-2">add skins</h3>
-                    <v-autocomplete class="skin-search" placeholder="search" v-model="model" :items="states"></v-autocomplete>
+                    <v-autocomplete class="skin-search" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
+                </div>
+            </v-flex>
+        </v-layout>
+
+        <v-layout row>
+            <v-flex xs12>
+                <div class="skin m-t-3" v-for="item in 10" :key="item">
+                    <div class="price">
+                        <h4 class="t-c capitalize">$0.07 <i class="fas fa-coins coins"></i></h4>
+                    </div>
+                    <v-img contain :src="require('@/assets/imgs/svg/skin.svg')" class="skin-image"></v-img>
+                    <div class="name">
+                        <h4>item name fjkd fdg gnfdksjg kfcgl f</h4>
+                    </div>
+                    <div class="action">
+                        <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="delete-icon"></v-img>
+                    </div>
                 </div>
             </v-flex>
         </v-layout>
@@ -24,6 +41,9 @@ export default {
     data: function(){
         return{
             case_name: null,
+            search: null,
+            search_result: [],
+            all_skins: null
         }
     },
     methods: {
@@ -48,7 +68,7 @@ export default {
                 caret-color: #cccccc;
 
                 &::placeholder{
-                    color: #999999;
+                    color: #aaaaaa;
                     text-transform: capitalize;
                 }
             }
@@ -75,6 +95,7 @@ export default {
         width: 100%;
         display: block;
         float: left;
+        margin: 0px 1%;
 
         .skin-search{
             input{
@@ -85,12 +106,61 @@ export default {
                 caret-color: #cccccc;
 
                 &::placeholder{
-                    color: #999999;
+                    color: #aaaaaa;
                     text-transform: capitalize;
                 }
             }
             .v-input__append-inner{
                 display: none;
+            }
+        }
+    }
+    .skin{
+        width: 23%;
+        float: left;
+        min-height: 200px;
+        display: inline-block;
+        margin: 3% 1%;
+        background: #67266e77;
+        position: relative;
+
+        .price{
+            background: #73337a77;
+            padding: 30px 10px;
+
+            .coins{
+                color: gold;
+            }
+        }
+        .skin-image{
+            display: block;
+            margin: 30px auto;
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+        }
+        .name{
+            width: 80%;
+            float: left;
+            padding: 20px;
+            cursor: pointer;
+        }
+        .action{
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            padding: 10px 20px;
+            background: #99999967;
+            cursor: pointer;
+
+            &:hover{
+                background: #99999911;
+            }
+
+            .delete-icon{
+                width: 20px;
+                height: 30px;
+                display: block;
             }
         }
     }

@@ -40,7 +40,7 @@
         <v-dialog width="50%" v-model="showDialog">
             <div class="dialog">
                 <h2 class="t-c">Confirm Order</h2>
-                <v-img contain :src="require('@/assets/imgs/case.png')" class="case-open-img"></v-img>
+                <v-img contain :src="require('@/assets/imgs/case.svg')" class="case-open-img"></v-img>
                 <div class="case-name">
                     <div class="left-wrapper">
                         <p class="bold">Case Name:</p>
