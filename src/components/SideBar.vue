@@ -79,6 +79,7 @@ export default {
             .menu-btn.v-btn--active{
                 background: #7d3684;
                 border-left: 4px solid #eeeeee;
+                color: #ffffff
             }
             .menu-btn-icon{
                 width: 20px;

@@ -1,23 +1,26 @@
 <template>
     <v-container fluid class="case-creator spacing">
-        <v-layout row>
-            <v-flex xs12>
-                <div class="case-name">
+
+        <v-layout row pa-3>
+            <v-flex xs12 class="case-name">
                 <h3 class="uppercase">Case Name</h3>
                 <v-text-field class="case-name-input" placeholder="Enter case name" type="text" full-width v-model="case_name"></v-text-field>
-                </div>
-                <div class="case m-t-2">
-                    <h3 class="uppercase m-b-2">case picture</h3>
-                    <v-img v-for="image in 5" :key="image" :src="casePicture(image)" class="case-picture"></v-img>
-                </div>
-                <div class="search m-t-2">
-                    <h3 class="uppercase m-b-2">add skins</h3>
-                    <v-autocomplete class="skin-search" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
-                </div>
+            </v-flex>
+        </v-layout>
+        <v-layout row pa-3>
+            <v-flex class="case">
+                <h3 class="uppercase m-b-2">case picture</h3>
+                <v-img v-for="image in 5" :key="image" :src="casePicture(image)" class="case-picture"></v-img>
+            </v-flex>
+        </v-layout>
+        <v-layout row pa-3>
+            <v-flex class="search">
+                <h3 class="uppercase m-b-2">add skins</h3>
+                <v-autocomplete class="skin-search" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
             </v-flex>
         </v-layout>
 
-        <v-layout row>
+        <v-layout row pa-3 mt-5>
             <v-flex xs12>
                 <div class="skin m-t-3" v-for="item in 10" :key="item">
                     <div class="price">
@@ -31,6 +34,12 @@
                         <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="delete-icon"></v-img>
                     </div>
                 </div>
+            </v-flex>
+        </v-layout>
+
+        <v-layout row pa-3 mt-5>
+            <v-flex xs12>
+                <h2 class="uppercase">Choose Odds</h2>
             </v-flex>
         </v-layout>
     </v-container>
