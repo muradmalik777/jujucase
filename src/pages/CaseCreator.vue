@@ -1,23 +1,29 @@
 <template>
     <v-container fluid class="case-creator spacing">
-
         <v-layout row pa-3>
             <v-flex xs12 class="case-name">
-                <h3 class="uppercase">Case Name</h3>
+                <h3 class="uppercase m-b">Case Name</h3>
                 <v-text-field class="case-name-input" placeholder="Enter case name" type="text" full-width v-model="case_name"></v-text-field>
             </v-flex>
         </v-layout>
-        <v-layout row pa-3>
+        <v-layout row pa-3 mt-5>
             <v-flex class="case">
-                <h3 class="uppercase m-b-2">case picture</h3>
-                <v-img v-for="image in 5" :key="image" :src="casePicture(image)" class="case-picture"></v-img>
+                <h3 class="uppercase">case picture</h3>
+                <v-img v-for="image in 5" :key="image" :src="casePicture(image)" class="case-picture m-t-3"></v-img>
+            </v-flex>
+        </v-layout>
+        <v-layout pl-3 pb-0 mt-5>
+            <v-flex>
+                <h3 class="uppercase">add skins</h3>
             </v-flex>
         </v-layout>
         <v-layout row pa-3>
             <v-flex class="search">
-                <h3 class="uppercase m-b-2">add skins</h3>
-                <v-autocomplete class="skin-search" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
+                <v-autocomplete class="skin-search m-t-2" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
             </v-flex>
+            <!-- <v-flex xs1 class="select">
+                <v-select background-color="#73337a" color="#fff" :value="items[0]" :items="items"></v-select>
+            </v-flex> -->
         </v-layout>
 
         <v-layout row pa-3 mt-5>
@@ -39,7 +45,7 @@
 
         <v-layout row pa-3 mt-5>
             <v-flex xs12>
-                <h2 class="uppercase">Choose Odds</h2>
+                <h3 class="uppercase">Choose Odds</h3>
             </v-flex>
         </v-layout>
     </v-container>
@@ -52,7 +58,8 @@ export default {
             case_name: null,
             search: null,
             search_result: [],
-            all_skins: null
+            all_skins: null,
+            items: ["Asc", "Desc"]
         }
     },
     methods: {
@@ -65,7 +72,7 @@ export default {
 <style lang="scss">
 .case-creator{
     h3{
-        padding-left: 14px;
+        padding-left: 1rem;
     }
     .case-name{
         .case-name-input{
@@ -84,49 +91,31 @@ export default {
         }
     }
     .case{
-        width: 100%;
         min-height: 150px;
-        overflow: auto;
-        padding: 30px 15px;
-        float: left;
-        display: block;
 
         .case-picture{
             width: 150px;
             height: 100px;
-            margin-right: 5rem;
+            margin: 5rem 3rem 2rem 10px;
             display: block;
             float: left;
             cursor: pointer;
         }
     }
-    .search{
-        width: 100%;
-        display: block;
-        float: left;
-        margin: 0px 1%;
-
-        .skin-search{
-            input{
-                padding: 30px 10px;
-                font-size: 16px;
-                background: #73337a;
-                color: #cccccc !important;
-                caret-color: #cccccc;
-
-                &::placeholder{
-                    color: #aaaaaa;
-                    text-transform: capitalize;
-                }
-            }
-            .v-input__append-inner{
-                display: none;
-            }
-        }
-    }
+    // .select{
+    //     .v-input{
+    //         margin-top: 2rem;
+    //         .v-select__selections{
+    //             height: 60px;
+    //             padding: 0px 15px;
+    //         }
+    //         .v-input__append-inner{
+    //             display: none;
+    //         }
+    //     }
+    // }
     .skin{
         width: 23%;
-        float: left;
         min-height: 200px;
         display: inline-block;
         margin: 3% 1%;

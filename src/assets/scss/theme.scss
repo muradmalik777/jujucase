@@ -114,3 +114,27 @@ body{
   background-color: #73337a !important;
   color: #fff !important;
 }
+.search{
+  width: 100%;
+  float: left;
+  padding-left: 14px;
+  margin-right: 20px;
+
+  .skin-search{
+    input{
+        padding: 30px 10px;
+        font-size: 16px;
+        background: #73337a;
+        color: #cccccc !important;
+        caret-color: #cccccc;
+
+        &::placeholder{
+            color: #aaaaaa;
+            text-transform: capitalize;
+        }
+    }
+    .v-input__append-inner{
+        display: none;
+    }
+  }
+}
