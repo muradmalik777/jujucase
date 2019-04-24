@@ -36,7 +36,7 @@ export default {
             menu: [
                 {name:"home", icon:"home", to:"/"}, 
                 {name:"Case creator", icon:"pen", to: "/caseCreator"}, 
-                {name:"affliates", icon:"avatar", to: "/affiliates"}, 
+                {name:"case browser", icon:"avatar", to: "/caseBrowser"}, 
                 {name:"support/faq", icon:"support", to: "/faq"},
                 {name:"terms of service", icon:"info", to: "/tos"},
                 {name:"about", icon:"info", to: "/about"}
@@ -67,18 +67,18 @@ export default {
             }
             .menu-btn{
                 width: 100%;
-                margin: 5px 0px;
                 padding: 7px 20px;
                 height: 45px;
                 color: #cccccc;
-                font-weight: 600;
-                letter-spacing: 1px;
                 margin: 0px;
-                font-size: 14px;
+                font-size: 16px;
+                margin-bottom: 10px;
+                text-transform: capitalize;
             }
             .menu-btn.v-btn--active{
                 background: #7d3684;
                 border-left: 4px solid #eeeeee;
+                color: #ffffff
             }
             .menu-btn-icon{
                 width: 20px;

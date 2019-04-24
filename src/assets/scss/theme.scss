@@ -10,7 +10,7 @@ body{
   background: $purple-dull !important;
   font-size: 16px;
    *{
-     color: #cccccc;
+     color: #ffffff;
      font-family: 'jujucase-medium';
      letter-spacing: 0.05rem;
    }
@@ -113,4 +113,52 @@ body{
 .v-pagination__item {
   background-color: #73337a !important;
   color: #fff !important;
+}
+.search{
+  width: 100%;
+  float: left;
+  padding-left: 14px;
+  margin-right: 20px;
+
+  .skin-search{
+    input{
+        padding: 30px 10px;
+        font-size: 16px;
+        background: #73337a;
+        color: #cccccc !important;
+        caret-color: #cccccc;
+
+        &::placeholder{
+            color: #aaaaaa;
+            text-transform: capitalize;
+        }
+    }
+    .v-input__append-inner{
+        display: none;
+    }
+  }
+}
+
+.v-select__slot {
+  height: 60px !important;
+  .v-select__selections {
+    padding: 0 1rem;
+    color: #fff !important;
+    input {
+      color: #fff !important;
+    }
+  }
+  .v-input__append-inner {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 60px;
+    margin: 0px;
+    .theme--light.v-icon {
+      color: #fff !important;
+    }
+  }
 }

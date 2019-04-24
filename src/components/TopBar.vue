@@ -12,8 +12,7 @@
                                 </div>
                             </div>
                             <div class="right">
-                                <h4>Deposit</h4>
-                                <p class="c-green-bright"></p>
+                                <h4 class="m-t">Deposit</h4>
                             </div>
                         </div>
                         <div class="withdraw pointer" v-ripple>
@@ -23,8 +22,7 @@
                                 </div>
                             </div>
                             <div class="right">
-                                <h4>Withdraw</h4>
-                                <p class="c-green-bright"></p>
+                                <h4 class="m-t">Withdraw</h4>
                             </div>
                         </div>
                         <div class="bell pointer" v-ripple>

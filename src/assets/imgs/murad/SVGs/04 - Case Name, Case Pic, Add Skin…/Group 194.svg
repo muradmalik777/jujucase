@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="280.088" height="289.69" viewBox="0 0 280.088 289.69">
+  <defs>
+    <filter id="Rectangle_85" x="15" y="-2" width="250.088" height="259.69" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6.5" result="blur"/>
+      <feFlood flood-opacity="0.102"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_87" x="15" y="-2" width="250.088" height="259.69" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6.5" result="blur-2"/>
+      <feFlood flood-opacity="0.102"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_88" x="15" y="-2" width="250.088" height="259.69" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6.5" result="blur-3"/>
+      <feFlood flood-opacity="0.102"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="1.512" gradientTransform="matrix(1.045, 0.016, -0.017, 1.045, -0.014, -0.03)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#11477a"/>
+      <stop offset="1" stop-color="#032f58"/>
+    </radialGradient>
+    <filter id="Path_561" x="0" y="0" width="280.088" height="289.69" filterUnits="userSpaceOnUse">
+      <feOffset dy="19" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="11.5" result="blur-4"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-4"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Rectangle_85)">
+        <rect id="Rectangle_85-2" data-name="Rectangle 85" width="211.088" height="220.691" rx="2" fill="#0d3b66"/>
+      </g>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.531" y1="0.16" x2="0.502" y2="0.952" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#0d3b66"/>
+      <stop offset="0" stop-color="#11477a"/>
+      <stop offset="0" stop-color="#114679"/>
+      <stop offset="1" stop-color="#032f58"/>
+    </linearGradient>
+    <filter id="Path_516" x="-51.319" y="36.458" width="449.081" height="267.952" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4" result="blur-5"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-5"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-2" x1="0.531" y1="0.16" x2="0.5" y2="0.908" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#0d3b66"/>
+      <stop offset="0" stop-color="#11477a"/>
+      <stop offset="1" stop-color="#032f58"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.608" y1="0.842" x2="0.439" y2="0.046" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#032f58"/>
+      <stop offset="1" stop-color="#11477a"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_194" data-name="Group 194" transform="translate(34.5 15.5)" opacity="0">
+    <g transform="matrix(1, 0, 0, 1, -34.5, -15.5)" filter="url(#Path_561)">
+      <path id="Path_561-2" data-name="Path 561" d="M2.383,0H208.7a2.383,2.383,0,0,1,2.383,2.383V218.308a2.383,2.383,0,0,1-2.383,2.383H2.383A2.383,2.383,0,0,1,0,218.308V2.383A2.383,2.383,0,0,1,2.383,0Z" transform="translate(34.5 15.5)" fill="url(#radial-gradient)"/>
+    </g>
+    <g id="Group_131" data-name="Group 131" opacity="0.6">
+      <g id="Mask_Group_6" data-name="Mask Group 6" clip-path="url(#clip-path)">
+        <g transform="matrix(1, 0, 0, 1, -34.5, -15.5)" filter="url(#Path_516)">
+          <path id="Path_516-2" data-name="Path 516" d="M0,0S158.727,136.931,330.76,39.926s-28.783,137.186-28.783,137.186l-299.6-3.818Z" transform="matrix(0.98, -0.17, 0.17, 0.98, -39.32, 116.99)" fill="url(#linear-gradient)"/>
+        </g>
+      </g>
+      <g id="Mask_Group_7" data-name="Mask Group 7" clip-path="url(#clip-path)">
+        <path id="Path_517" data-name="Path 517" d="M276,809s125.333,88.974,263.859,23.552-24.5,90.719-24.5,90.719H276Z" transform="translate(-299.559 -673.794)" fill="url(#linear-gradient-2)"/>
+      </g>
+      <g id="Mask_Group_8" data-name="Mask Group 8" transform="translate(0 0)" clip-path="url(#clip-path)">
+        <path id="Path_518" data-name="Path 518" d="M136.573,1284.159s98.584-132.857,297.2-97.965-65.24-78.506-65.24-78.506-228.339,3.355-231.963,3.355-34.795,92.6-30.445,106.017S136.573,1284.159,136.573,1284.159Z" transform="translate(-182.314 -1140.235)" fill="url(#linear-gradient-3)"/>
+      </g>
+    </g>
+  </g>
+</svg>
