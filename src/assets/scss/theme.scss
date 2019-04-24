@@ -138,3 +138,27 @@ body{
     }
   }
 }
+
+.v-select__slot {
+  height: 60px !important;
+  .v-select__selections {
+    padding: 0 1rem;
+    color: #fff !important;
+    input {
+      color: #fff !important;
+    }
+  }
+  .v-input__append-inner {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 60px;
+    margin: 0px;
+    .theme--light.v-icon {
+      color: #fff !important;
+    }
+  }
+}

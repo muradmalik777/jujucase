@@ -13,6 +13,7 @@ import ProfileTrades from '@/components/Profile/Trades'
 import TradeDetails from '@/components/Profile/TradeDetails'
 import Transactions from '@/components/Profile/Transactions'
 import SingleCase from '@/components/SingleCase'
+import ItemsWon from '@/components/ItemsWon'
 
 
 Vue.use(Router);
@@ -31,6 +32,7 @@ export default new Router({
         { path: '/about', component: About },
         { path: '/faq', component: FAQ },
         { path: '/tos', component: TOS },
+        { path: '/iw', component: ItemsWon },
         { path: '/profile', component: Profile,
             children: [
                 { path: 'cases', component: ProfileCases },

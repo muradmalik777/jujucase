@@ -4,6 +4,7 @@
             <v-flex class="search">
                 <h3 class="uppercase">case browser</h3>
                 <v-autocomplete class="skin-search m-t-2" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
+                <v-select background-color="#73337a" color="#fff" placeholder="Select" class="dropdown"></v-select>
             </v-flex>
         </v-layout>
         <v-layout pa-3 row>
@@ -24,13 +25,18 @@
                 </v-menu>
             </v-flex>
         </v-layout>
-        <v-layout row pa-3>
-            <v-flex class="search-result">
-                <div v-for="item in 10" :key="item" class="case">
-
-                </div>
-            </v-flex>
-        </v-layout>
+        <v-container grid-list-md>
+            <v-layout row wrap pa-3>
+                <v-flex class="search-result" xs12 md3 v-for="item in 4" :key="item" >
+                    <div class="case">
+                        <p class="case-name">
+                            Case Name
+                        </p>
+                        <v-img contain class="case-picture"></v-img>
+                    </div>
+                </v-flex>
+            </v-layout>
+        </v-container>
     </v-container>
 </template>
 <script>
@@ -54,6 +60,18 @@ export default {
 </script>
 <style lang="scss">
 .case-browser{
+    .search {
+        .skin-search {
+            width: calc(100% - 150px - 25px);
+            display: inline-block !important;
+        }
+        .dropdown {
+            width: 150px;
+            height: 60px;
+            margin-left: 25px;
+            display: inline-block !important;
+        }
+    }
     .browser-btn{
         background: #612468;
         color: #ffffff;
@@ -68,6 +86,20 @@ export default {
         float: left;
         display: block;
         background: #612468;
+    }
+    .case {
+        background-color: rgba(#612468, 0.7);
+        width: 95%;
+        margin: auto;
+        height: 350px;
+        display: inline-block;
+        margin-right: 2rem;
+        .case-name {
+            background-color: #612468;
+            width: 100%;
+            text-align: center;
+            padding: 1.5rem 0;
+        }
     }
 }
 </style>
