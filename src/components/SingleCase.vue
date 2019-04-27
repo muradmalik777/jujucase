@@ -1,14 +1,15 @@
 <template>
-    <div class="spacing">
+    <div class="spacing" v-if="oneCase != null">
         <div>
             <div class="name-wrapper">
-                <h2 class="uppercase heading">Werwer</h2>
-                <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="speaker-icon"></v-img>
-                <p class="red-text">James Hetfield</p>
+                <h2 class="uppercase heading">{{oneCase.name}}</h2>
+
+                <v-icon class="speaker-icon">volume_up</v-icon>
+                <p class="red-text">{{oneCase.creator}}</p>
             </div>
             <div class="price-wrapper">
-                <h1 class="price">$0.05</h1>
-                <p class="red-text">Cases Opened: 3</p>    
+                <h1 class="price">${{oneCase.price.$numberDecimal}}</h1>
+                <p class="red-text">Cases Opened: {{oneCase.opened}}</p>    
             </div>
         </div>
 
@@ -25,7 +26,7 @@
 
         <div class="case-container">
             <h3 class="uppercase">This Case Contains</h3>
-            <CaseContains/>
+            <CaseContains :caseIcon="oneCase.case_image"/>
         </div>
 
         <v-container grid-list-md class="section-container">
@@ -46,7 +47,7 @@
                         <p class="bold">Case Name:</p>
                     </div>
                     <div class="right-wrapper">
-                        <p>WerWer</p>
+                        <p>{{oneCase.name}}</p>
                     </div>
                 </div>
                 <div class="case-prices">
@@ -54,11 +55,11 @@
                         <p class="bold">Case Price:</p>
                     </div>
                     <div class="right-wrapper">
-                        <p>Case Price: $0.5451</p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p>Cases Open Count: 1</p>
+                        <p>Case Price: ${{oneCase.price.$numberDecimal}}</p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p>Cases Open Count: {{oneCase.opened}}</p>
                         <br/>
-                        <p>Affiliate Tax: $0</p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p>Total: $0.5451</p>
+                        <p v-if="oneCase.tax">Affiliate Tax: ${{oneCase.tax.$numberDecimal}}</p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p v-if="oneCase.tax || oneCase.affiliateCut">Total: ${{oneCase.price.$numberDecimal + oneCase.tax.$numberDecimal + oneCase.affiliateCut.$numberDecimal}}</p>
                         <br/>
-                        <p>Tax Percentage: 0%</p>
+                        <p v-if="oneCase.affiliateCut">Tax Percentage: {{oneCase.affiliateCut.$numberDecimal}}%</p>
                     </div>
                 </div>
                 <div class="case-hash">
@@ -66,7 +67,7 @@
                         <p class="bold">Case Hash #1:</p>
                     </div>
                     <div class="right-wrapper">
-                        <p>U2FsdGvJbBHKbhjLLgg55djhHGH</p>
+                        <p>{{oneCase.code}}</p>
                     </div>
                 </div>
 
@@ -81,20 +82,27 @@
 </template>
 <script>
 import CaseContains from '@/components/CaseContains';
+import Api from '../services/Api.js';
 
 export default {
     name: 'SingleCase',
-    // props: [caseId],
     components: {
         CaseContains
     },
-    created: function () {
-        // console.log(this.$props.caseId);
+    mounted: function() {
+        let self = this;
+        let api = new Api('/cases');
+        api.get(this.$route.params.case_id).then(response =>{
+            self.oneCase = response;
+        }).catch(() => {
+
+        })
     },
     data: function () {
         return {
             number: 1,
-            showDialog: false
+            showDialog: false,
+            oneCase: null
         }
     },
     methods: {
@@ -194,6 +202,7 @@ export default {
     height: auto;
     display: inline-block;
     vertical-align: middle;
+    color: #fff !important;
 }
 
 .red-text {

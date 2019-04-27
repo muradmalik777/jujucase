@@ -7,11 +7,11 @@
             :pagination.sync="pagination"
             class="trades-table">
             <template v-slot:items="props">
-                <td>{{ props.item.id }}</td>
+                <td>{{ props.item._id }}</td>
                 <td>{{ props.item.amount }}</td>
                 <td>{{ props.item.status }}</td>
                 <td>{{ props.item.code }}</td>
-                <td>{{ props.item.bot }}</td>
+                <td>{{ props.item.bot_id }}</td>
                 <td>{{ props.item.time }}</td>
             </template>
         </v-data-table>
@@ -21,6 +21,8 @@
     </div>
 </template>
 <script>
+import Api from './../../services/Api.js';
+
 export default {
     name: 'trades',
     computed: {
@@ -72,88 +74,7 @@ export default {
                     sortable: false
                 }
             ],
-            data: [
-                {
-                    id: '#44',
-                    amount: '$5.04',
-                    status: 'DECLINED',
-                    code: '34534534ingwe3',
-                    bot: 'Bot 3',
-                    time: '02/03/209 11:47:56'
-                },
-                {
-                    id: '#44',
-                    amount: '$5.04',
-                    status: 'DECLINED',
-                    code: '34534534ingwe3',
-                    bot: 'Bot 3',
-                    time: '02/03/209 11:47:56'
-                },
-                {
-                    id: '#44',
-                    amount: '$5.04',
-                    status: 'DECLINED',
-                    code: '34534534ingwe3',
-                    bot: 'Bot 3',
-                    time: '02/03/209 11:47:56'
-                },
-                {
-                    id: '#44',
-                    amount: '$5.04',
-                    status: 'DECLINED',
-                    code: '34534534ingwe3',
-                    bot: 'Bot 3',
-                    time: '02/03/209 11:47:56'
-                },
-                {
-                    id: '#44',
-                    amount: '$5.04',
-                    status: 'DECLINED',
-                    code: '34534534ingwe3',
-                    bot: 'Bot 3',
-                    time: '02/03/209 11:47:56'
-                },
-                {
-                    id: '#44',
-                    amount: '$5.04',
-                    status: 'DECLINED',
-                    code: '34534534ingwe3',
-                    bot: 'Bot 3',
-                    time: '02/03/209 11:47:56'
-                },
-                {
-                    id: '#44',
-                    amount: '$5.04',
-                    status: 'DECLINED',
-                    code: '34534534ingwe3',
-                    bot: 'Bot 3',
-                    time: '02/03/209 11:47:56'
-                },
-                {
-                    id: '#44',
-                    amount: '$5.04',
-                    status: 'DECLINED',
-                    code: '34534534ingwe3',
-                    bot: 'Bot 3',
-                    time: '02/03/209 11:47:56'
-                },
-                {
-                    id: '#44',
-                    amount: '$5.04',
-                    status: 'DECLINED',
-                    code: '34534534ingwe3',
-                    bot: 'Bot 3',
-                    time: '02/03/209 11:47:56'
-                },
-                {
-                    id: '#44',
-                    amount: '$5.04',
-                    status: 'DECLINED',
-                    code: '34534534ingwe3',
-                    bot: 'Bot 3',
-                    time: '02/03/209 11:47:56'
-                }
-            ],
+            data: [],
             pagination: {
                 descending: false,
                 page: 5,
@@ -161,6 +82,16 @@ export default {
                 totalItems: 10
             }
         }
+    },
+    mounted: function() {
+        let self = this;
+        let api = new Api('/users')
+        let endpoint = this.user.steam_id + '/trades';
+        api.get(endpoint).then(response =>{
+            self.data = response;
+        }).catch(() => {
+
+        })
     }
 }
 </script>
