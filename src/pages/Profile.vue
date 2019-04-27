@@ -4,9 +4,9 @@
             <v-layout row wrap>
             <v-flex xs3>
                 <div class="profile-overview">
-                    <v-img contain :src="require('@/assets/imgs/svg/' + 'Mask Group 5' + '.svg')" class="avatar"></v-img>
+                    <v-img contain :src="user.avatar" class="avatar"></v-img>
                     <div class="stats">
-                        <p class="name">Mohssin Link<br/><span class="count">7845966214756</span></p>
+                        <p class="name">{{user.user_name}}<br/><span class="count">{{user.steam_id}}</span></p>
                     </div>
                 </div>
             </v-flex>
@@ -56,10 +56,21 @@ export default {
     name: 'profile',
     data: function () {
         return {
-            text: 'abc'
+        }
+    },
+    computed: {
+        user: function() {
+            return this.$store.state.userData;
         }
     },
     mounted: function(){
+        if (!this.user) {
+            let toast = this.$toasted.show("You must be logged in to view profile page!", { 
+                theme: "bubble", 
+                position: "top-right", 
+                duration : 5000
+            });
+        }
         this.$router.push("/profile/cases")
     }
 }

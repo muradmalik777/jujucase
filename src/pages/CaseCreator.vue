@@ -9,7 +9,7 @@
         <v-layout row pa-3 mt-5>
             <v-flex class="case">
                 <h3 class="uppercase">case picture</h3>
-                <v-img v-for="image in 5" :key="image" :src="casePicture(image)" class="case-picture m-t-3"></v-img>
+                <v-img v-for="image in 5" :key="image" :src="casePicture(image)" @click="selectPicture(casePicture(image))" class="case-picture m-t-3"></v-img>
             </v-flex>
         </v-layout>
         <v-layout pl-3 pb-0 mt-5>
@@ -28,7 +28,7 @@
 
         <v-layout row pa-3 mt-5>
             <v-flex xs12>
-                <div class="skin m-t-3" v-for="item in 10" :key="item">
+                <div class="skin m-t-3" v-for="item in 8" :key="item" @click="selectSkin(item)">
                     <div class="price">
                         <h4 class="t-c capitalize">$0.07 <i class="fas fa-coins coins"></i></h4>
                     </div>
@@ -43,10 +43,32 @@
             </v-flex>
         </v-layout>
 
-        <v-layout row pa-3 mt-5>
-            <v-flex xs12>
-                <h3 class="uppercase">Choose Odds</h3>
+        <v-layout row pa-3 mt-5 wrap>
+            <h3 class="uppercase">Choose Odds</h3>
+            <v-flex v-for="item in all_skins" :key="item.id" xs12>
+                <div class="odd">
+                    <v-img contain :src="require('@/assets/imgs/svg/skin.svg')" class="odd-image"></v-img>
+                    <div class="name">
+                        <h4>{{item.name}}</h4>
+                    </div>
+                    <div class="price">
+                        <h4 class="t-c capitalize">${{item.price}}</h4>
+                    </div>
+                    <div class="percentage">
+                        <v-text-field class="odd-percentage" placeholder="50%" type="text" full-width v-model="item.odd"></v-text-field>
+                    </div>
+                    <div class="action">
+                        <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="delete-icon"></v-img>
+                    </div>
+                </div>
             </v-flex>
+            <div class="total_odds">
+                <h4 class="t-c capitalize">Total Odds : 100% ({{remaining_odds}}% left)</h4>
+            </div>
+            <div class="case_price">
+                <h4 class="t-c capitalize">Case Price : ${{case_price}}</h4>
+            </div>
+            <v-btn class="button green-btn" @click.stop="showDialog = true">Create Odds</v-btn>
         </v-layout>
     </v-container>
 </template>
@@ -58,8 +80,35 @@ export default {
             case_name: null,
             search: null,
             search_result: [],
-            all_skins: null,
-            items: ["Asc", "Desc"]
+            all_skins: [
+                {
+                    id: 1,
+                    image: '@/assets/imgs/svg/skin.svg',
+                    name: 'Electronics | MSI | GTX 1070 ARMOR 8G OC',
+                    price: 13500,
+                    odd: 50
+                },
+                {
+                    id: 2,
+                    image: '@/assets/imgs/svg/skin.svg',
+                    name: 'Electronics | MSI | GTX 1070 ARMOR 8G OC',
+                    price: 13500,
+                    odd: 50
+                }
+            ],
+            items: ["Asc", "Desc"],
+        }
+    },
+    computed: {
+        remaining_odds: function() {
+            let temp = 100;
+            this.all_skins.forEach(element => {
+                temp = temp - element.odd;
+            });
+            return temp;
+        },
+        case_price: function() {
+            return 14000
         }
     },
     methods: {
@@ -70,6 +119,59 @@ export default {
 }
 </script>
 <style lang="scss">
+
+.total_odds, .case_price {
+    background-color: #73337a;
+    padding: 1rem 4rem;
+    margin: 0 2rem 0 0;
+}
+
+.green-btn {
+    background-color: #4caf50 !important;
+}
+.odd {
+    margin: 1rem 0;
+    background-color: #73337a;
+    padding: 0 1rem;
+    div {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .name {
+        margin: 0 0 0 4rem;
+        width: calc(50% - 4rem);
+    }
+    .price {
+        width: calc(10% - 4rem);
+        margin: 0 4rem;
+    }
+    .odd-image {
+        // width: 20%;
+        vertical-align: middle;
+        width: 5rem;
+        height: auto;
+        display: inline-block;
+    }
+    .percentage {
+        color: #fff !important;
+        width: calc(20% - 4rem);
+        margin: 0 4rem;
+        .odd-percentage {
+            background-color: rgba(#000, 0.5);
+            color: #fff !important;
+        }
+    }
+    .action {
+        width: 5%;
+        text-align: center;
+        .delete-icon {
+            vertical-align: middle;
+            width: 2rem;
+            height: auto;
+        }
+    }
+
+}
 .case-creator{
     h3{
         padding-left: 1rem;

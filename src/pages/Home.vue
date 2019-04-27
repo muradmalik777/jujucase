@@ -20,6 +20,7 @@
     </v-container>
 </template>
 <script>
+<<<<<<< HEAD
 import Api from '../services/Api'
 import Loader from '../components/Loader'
 import { truncate } from 'fs';
@@ -35,6 +36,25 @@ export default {
     },
     created: function(){
         this.getAllCases()
+=======
+import Api from '../services/Api.js';
+
+export default {
+    name: 'home',
+    data: function() {
+        return {
+            cases: [],
+        }
+    },
+    created: function() {
+        let self = this;
+        let api = new Api('/cases')
+        api.getList().then(response =>{
+            self.cases = response;
+        }).catch(() => {
+
+        })
+>>>>>>> edd33953e630406f4d4f63459b2bacf029400119
     },
     methods: {
         getAllCases: function(){
@@ -46,7 +66,7 @@ export default {
             })
         },
         openCase: function (caseId) {
-            this.$router.push('case');
+            this.$router.push('case/' + caseId);
         }
     }
 

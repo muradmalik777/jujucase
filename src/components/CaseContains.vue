@@ -2,16 +2,16 @@
     <div>
         <v-container grid-list-md class="section-container">
             <v-layout row wrap>
-                <v-flex v-for="i in 4" :key="i" xs3>
+                <v-flex v-for="item in caseItems" :key="item._id" xs3>
                     
                     <div class="case-contains">
                         <div class="title-container">
-                            <p class="uppercase">Range: 51.0001% - 100%</p>
-                            <p class="uppercase">Odds: 49%</p>
+                            <p class="uppercase">Range: {{item.lrange}}% - {{item.hrange}}%</p>
+                            <p class="uppercase">Odds: {{item.percentage}}%</p>
                         </div>
-                        <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="case-icon"></v-img>
+                        <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="case-icon"></v-img> <!-- pass case-icon as prop from parent -->
                         <div class="footer-wrapper">
-                            <p class="">FAMAS | Commando <br/>(Well-Worn)</p>
+                            <p class="">{{item.market_hash_name}}</p>
                             <div class="delete">
                                 <v-img contain :src="require('@/assets/imgs/svg/info.svg')" class="delete-icon"></v-img>
                             </div>
@@ -24,15 +24,26 @@
     </div>
 </template>
 <script>
+import Api from '../services/Api.js';
+
 export default {
     name: 'CaseContains',
-    // props: [caseId],
-    created: function () {
-    },
-    data: function () {
+    props: ['caseIcon'],
+    data: function() {
         return {
+            caseItems: [],
         }
-    }
+    },
+    created: function () {
+        let self = this;
+        let api = new Api('/cases');
+        api.get(this.$route.params.case_id + '/items').then(response =>{
+            self.caseItems = response;
+            debugger;
+        }).catch(() => {
+
+        })
+    },
 }
 </script>
 <style lang="scss" scoped>
