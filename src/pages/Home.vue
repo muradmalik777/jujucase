@@ -1,5 +1,6 @@
 <template>
     <v-container class="home spacing">
+        <loader v-if="loading"></loader>
         <v-layout>
             <v-flex class="banner">
                 <h2 class="uppercase t-c">add banner</h2>
@@ -19,10 +20,31 @@
     </v-container>
 </template>
 <script>
-
+import Api from '../services/Api'
+import Loader from '../components/Loader'
+import { truncate } from 'fs';
 export default {
     name: 'home',
+    components: {
+        'loader': Loader
+    },
+    data: function(){
+        return{
+            loading: false
+        }
+    },
+    created: function(){
+        this.getAllCases()
+    },
     methods: {
+        getAllCases: function(){
+            this.loading = true
+            let $object = new Api('/cases/')
+            $object.getList().then(resp => {
+                console.log("murad", resp)
+                this.loading = false
+            })
+        },
         openCase: function (caseId) {
             this.$router.push('case');
         }
