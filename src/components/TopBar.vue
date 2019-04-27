@@ -52,7 +52,7 @@
                                 
                             </div>
                             <div v-else>
-                                <a href="http://localhost:3000/steam">
+                                <a href="http://localhost:8081/steam">
                                     <v-img :src="require('@/assets/imgs/steam.png')" class="login pointer" ></v-img>
                                 </a>
                             </div>
