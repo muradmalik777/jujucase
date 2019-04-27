@@ -27,12 +27,12 @@
         </v-layout>
         <v-container grid-list-md>
             <v-layout row wrap pa-3>
-                <v-flex class="search-result" xs12 md3 v-for="item in 4" :key="item" >
+                <v-flex class="search-result" xs12 md3 v-for="item in cases" :key="item._id" @click="openCase(item._id)">
                     <div class="case">
                         <p class="case-name">
-                            Case Name
+                            {{item.name}}
                         </p>
-                        <v-img contain class="case-picture"></v-img>
+                        <v-img contain class="case-picture"></v-img> <!-- use item.case_img -->
                     </div>
                 </v-flex>
             </v-layout>
@@ -40,11 +40,14 @@
     </v-container>
 </template>
 <script>
+import Api from '../services/Api.js';
+
 export default {
     name: "CaseBrowser",
     data: function(){
         return{
             search: null,
+            cases: [],
             search_result: [],
             menu: [
                 {name:"home", icon:"home", to:"/"}, 
@@ -54,6 +57,20 @@ export default {
                 {name:"terms of service", icon:"info", to: "/tos"},
                 {name:"about", icon:"info", to: "/about"}
             ]
+        }
+    },
+    created: function() {
+        let self = this;
+        let api = new Api('/cases')
+        api.getList().then(response =>{
+            self.cases = response;
+        }).catch(() => {
+
+        })
+    },
+    methods: {
+        openCase: function (caseId) {
+            this.$router.push('case/' + caseId);
         }
     }
 }

@@ -21,6 +21,8 @@
     </div>
 </template>
 <script>
+import Api from './../../services/Api.js';
+
 export default {
     name: 'trades',
     computed: {
@@ -78,88 +80,7 @@ export default {
                     width: '15%'
                 }
             ],
-            data: [
-                {
-                    time: '02/03/209 11:47:56',
-                    case_id: 'f1df6c63-f1g6-45ed-a750-37aa7c59c477',
-                    case_name: 'Weapon Case 1',
-                    case_price: '$0.07',
-                    case_content: 'Dual Berettas | Assassin (Battle-Scarred)',
-                    case_percentage: '%93.45895'
-                },
-                {
-                    time:  '02/03/209 11:47:56',
-                    case_id: 'f1df6c63-f1g6-45ed-a750-37aa7c59c477',
-                    case_name: 'Weapon Case 1',
-                    case_price: '$0.07',
-                    case_content: 'Dual Berettas | Assassin (Battle-Scarred)',
-                    case_percentage: '%93.45895'
-                },
-                {
-                    time:  '02/03/209 11:47:56',
-                    case_id: 'f1df6c63-f1g6-45ed-a750-37aa7c59c477',
-                    case_name: 'Weapon Case 1',
-                    case_price: '$0.07',
-                    case_content: 'Dual Berettas | Assassin (Battle-Scarred)',
-                    case_percentage: '%93.45895'
-                },
-                {
-                    time:  '02/03/209 11:47:56',
-                    case_id: 'f1df6c63-f1g6-45ed-a750-37aa7c59c477',
-                    case_name: 'Weapon Case 1',
-                    case_price: '$0.07',
-                    case_content: 'Dual Berettas | Assassin (Battle-Scarred)',
-                    case_percentage: '%93.45895'
-                },
-                {
-                    time:  '02/03/209 11:47:56',
-                    case_id: 'f1df6c63-f1g6-45ed-a750-37aa7c59c477',
-                    case_name: 'Weapon Case 1',
-                    case_price: '$0.07',
-                    case_content: 'Dual Berettas | Assassin (Battle-Scarred)',
-                    case_percentage: '%93.45895'
-                },
-                {
-                    time:  '02/03/209 11:47:56',
-                    case_id: 'f1df6c63-f1g6-45ed-a750-37aa7c59c477',
-                    case_name: 'Weapon Case 1',
-                    case_price: '$0.07',
-                    case_content: 'Dual Berettas | Assassin (Battle-Scarred)',
-                    case_percentage: '%93.45895'
-                },
-                {
-                    time:  '02/03/209 11:47:56',
-                    case_id: 'f1df6c63-f1g6-45ed-a750-37aa7c59c477',
-                    case_name: 'Weapon Case 1',
-                    case_price: '$0.07',
-                    case_content: 'Dual Berettas | Assassin (Battle-Scarred)',
-                    case_percentage: '%93.45895'
-                },
-                {
-                    time:  '02/03/209 11:47:56',
-                    case_id: 'f1df6c63-f1g6-45ed-a750-37aa7c59c477',
-                    case_name: 'Weapon Case 1',
-                    case_price: '$0.07',
-                    case_content: 'Dual Berettas | Assassin (Battle-Scarred)',
-                    case_percentage: '%93.45895'
-                },
-                {
-                    time:  '02/03/209 11:47:56',
-                    case_id: 'f1df6c63-f1g6-45ed-a750-37aa7c59c477',
-                    case_name: 'Weapon Case 1',
-                    case_price: '$0.07',
-                    case_content: 'Dual Berettas | Assassin (Battle-Scarred)',
-                    case_percentage: '%93.45895'
-                },
-                {
-                    time:  '02/03/209 11:47:56',
-                    case_id: 'f1df6c63-f1g6-45ed-a750-37aa7c59c477',
-                    case_name: 'Weapon Case 1',
-                    case_price: '$0.07',
-                    case_content: 'Dual Berettas | Assassin (Battle-Scarred)',
-                    case_percentage: '%93.45895'
-                }
-            ],
+            data: [],
             pagination: {
                 descending: false,
                 page: 5,
