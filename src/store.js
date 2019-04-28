@@ -7,12 +7,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     plugins: [analyticsMiddleware],
     state: {
-        userData: {},
-        userCases: [],
+        userData: null,
+        userCases: null,
         steamId: "",
-        openedCases: [],
-        itemsWon: [],
-        allCases: null, // array of case objects
+        openedCases: null,
+        itemsWon: null,
+        allCases: null,
         userDeposits: "",
         userCoins: "",
     },
@@ -30,7 +30,9 @@ export default new Vuex.Store({
             state.allCases = cases
         },
         addToAllCases: function (state, caseData) {
-            state.allCases.push(caseData)
+            if(state.allCases){
+                state.allCases.push(caseData)
+            }
         },
         logout: function(state){
             state.userData = null

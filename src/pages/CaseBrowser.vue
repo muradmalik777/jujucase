@@ -10,7 +10,7 @@
         <v-layout pa-3 row>
             <v-flex>
                 <v-btn flat v-for="(item, index) in menu" :key="index" :to="item.to" class="browser-btn">{{item.name}}</v-btn>
-                <v-menu offset-y class="user-menu" v-if="this.$store.state.userData">
+                <v-menu offset-y class="user-menu" v-if="$store.state.userData">
                     <template v-slot:activator="{ on }">
                         <h4 v-ripple v-on="on" class="pointer user-name">{{$store.state.userData.user_name}}</h4>
                     </template>
