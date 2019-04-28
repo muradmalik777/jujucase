@@ -75,7 +75,6 @@ export default {
     data: function(){
         return{
             drawer: true,
-            user: null,
             loading: false,
         }
     },

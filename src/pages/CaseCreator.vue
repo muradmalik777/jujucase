@@ -128,6 +128,9 @@ export default {
         selectPicture: function(image){
             this.new_case.image = "@/assets/imgs/svg/case"+image+".svg"
             this.selected_image = image
+        },
+        saveUserCase: function(){
+            
         }
     }
 }
