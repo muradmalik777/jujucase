@@ -25,7 +25,7 @@ export default {
 .loader{
     width: 100%;
     height: 100vh;
-    position: fixed;
+    position: absolute;
     z-index: 1000;
 }
 .lds-facebook {
