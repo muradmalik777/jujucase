@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { analyticsMiddleware } from 'vue-analytics'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    plugins: [analyticsMiddleware],
+    plugins: [createPersistedState()],
     state: {
         userData: null,
         userCases: null,
