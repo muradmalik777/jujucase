@@ -72,7 +72,7 @@
             <div class="case_price">
                 <h4 class="t-c capitalize">Case Price : ${{case_price}}</h4>
             </div>
-            <v-btn class="button green-btn" @click.stop="showDialog = true">Create Odds</v-btn>
+            <v-btn class="button green-btn" @click.stop="showDialog = true">Create Case</v-btn>
         </v-layout>
     </v-container>
 </template>
