@@ -1,15 +1,19 @@
 <template>
     <v-container fluid class="case-creator spacing">
-        <v-layout row pa-3>
+        <v-layout row>
             <v-flex xs12 class="case-name">
                 <h3 class="uppercase m-b">Case Name</h3>
-                <v-text-field class="case-name-input" placeholder="Enter case name" type="text" full-width v-model="case_name"></v-text-field>
+                <v-text-field class="case-name-input" placeholder="Enter case name" type="text" full-width v-model="new_case.name"></v-text-field>
             </v-flex>
         </v-layout>
-        <v-layout row pa-3 mt-5>
-            <v-flex class="case">
+        <v-layout row wrap mt-5>
+            <v-flex xs12>
                 <h3 class="uppercase">case picture</h3>
-                <v-img v-for="image in 5" :key="image" :src="casePicture(image)" @click="selectPicture(casePicture(image))" class="case-picture m-t-3"></v-img>
+            </v-flex>
+        </v-layout>
+        <v-layout row pt-3>
+            <v-flex xs12 md4 lg2 v-for="image in 2" :key="image" class="case-image-box" :class="{'selected': selected_image==image}">
+                <v-img :src="casePicture(image)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
             </v-flex>
         </v-layout>
         <v-layout pl-3 pb-0 mt-5>
@@ -17,7 +21,7 @@
                 <h3 class="uppercase">add skins</h3>
             </v-flex>
         </v-layout>
-        <v-layout row pa-3>
+        <v-layout row>
             <v-flex class="search">
                 <v-autocomplete class="skin-search m-t-2" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
             </v-flex>
@@ -26,7 +30,7 @@
             </v-flex> -->
         </v-layout>
 
-        <v-layout row pa-3 mt-5>
+        <v-layout row mt-5>
             <v-flex xs12>
                 <div class="skin m-t-3" v-for="item in 8" :key="item" @click="selectSkin(item)">
                     <div class="price">
@@ -43,7 +47,7 @@
             </v-flex>
         </v-layout>
 
-        <v-layout row pa-3 mt-5 wrap>
+        <v-layout row mt-5 wrap>
             <h3 class="uppercase">Choose Odds</h3>
             <v-flex v-for="item in all_skins" :key="item.id" xs12>
                 <div class="odd">
@@ -68,7 +72,7 @@
             <div class="case_price">
                 <h4 class="t-c capitalize">Case Price : ${{case_price}}</h4>
             </div>
-            <v-btn class="button green-btn" @click.stop="showDialog = true">Create Odds</v-btn>
+            <v-btn class="button green-btn" @click.stop="showDialog = true">Create Case</v-btn>
         </v-layout>
     </v-container>
 </template>
@@ -77,7 +81,13 @@ export default {
     name: 'casecreator',
     data: function(){
         return{
-            case_name: null,
+            new_case: {
+                name: "",
+                price: null,
+                image: "",
+                items:[]
+            },
+            selected_image: null,
             search: null,
             search_result: [],
             all_skins: [
@@ -112,8 +122,12 @@ export default {
         }
     },
     methods: {
-        casePicture: function(){
-            return require("@/assets/imgs/svg/case2.svg")
+        casePicture: function(image){
+            return require("@/assets/imgs/svg/case"+image+".svg")
+        },
+        selectPicture: function(image){
+            this.new_case.image = "@/assets/imgs/svg/case"+image+".svg"
+            this.selected_image = image
         }
     }
 }
@@ -172,6 +186,9 @@ export default {
     }
 
 }
+.selected{
+    background: #4caf50;
+}
 .case-creator{
     h3{
         padding-left: 1rem;
@@ -192,18 +209,18 @@ export default {
             }
         }
     }
-    .case{
-        min-height: 150px;
-
+    .case-image-box{
+        margin: 1rem 1rem;
+        min-height: 200px;
         .case-picture{
             width: 150px;
             height: 100px;
-            margin: 5rem 3rem 2rem 10px;
-            display: block;
-            float: left;
             cursor: pointer;
+            display: block;
+            margin: 3.5rem auto;
         }
     }
+    
     // .select{
     //     .v-input{
     //         margin-top: 2rem;

@@ -1,5 +1,5 @@
 <template>
-    <v-container class="home spacing">
+    <v-container class="home spacing" fluid>
         <v-layout>
             <v-flex class="banner">
                 <h2 class="uppercase t-c">add banner</h2>
@@ -9,35 +9,44 @@
             <v-flex xs12 md12 lg12>
                 <h2 class="uppercase m-t-3">Open cases <span class="uppercase c-purple-bright">view selection</span></h2>
             </v-flex>
-            <v-flex xs12 md4 lg3 class="case pointer m-t-3 m-b-3" v-for="item in 16" :key="item" @click="openCase(item)">
+            <v-flex xs12 md4 lg3 class="case pointer m-t-3 m-b-3" v-for="item in cases" :key="item" @click="openCase(item)" v-if="cases">
                 <h4 class="t-c capitalize">Empty Slot</h4>
                 <v-img :src="require('@/assets/imgs/svg/case2.svg')" class="case-image"></v-img>
                 <h4 class="t-c capitalize price m-b-2">$0.07 <i class="fas fa-coins coins"></i></h4>
                 <h3 class="capitalize t-c">supreme case</h3>
+            </v-flex>
+            <v-flex xs12 md12 lg12>
+                <h2 class="t-c m-t-2 capitalize">no cases found</h2>
             </v-flex>
         </v-layout>
     </v-container>
 </template>
 <script>
 import Api from '../services/Api.js';
+import Loader from '../components/Loader'
 
 export default {
     name: 'home',
+    components: {
+        'loader': Loader
+    },
     data: function() {
         return {
             cases: [],
         }
     },
     created: function() {
-        let self = this;
-        let api = new Api('/cases')
-        api.getList().then(response =>{
-            self.cases = response;
-        }).catch(() => {
-
-        })
+        this.getAllCases()
     },
     methods: {
+        getAllCases: function(){
+            this.loading = true
+            let $object = new Api('/cases')
+            $object.getList().then(resp => {
+                this.cases = resp
+                this.loading = false
+            })
+        },
         openCase: function (caseId) {
             this.$router.push('case/' + caseId);
         }
