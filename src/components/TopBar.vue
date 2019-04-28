@@ -1,7 +1,6 @@
 <template>
     <div class="topbar">
-        <loader v-if="loading"></loader>
-        <v-toolbar v-else flat class="bg-purple-bright">
+        <v-toolbar flat class="bg-purple-bright">
             <v-container>
                 <v-layout justify-end row>
                     <v-flex xs8>
@@ -33,7 +32,7 @@
                             <div class="left">
                                 <v-img :src="require('@/assets/imgs/default-icon.png')" class="user-icon"></v-img>
                             </div>
-                            <div class="right" v-if="this.$store.state.userData">
+                            <div class="right" v-if="$store.state.userData">
                                 <v-menu offset-y max-width="180" min-width="150" >
                                     <template v-slot:activator="{ on }">
                                         <h4 v-ripple v-on="on" class="pointer user-name">{{$store.state.userData.user_name}}</h4>
@@ -65,18 +64,12 @@
 </template>
 <script>
 import Api from '../services/Api.js';
-import Loader from '@/components/Loader'
 
 export default {
     name: 'navbar',
-    components: {
-        'loader': Loader
-    },
     data: function(){
         return{
             drawer: true,
-            user: null,
-            loading: false,
         }
     },
     mounted: function () {
