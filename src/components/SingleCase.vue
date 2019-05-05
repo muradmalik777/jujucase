@@ -15,11 +15,31 @@
 
         <div class="spinner-wrapper">
             <div class="bg-purple-dull spinner">
-            
+                <div class="wrapper">
+                    <div class="window">
+                        <ul class="list">
+                            
+                        </ul>
+                        <ul class="list">
+                            <li><img src="../assets/imgs/case.svg" alt=""></li>
+                            <li><img src="../assets/imgs/case.svg" alt=""></li>
+                            <li><img src="../assets/imgs/case.svg" alt=""></li>
+                            <li><img src="../assets/imgs/case.svg" alt=""></li>
+                            <li><img src="../assets/imgs/case.svg" alt=""></li>
+                            <li><img src="../assets/imgs/case.svg" alt=""></li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="text-align: center">
+                <div class="win">
+                    <ul>
+                        
+                    </ul>
+                </div>
             </div>
             <div class="spinner-controls">
                 <v-btn class="button green-btn" @click.stop="showDialog = true">Open Case</v-btn>
-                <v-btn color="button">Test Spin</v-btn>
+                <v-btn color="button" class="button">Test Spin</v-btn>
                 <input class="number-input" type="number" v-model="number">
             </div>
         </div>
@@ -83,6 +103,7 @@
 <script>
 import CaseContains from '@/components/CaseContains';
 import Api from '../services/Api.js';
+import * as $ from 'jquery'; window["$"] = $; window["jQuery"] = $;
 
 export default {
     name: 'SingleCase',
@@ -97,6 +118,30 @@ export default {
         }).catch(() => {
 
         })
+    },
+    mounted: function() {
+        let i = 0;
+        for (i = 0; i < 3; i++) {
+            $(".list li").clone().appendTo(".list");
+        }
+        $('.button').click(function () {
+            $('.window').css({
+                right: "0"
+            })
+            $('.list li').css({
+                border: '4px solid transparent'
+            })
+            function selfRandom(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            var x = selfRandom(50, 100);
+            $('.list li:eq('+x+')').css({
+                border:'3px solid #4caf50'
+            })
+            $('.window').animate({
+                right: ((x*130)+(x*8-12)-119)
+            }, 10000);
+        });
     },
     data: function () {
         return {
@@ -185,7 +230,42 @@ export default {
     margin: 4rem 0px;
     .spinner {
         width: 100%;
-        height: 200px;
+        height: 143px;
+        li {
+            list-style: none;
+            display: inline-block;
+            float: left;
+        }
+
+        .window {
+            overflow: hidden;
+            position: relative;
+            width: 25000px;
+            height: 143px;
+            right: 0px;
+        }
+
+        .wrapper {
+            position: relative;
+            margin: auto;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        .list {
+            position: relative;
+            margin-left: 230;
+            display: inline-block;
+        }
+
+        .list li {
+            border: 4px solid transparent ;
+        }
+        .list li img {
+            width: 130px;
+            height: 130px;
+        }
     }
     .spinner-controls {
         display: block;
