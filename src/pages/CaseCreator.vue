@@ -27,7 +27,7 @@
         </v-layout>
 
         <v-layout row wrap pa-3 class="items">
-            <v-flex xs12 md4 lg3 class="m-t-3" v-for="(item, index) in allSkins" :key="index" @click="selectSkin(item)">
+            <v-flex xs12 md4 lg3 class="m-t-3 pointer" v-for="(item, index) in allSkins" :key="index" @click="selectSkin(item)">
                 <div class="skin">
                     <div class="price">
                         <h4 class="t-c capitalize">${{item.price}} <i class="fas fa-coins coins"></i></h4>
@@ -45,11 +45,11 @@
 
         <v-layout row mt-3 wrap>
             <h3 class="uppercase">Choose Odds</h3>
-            <v-flex v-for="item in selected_skins" :key="item.id" xs12>
+            <v-flex v-for="item in selectedSkins" :key="item.id" xs12>
                 <div class="odd">
-                    <v-img contain :src="require('@/assets/imgs/svg/skin.svg')" class="odd-image"></v-img>
+                    <v-img contain :src="item.iconUrl" class="odd-image"></v-img>
                     <div class="name">
-                        <h4>{{item.name}}</h4>
+                        <h4>{{item.marketHashName}}</h4>
                     </div>
                     <div class="price">
                         <h4 class="t-c capitalize">${{item.price}}</h4>
@@ -89,22 +89,7 @@ export default {
             search: null,
             search_result: [],
             allSkins: [],
-            selectedSkins: [
-                {
-                    id: 1,
-                    image: '@/assets/imgs/svg/skin.svg',
-                    name: 'Electronics | MSI | GTX 1070 ARMOR 8G OC',
-                    price: 13500,
-                    odd: 50
-                },
-                {
-                    id: 2,
-                    image: '@/assets/imgs/svg/skin.svg',
-                    name: 'Electronics | MSI | GTX 1070 ARMOR 8G OC',
-                    price: 13500,
-                    odd: 50
-                }
-            ],
+            selectedSkins: [],
             items: ["Asc", "Desc"],
         }
     },
@@ -141,6 +126,9 @@ export default {
                 console.log(resp)
                 this.allSkins = resp
             })
+        },
+        selectSkin: function(skin){
+            this.selectedSkins.push(skin)
         }
     }
 }
@@ -236,18 +224,6 @@ export default {
     .select{
         margin-top: 1.7rem;
     }
-    // .select{
-    //     .v-input{
-    //         margin-top: 2rem;
-    //         .v-select__selections{
-    //             height: 60px;
-    //             padding: 0px 15px;
-    //         }
-    //         .v-input__append-inner{
-    //             display: none;
-    //         }
-    //     }
-    // }
     .skin{
         min-height: 370px;
         background: #67266e77;
@@ -266,7 +242,6 @@ export default {
             margin: 20px auto;
             width: 200px;
             height: 200px;
-            cursor: pointer;
         }
         .name{
             width: 80%;
