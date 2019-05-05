@@ -124,7 +124,6 @@ export default {
             let $items = new Api('/items')
             let params = { p : 1 }
             $items.getList(params).then(resp => {
-                console.log(resp)
                 this.allSkins = resp.items
             })
         },
@@ -142,7 +141,7 @@ export default {
             });
             let data = self.new_case;
             $cases.post(data, {}).then(resp => {
-                console.log("murad")
+                console.log("case created")
             }).catch(() => {})
         }
     }
