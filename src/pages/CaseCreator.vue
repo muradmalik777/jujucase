@@ -48,7 +48,7 @@
 
         <v-layout row pa-3 mt-5 wrap>
             <h3 class="uppercase">Choose Odds</h3>
-            <v-flex v-for="item in selectedSkins" :key="item.id" xs12>
+            <v-flex v-for="(item, index) in selectedSkins" :key="item.id" xs12>
                 <div class="odd">
                     <v-img contain :src="item.iconUrl" class="odd-image"></v-img>
                     <div class="name">
@@ -58,7 +58,7 @@
                         <h4 class="t-c capitalize">${{item.price}}</h4>
                     </div>
                     <div class="percentage">
-                        <v-text-field class="odd-percentage" placeholder="50%" type="text" full-width v-model="item.odd"></v-text-field>
+                        <v-text-field class="odd-percentage" placeholder="50%" type="text" full-width v-model="itemOdds[index]"></v-text-field>
                     </div>
                     <div class="action">
                         <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="delete-icon"></v-img>
@@ -71,7 +71,7 @@
             <div class="case_price">
                 <h4 class="t-c capitalize">Case Price : ${{case_price}}</h4>
             </div>
-            <v-btn class="button green-btn" @click.stop="showDialog = true">Create Case</v-btn>
+            <v-btn class="button green-btn" @click="createCase">Create Case</v-btn>
         </v-layout>
     </v-container>
 </template>
@@ -83,8 +83,8 @@ export default {
         return{
             new_case: {
                 name: "",
-                price: null,
-                image: "",
+                price: 0,
+                case_image: "",
                 items:[]
             },
             page: 1,
@@ -93,6 +93,7 @@ export default {
             search_result: [],
             allSkins: [],
             selectedSkins: [],
+            itemOdds: [],
             items: ["Asc", "Desc"],
         }
     },
@@ -102,13 +103,13 @@ export default {
     computed: {
         remaining_odds: function() {
             let temp = 100;
-            this.selectedSkins.forEach(element => {
-                temp = temp - element.odd;
+            this.itemOdds.forEach(element => {
+                temp = temp - element;
             });
             return temp;
         },
         case_price: function() {
-            return 14000
+            return this.new_case.price;
         }
     },
     methods: {
@@ -116,7 +117,7 @@ export default {
             return require("@/assets/imgs/svg/case"+image+".svg")
         },
         selectPicture: function(image){
-            this.new_case.image = "@/assets/imgs/svg/case"+image+".svg"
+            this.new_case.case_image = "@/assets/imgs/svg/case"+image+".svg"
             this.selectedImage = image
         },
         getAllItems: function(){
@@ -128,7 +129,23 @@ export default {
             })
         },
         selectSkin: function(skin){
-            this.selectedSkins.push(skin)
+            this.selectedSkins.push(skin);
+            this.new_case.price += skin.price;
+            this.new_case.items.push(skin);
+            this.itemOdds.push(100 / this.selectedSkins.length);
+        },
+        createCase: function() {
+            let $cases = new Api('/cases');
+            let self = this;
+            self.new_case.items.forEach(function(element, index) {
+                element.odds = String(self.itemOdds[index]);
+            });
+            let data = self.new_case;
+            $cases.post(data, {}).then(resp => {
+                debugger;
+            }).catch(function() {
+                debugger;
+            })
         }
     }
 }
