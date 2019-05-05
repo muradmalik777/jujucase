@@ -43,8 +43,14 @@ export default {
                 {name:"about", icon:"info", to: "/about"}
             ]
         }
+    },
+    watch: {
+        '$route' (to, from) {
+            if(!this.$store.state.userData && !to.path.includes("register") && !to.path.includes("tos") && !to.path.includes("about") && !to.path.includes("faq")){
+                this.$router.push("/login")
+            }
+        }
     }
-    
 }
 </script>
 <style lang="scss">

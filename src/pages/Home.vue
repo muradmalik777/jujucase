@@ -9,11 +9,11 @@
             <v-flex xs12 md12 lg12>
                 <h2 class="uppercase m-t-3">Open cases <span class="uppercase c-purple-bright m-l">view selection</span></h2>
             </v-flex>
-            <v-flex xs12 md4 lg3 class="case pointer m-t-3 m-b-3" v-for="(item, index) in $store.state.allCases" :key="index" @click="openCase(item)">
+            <v-flex xs12 md4 lg3 class="case pointer m-t-3 m-b-3" v-for="(item, index) in allCases" :key="index" @click="openCase(item)">
                 <h4 class="t-c capitalize">Empty Slot</h4>
                 <v-img :src="require('@/assets/imgs/svg/case2.svg')" class="case-image"></v-img>
-                <h4 class="t-c capitalize price m-b-2">$0.07 <i class="fas fa-coins coins"></i></h4>
-                <h3 class="capitalize t-c">supreme case</h3>
+                <h4 class="t-c capitalize price m-b-2">${{item.price}} <i class="fas fa-coins coins"></i></h4>
+                <h3 class="capitalize t-c">{{item.name}}</h3>
             </v-flex>
         </v-layout>
     </v-container>
@@ -25,7 +25,7 @@ export default {
     name: 'home',
     data: function() {
         return {
-
+            allCases: [],
         }
     },
     created: function() {
@@ -37,7 +37,7 @@ export default {
         getAllCases: function(){
             let $object = new Api('/cases')
             $object.getList().then(resp => {
-                this.$store.commit('addToAllCases', resp)
+                this.allCases = resp
             })
         },
         openCase: function (caseId) {
@@ -62,7 +62,7 @@ export default {
             }
         }
         .case{
-            height: 350px;
+            min-height: 300px;
             padding: 15px;
             &:hover{
                 background: #00cf2099;
@@ -73,7 +73,7 @@ export default {
             }
             .case-image{
                 display: block;
-                margin: 3rem auto;
+                margin: 1.5rem auto;
                 width: 150px;
                 height: 100px;
             }

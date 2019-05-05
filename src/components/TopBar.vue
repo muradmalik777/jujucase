@@ -94,7 +94,7 @@ export default {
             this.user = null
             this.logout()
         }
-    }
+    },
 }
 </script>
 <style lang="scss">

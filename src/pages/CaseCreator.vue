@@ -10,20 +10,20 @@
             <v-flex xs12>
                 <h3 class="uppercase">case picture</h3>
             </v-flex>
-            <v-flex xs12 md4 lg2 v-for="image in 2" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
-                <v-img :src="casePicture(image)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
+            <v-flex xs12 md4 lg2 v-for="image in 1" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
+                <v-img :src="casePicture(image+1)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
             </v-flex>
         </v-layout>
         <v-layout row wrap pa-3>
             <v-flex xs12>
                 <h3 class="uppercase">add skins</h3>
             </v-flex>
-            <v-flex xs10 class="search">
+            <v-flex xs12 class="search">
                 <v-autocomplete class="skin-search m-t" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
             </v-flex>
-            <v-flex xs1 class="select">
+            <!-- <v-flex xs1 class="select">
                 <v-select background-color="#73337a" color="#fff" :value="items[0]" :items="items"></v-select>
-            </v-flex>
+            </v-flex> -->
         </v-layout>
 
         <v-layout row wrap pa-3 class="items">
@@ -84,7 +84,7 @@ export default {
             new_case: {
                 name: "",
                 price: 0,
-                case_image: "",
+                case_image: "@/assets/imgs/svg/waste-bin.svg",
                 items:[]
             },
             page: 1,
@@ -124,7 +124,6 @@ export default {
             let $items = new Api('/items')
             let params = { p : 1 }
             $items.getList(params).then(resp => {
-                console.log(resp)
                 this.allSkins = resp.items
             })
         },
@@ -142,10 +141,8 @@ export default {
             });
             let data = self.new_case;
             $cases.post(data, {}).then(resp => {
-                debugger;
-            }).catch(function() {
-                debugger;
-            })
+                console.log("case created")
+            }).catch(() => {})
         }
     }
 }
