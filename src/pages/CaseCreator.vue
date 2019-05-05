@@ -41,9 +41,12 @@
                     </div>
                 </div>
             </v-flex>
+            <v-flex>
+                
+            </v-flex>
         </v-layout>
 
-        <v-layout row mt-3 wrap>
+        <v-layout row pa-3 mt-5 wrap>
             <h3 class="uppercase">Choose Odds</h3>
             <v-flex v-for="item in selectedSkins" :key="item.id" xs12>
                 <div class="odd">
@@ -116,15 +119,12 @@ export default {
             this.new_case.image = "@/assets/imgs/svg/case"+image+".svg"
             this.selectedImage = image
         },
-        skinImage: function(){
-            return 
-        },
         getAllItems: function(){
             let $items = new Api('/items')
             let params = { p : 1 }
             $items.getList(params).then(resp => {
                 console.log(resp)
-                this.allSkins = resp
+                this.allSkins = resp.items
             })
         },
         selectSkin: function(skin){
