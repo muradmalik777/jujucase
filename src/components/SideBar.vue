@@ -37,6 +37,7 @@ export default {
                 {name:"home", icon:"home", to:"/"}, 
                 {name:"Case creator", icon:"pen", to: "/caseCreator"}, 
                 {name:"case browser", icon:"avatar", to: "/caseBrowser"}, 
+                {name:"items Won", icon:"avatar", to: "/winnings"}, 
                 {name:"support/faq", icon:"support", to: "/faq"},
                 {name:"terms of service", icon:"info", to: "/tos"},
                 {name:"about", icon:"info", to: "/about"}
