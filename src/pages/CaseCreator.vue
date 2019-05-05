@@ -6,7 +6,7 @@
                 <v-text-field class="case-name-input" placeholder="Enter case name" type="text" full-width v-model="new_case.name"></v-text-field>
             </v-flex>
         </v-layout>
-        <v-layout row wrap pt-3>
+        <v-layout row wrap>
             <v-flex xs12>
                 <h3 class="uppercase">case picture</h3>
             </v-flex>
@@ -19,7 +19,7 @@
                 <h3 class="uppercase">add skins</h3>
             </v-flex>
             <v-flex xs10 class="search">
-                <v-autocomplete class="skin-search m-t-2" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
+                <v-autocomplete class="skin-search m-t" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
             </v-flex>
             <v-flex xs1 class="select">
                 <v-select background-color="#73337a" color="#fff" :value="items[0]" :items="items"></v-select>
@@ -41,9 +41,12 @@
                     </div>
                 </div>
             </v-flex>
+            <v-flex>
+                
+            </v-flex>
         </v-layout>
 
-        <v-layout row mt-3 wrap>
+        <v-layout row pa-3 mt-5 wrap>
             <h3 class="uppercase">Choose Odds</h3>
             <v-flex v-for="(item, index) in selectedSkins" :key="item.id" xs12>
                 <div class="odd">
@@ -117,15 +120,12 @@ export default {
             this.new_case.case_image = "@/assets/imgs/svg/case"+image+".svg"
             this.selectedImage = image
         },
-        skinImage: function(){
-            return 
-        },
         getAllItems: function(){
             let $items = new Api('/items')
             let params = { p : 1 }
             $items.getList(params).then(resp => {
                 console.log(resp)
-                this.allSkins = resp
+                this.allSkins = resp.items
             })
         },
         selectSkin: function(skin){
@@ -229,17 +229,17 @@ export default {
     }
     .case-image-box{
         margin: 1rem 1rem;
-        min-height: 200px;
+        min-height: 150px;
         .case-picture{
             width: 150px;
             height: 100px;
             cursor: pointer;
             display: block;
-            margin: 3.5rem auto;
+            margin: 1.5rem auto;
         }
     }
     .select{
-        margin-top: 1.7rem;
+        margin-top: .7rem;
     }
     .skin{
         min-height: 370px;

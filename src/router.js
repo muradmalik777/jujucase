@@ -11,9 +11,11 @@ import Profile from '@/pages/Profile'
 import ProfileCases from '@/components/Profile/Cases'
 import ProfileTrades from '@/components/Profile/Trades'
 import TradeDetails from '@/components/Profile/TradeDetails'
-import Transactions from '@/components/Profile/Transactions'
 import SingleCase from '@/components/SingleCase'
 import ItemsWon from '@/components/ItemsWon'
+import Login from '@/components/Auth/Login'
+import Register from '@/components/Auth/Register'
+
 
 
 Vue.use(Router);
@@ -26,6 +28,8 @@ export default new Router({
     mode: 'history',
     routes: [
         { path: '/', component: Home },
+        { path: '/login', component: Login },
+        { path: '/register', component: Register },
         { path: '/caseCreator', component: CaseCreator },
         { path: '/caseBrowser', component: CaseBrowser },
         { path: '/case/:case_id', component: SingleCase },

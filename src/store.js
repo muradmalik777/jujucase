@@ -14,23 +14,23 @@ export default new Vuex.Store({
         itemsWon: null,
         allCases: null,
         userDeposits: "",
-        userCoins: "",
+        userCoins: ""
     },
     mutations: {
         addUser: function(state, user){
             state.userData = user
         },
-        setUserCases: function(state, cases){
+        setUserCases: function (state, cases) {
             state.userCases = cases
         },
         addToUserCases: function (state, caseData) {
             state.userCases.push(caseData)
         },
-        setAllCases: function(state, cases){
+        setAllCases: function (state, cases) {
             state.allCases = cases
         },
         addToAllCases: function (state, caseData) {
-            if(state.allCases){
+            if (state.allCases) {
                 state.allCases.push(caseData)
             }
         },

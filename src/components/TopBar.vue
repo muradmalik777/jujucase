@@ -51,9 +51,7 @@
                                 
                             </div>
                             <div v-else>
-                                <a href="http://localhost:8081/steam">
-                                    <v-img :src="require('@/assets/imgs/steam.png')" class="login pointer" ></v-img>
-                                </a>
+                                <v-btn flat outline color="#ffffff" :to="'/login'">Login</v-btn>
                             </div>
                         </div>
                     </v-flex>
