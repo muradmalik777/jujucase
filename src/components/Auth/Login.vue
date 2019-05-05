@@ -1,25 +1,25 @@
 <template>
     <v-container>
-        <v-layout row justify-center mt-5>
+        <v-layout row justify-center mt-5 pt-5>
             <v-flex xs12 md7 lg5>
                 <v-card class="login-card">
-                    <h2 class="t-c">User Login</h2>
+                    <h2 class="m-b-2">User Login</h2>
                     <v-form>
                         <v-text-field
                         color="#fff"
                         v-model="user.email"
                         label="Email"
-                        data-vv-name="name"
+                        type="email"
                         required
                         ></v-text-field>
                         <v-text-field
                         color="#fff"
                         v-model="user.password"
                         label="Password"
-                        data-vv-name="email"
+                        type="password"
                         required=""></v-text-field>
                         <v-btn @click="login" flat outline color="#fff" right class="m-t-2 login-btn">Login</v-btn>
-                        <v-btn flat color="#fff" class="p-t signup-btn" :to="'/register'">Create Account</v-btn>
+                        <v-btn flat color="#fff" class="signup-btn" :to="'/register'">Create Account</v-btn>
                         <br>
                         <a href="http://localhost:8081/steam">
                             <v-img contain :src="require('@/assets/imgs/steam.png')" class="pointer steam" ></v-img>
@@ -63,8 +63,8 @@ export default {
     .steam{
         margin-top: 2rem;
         float: left;
-        width: 250px;
-        height: 40px;
+        width: 220px;
+        height: 35px;
         box-shadow: 0px 1px 2px rgb(27, 27, 27);
         border-radius: 4px;
     }
