@@ -82,9 +82,8 @@ export default {
                 id = id[id.length-1]
                 let params = { id: id}
                 let userObject = new Api()
-                userObject.raw('post', '/user', params).then(response =>{
+                userObject.raw('post', '/steam', params).then(response =>{
                     this.$store.commit('addUser', response)
-                    this.loading = false
                 }).catch(() => {
 
                 })
