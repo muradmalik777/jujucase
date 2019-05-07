@@ -57,8 +57,7 @@ export default {
                 let $object = new Api('/user/login')
                 $object.post(this.user).then(resp => {
                     this.$store.commit('addUser', resp)
-                    // this.$router.push("/")
-                    console.log(this.$store.state.userData)
+                    this.$router.push("/")
                 })
             }
         }
