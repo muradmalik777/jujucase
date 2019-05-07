@@ -11,15 +11,18 @@
 <script>
 import SideBar from '@/components/SideBar'
 import TopBar from '@/components/TopBar';
+
+
 export default {
   name: 'App',
   components: {
     'sidebar': SideBar,
     'topbar': TopBar
+
   },
   data () {
     return {
-      //
+      
     }
   }
 }
