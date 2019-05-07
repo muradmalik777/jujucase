@@ -18,7 +18,7 @@
                         <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
                             <v-list-tile-title>Profile</v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile @click="signout()" class="user-menu pointer">
+                        <v-list-tile @click="this.logout" class="user-menu pointer">
                             <v-list-tile-title>Logout</v-list-tile-title>
                         </v-list-tile>
                     </v-list>
