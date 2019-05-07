@@ -1,13 +1,13 @@
 <template>
     <v-container fluid class="case-browser spacing">
-        <v-layout row pa-3>
+        <v-layout row pa-2>
             <v-flex class="search">
                 <h3 class="uppercase">case browser</h3>
                 <v-autocomplete class="skin-search m-t-2" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
                 <v-select background-color="#73337a" color="#fff" placeholder="Select" class="dropdown"></v-select>
             </v-flex>
         </v-layout>
-        <v-layout pa-3 row>
+        <v-layout row pa-2>
             <v-flex>
                 <v-btn flat v-for="(item, index) in menu" :key="index" :to="item.to" class="browser-btn">{{item.name}}</v-btn>
                 <v-menu offset-y class="user-menu" v-if="$store.state.userData">
@@ -26,13 +26,12 @@
             </v-flex>
         </v-layout>
         <v-container grid-list-md>
-            <v-layout row wrap pa-3>
-                <v-flex class="search-result" xs12 md3 v-for="item in cases" :key="item._id" @click="openCase(item._id)">
+            <v-layout row wrap>
+                <v-flex class="search-result m-b-2 pointer" xs12 md4 lg3 v-for="item in cases" :key="item._id" @click="browseCase(item)">
                     <div class="case">
-                        <p class="case-name">
-                            {{item.name}}
-                        </p>
-                        <v-img contain class="case-picture"></v-img> <!-- use item.case_img -->
+                        <h4 class="case-name">{{item.name}}</h4>
+                        <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="case-image"></v-img>
+                        <h4 class="t-c capitalize price m-b-2">${{item.price}} <i class="fas fa-coins coins"></i></h4>
                     </div>
                 </v-flex>
             </v-layout>
@@ -60,18 +59,19 @@ export default {
         }
     },
     created: function() {
-        let self = this;
-        let api = new Api('/cases')
-        api.getList().then(response =>{
-            self.cases = response;
-        }).catch(() => {
-
-        })
+        this.getAllCases()
     },
     methods: {
-        openCase: function (caseId) {
-            this.$router.push('case/' + caseId);
-        }
+        browseCase: function (item) {
+            this.$store.commit('addBrowsedCase', item)
+            this.$router.push('case/' + item._id)
+        },
+        getAllCases: function(){
+            let $object = new Api('/cases')
+            $object.getList().then(resp => {
+                this.cases = resp
+            })
+        },
     }
 }
 </script>
@@ -116,6 +116,12 @@ export default {
             width: 100%;
             text-align: center;
             padding: 1.5rem 0;
+        }
+        .case-image{
+            display: block;
+            margin: 2.5rem auto;
+            max-width: 300px;
+            height: 130px;
         }
     }
 }

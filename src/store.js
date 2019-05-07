@@ -8,11 +8,15 @@ export default new Vuex.Store({
     plugins: [createPersistedState()],
     state: {
         userData: null,
-        userDeposits: ""
+        userDeposits: "",
+        caseBeingBrowsed: null
     },
     mutations: {
         addUser: function(state, user){
             state.userData = user
+        },
+        addBrowsedCase: function (state, data) {
+            state.caseBeingBrowsed = data
         },
         logout: function(state){
             state.userData = null

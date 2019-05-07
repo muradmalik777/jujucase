@@ -1,5 +1,6 @@
 <template>
-    <v-container grid-list-md fluid class="case-creator spacing">
+    <v-container grid-list-lg fluid class="case-creator spacing">
+        <v-snackbar v-model="success" :color="'success'" :timeout="3000" :top="true"> {{message}} </v-snackbar>
         <v-layout row>
             <v-flex xs12 class="case-name">
                 <h3 class="uppercase m-b">Case Name</h3>
@@ -84,7 +85,7 @@ export default {
             new_case: {
                 name: "",
                 price: 0,
-                case_image: "@/assets/imgs/svg/waste-bin.svg",
+                case_image: "@/assets/imgs/svg/case2.svg",
                 items:[]
             },
             page: 1,
@@ -95,6 +96,8 @@ export default {
             selectedSkins: [],
             itemOdds: [],
             items: ["Asc", "Desc"],
+            success: false,
+            message: ""
         }
     },
     created: function(){
@@ -141,7 +144,8 @@ export default {
             });
             let data = self.new_case;
             $cases.post(data, {}).then(resp => {
-                console.log("case created")
+                this.success = true
+                this.message = "Case Created Successfully"
             }).catch(() => {})
         }
     }
