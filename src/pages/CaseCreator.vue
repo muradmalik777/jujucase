@@ -62,7 +62,9 @@
         </v-layout>
 
         <v-layout row pa-3 mt-5 wrap>
-            <h3 class="uppercase">Choose Odds</h3>
+            <v-flex xs12>
+                <h3 class="uppercase m-b">Choose Odds</h3>
+            </v-flex>
             <v-flex v-for="(item, index) in selectedSkins" :key="item.id" xs12>
                 <div class="odd">
                     <v-img contain :src="item.iconUrl" class="odd-image"></v-img>
@@ -80,13 +82,15 @@
                     </div>
                 </div>
             </v-flex>
-            <div class="total_odds">
-                <h4 class="t-c capitalize">Total Odds : 100% ({{remaining_odds}}% left)</h4>
-            </div>
-            <div class="case_price">
+            <v-flex xs3 class="total_odds">
+                <h4 class="t-c capitalize">Total Odds : 100% ({{parseFloat(remaining_odds.toFixed(1))}}% left)</h4>
+            </v-flex>
+            <v-flex xs3 class="case_price">
                 <h4 class="t-c capitalize">Case Price : ${{case_price}}</h4>
-            </div>
-            <v-btn class="button green-btn" @click="createCase">Create Case</v-btn>
+            </v-flex>
+            <v-flex xs2>
+                <v-btn class="button green-btn" @click="createCase">Create Case</v-btn>
+            </v-flex>
         </v-layout>
     </v-container>
 </template>
@@ -146,7 +150,6 @@ export default {
             let params = { p : this.currentPage }
             $items.getList(params).then(resp => {
                 this.allSkins = resp.items
-                console.log(resp.items)
                 this.totalItems = resp.totalCount
                 this.loading = false
             }).catch(()=>{
@@ -155,9 +158,9 @@ export default {
         },
         selectSkin: function(skin){
             this.selectedSkins.push(skin);
-            this.new_case.price += skin.price;
+            this.new_case.price += parseFloat(skin.price.toFixed(2));
             this.new_case.items.push(skin);
-            this.itemOdds.push(100 / this.selectedSkins.length);
+            this.itemOdds.push(parseFloat(this.remaining_odds.toFixed(1)));
         },
         createCase: function() {
             let $cases = new Api('/cases');
@@ -175,14 +178,16 @@ export default {
 </script>
 <style lang="scss">
 
-.total_odds, .case_price {
+.total_odds h4, .case_price h4{
     background-color: #73337a;
-    padding: 1rem 4rem;
-    margin: 0 2rem 0 0;
+    padding: 1rem 2rem;
+    height: 55px;
+    margin: 4px 2rem 0 0;
 }
 
 .green-btn {
     background-color: #4caf50 !important;
+    height: 50px;
 }
 .odd {
     margin: 1rem 0;
@@ -217,11 +222,11 @@ export default {
         }
     }
     .action {
-        width: 5%;
+        width: 4%;
         text-align: center;
         .delete-icon {
             vertical-align: middle;
-            width: 2rem;
+            width: 1.5rem;
             height: auto;
         }
     }
