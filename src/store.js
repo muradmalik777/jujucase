@@ -9,7 +9,8 @@ export default new Vuex.Store({
     state: {
         userData: null,
         userDeposits: "",
-        caseBeingBrowsed: null
+        caseBeingBrowsed: null,
+        caseBeingOpened: null
     },
     mutations: {
         addUser: function(state, user){
@@ -17,6 +18,9 @@ export default new Vuex.Store({
         },
         addBrowsedCase: function (state, data) {
             state.caseBeingBrowsed = data
+        },
+        addCaseToBeOpened: function (state, data) {
+            state.caseBeingOpened = data
         },
         logout: function(state){
             state.userData = null

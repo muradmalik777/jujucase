@@ -143,9 +143,8 @@ export default {
                 element.odds = String(self.itemOdds[index]);
             });
             let data = self.new_case;
-            $cases.post(data, {}).then(resp => {
+            $cases.post(data, {}).then(() => {
                 this.success = true
-                this.message = "Case Created Successfully"
             }).catch(() => {})
         }
     }

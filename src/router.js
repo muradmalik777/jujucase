@@ -11,8 +11,8 @@ import Profile from '@/pages/Profile'
 import ProfileCases from '@/components/Profile/Cases'
 import ProfileTrades from '@/components/Profile/Trades'
 import TradeDetails from '@/components/Profile/TradeDetails'
-import SingleCase from '@/components/SingleCase'
 import CaseDisplay from '@/components/CaseDisplay'
+import SingleCase from '@/components/SingleCase'
 import ItemsWon from '@/components/ItemsWon'
 import Login from '@/components/Auth/Login'
 import Register from '@/components/Auth/Register'
@@ -33,7 +33,8 @@ export default new Router({
         { path: '/register', component: Register },
         { path: '/caseCreator', component: CaseCreator },
         { path: '/caseBrowser', component: CaseBrowser },
-        { path: '/case/:case_id', component: CaseDisplay },
+        { path: '/case/:case_id', component: SingleCase },
+        { path: '/caseBrowser/:case_id', component: CaseDisplay },
         { path: '/about', component: About },
         { path: '/faq', component: FAQ },
         { path: '/tos', component: TOS },

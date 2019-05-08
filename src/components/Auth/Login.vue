@@ -22,7 +22,7 @@
                         :rules="passwordRules"
                         required
                         ></v-text-field>
-                        <v-btn @click="login" flat outline color="#fff" right class="m-t-2 login-btn">Login</v-btn>
+                        <v-btn @click="login" flat outline :loading="loading" color="#fff" right class="m-t-2 login-btn">Login</v-btn>
                         <v-btn flat color="#fff" class="signup-btn" :to="'/register'">Create Account</v-btn>
                         <br>
                         <a href="http://localhost:8081/steam">
@@ -48,16 +48,21 @@ export default {
             emailRules: [
                 v => !!v || "E-mail is required",
                 v => /.+@.+/.test(v) || "E-mail must be valid"
-            ]
+            ],
+            loading: false
         }
     },
     methods: {
         login: function(){
             if(this.$refs.form.validate()){
+                this.loading = true
                 let $object = new Api('/user/login')
                 $object.post(this.user).then(resp => {
                     this.$store.commit('addUser', resp)
                     this.$router.push("/")
+                    this.loading = false
+                }).catch(() => {
+                    this.loading = false
                 })
             }
         }

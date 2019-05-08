@@ -28,10 +28,10 @@ import Api from '../services/Api.js';
 
 export default {
     name: 'CaseContains',
-    props: ['caseIcon'],
     data: function() {
+        let data = this.$store.state.caseBeingOpened
         return {
-            caseItems: [],
+            caseItems: data,
         }
     },
     created: function () {

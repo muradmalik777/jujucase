@@ -64,7 +64,7 @@ export default {
     methods: {
         browseCase: function (item) {
             this.$store.commit('addBrowsedCase', item)
-            this.$router.push('case/' + item._id)
+            this.$router.push('caseBrowser/' + item._id)
         },
         getAllCases: function(){
             let $object = new Api('/cases')

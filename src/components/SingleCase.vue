@@ -14,7 +14,7 @@
         </div>
 
         <div class="spinner-wrapper">
-            <div class="bg-purple-dull spinner">
+            <div class="spinner">
                 <div class="wrapper">
                     <div class="window">
                         <ul class="list">
@@ -44,10 +44,27 @@
             </div>
         </div>
 
-        <div class="case-container">
-            <h3 class="uppercase">This Case Contains</h3>
-            <CaseContains :caseIcon="oneCase.case_image"/>
-        </div>
+        <v-container grid-list-lg fluid class="case-container">
+            <v-layout row wrap>
+                <v-flex xs12>
+                    <h3 class="uppercase">This Case Contains</h3>
+                </v-flex>
+                <v-flex xs12 md4 lg3 v-for="(item, index) in $store.state.caseBeingOpened.items" :key="index">
+                    <div class="skin">
+                        <div class="price">
+                            <h4 class="t-c capitalize">${{item.price}} <i class="fas fa-coins coins"></i></h4>
+                        </div>
+                        <v-img contain :src="item.iconUrl" class="skin-image"></v-img>
+                        <div class="name">
+                            <h4>{{item.marketHashName}}</h4>
+                        </div>
+                        <div class="action">
+                            <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="delete-icon"></v-img>
+                        </div>
+                    </div>
+                </v-flex>
+            </v-layout>
+        </v-container>
 
         <v-container grid-list-md class="section-container">
             <h3 class="uppercase">Recent Winnings</h3>
@@ -101,23 +118,18 @@
     </div>
 </template>
 <script>
-import CaseContains from '@/components/CaseContains';
 import Api from '../services/Api.js';
 import * as $ from 'jquery'; window["$"] = $; window["jQuery"] = $;
 
 export default {
     name: 'SingleCase',
-    components: {
-        CaseContains
-    },
-    mounted: function() {
-        let self = this;
-        let api = new Api('/cases');
-        api.get(this.$route.params.case_id).then(response =>{
-            self.oneCase = response;
-        }).catch(() => {
-
-        })
+    data: function () {
+        let data = this.$store.state.caseBeingOpened
+        return {
+            number: 1,
+            showDialog: false,
+            oneCase: data
+        }
     },
     mounted: function() {
         let i = 0;
@@ -143,13 +155,6 @@ export default {
             }, 10000);
         });
     },
-    data: function () {
-        return {
-            number: 1,
-            showDialog: false,
-            oneCase: null
-        }
-    },
     methods: {
         buyCase: function () {
             this.showDialog = false;
@@ -157,6 +162,14 @@ export default {
         newHash: function () {
             this.showDialog = false;
         },
+        getCaseDetails: function(){
+            let api = new Api('/cases');
+            api.get(this.$route.params.case_id).then(response =>{
+                self.oneCase = response;
+            }).catch(() => {
+
+            })
+        }
     }
 }
 </script>
@@ -230,7 +243,8 @@ export default {
     margin: 4rem 0px;
     .spinner {
         width: 100%;
-        height: 143px;
+        height: 163px;
+        background: #73337a77;
         li {
             list-style: none;
             display: inline-block;
@@ -241,8 +255,9 @@ export default {
             overflow: hidden;
             position: relative;
             width: 25000px;
-            height: 143px;
+            height: 163px;
             right: 0px;
+            padding: 10px;
         }
 
         .wrapper {
@@ -325,4 +340,48 @@ export default {
     width: 50px;
     margin: 0px 8px;
 }
+.skin{
+        min-height: 370px;
+        background: #67266e77;
+        position: relative;
+        overflow-y: auto;
+        .price{
+            background: #73337a77;
+            padding: 20px 10px;
+
+            .coins{
+                color: gold;
+            }
+        }
+        .skin-image{
+            display: block;
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+        }
+        .name{
+            width: 80%;
+            float: left;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .action{
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            padding: 10px 20px;
+            background: #99999967;
+            cursor: pointer;
+
+            &:hover{
+                background: #99999911;
+            }
+
+            .delete-icon{
+                width: 20px;
+                height: 30px;
+                display: block;
+            }
+        }
+    }
 </style>

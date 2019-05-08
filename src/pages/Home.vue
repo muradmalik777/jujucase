@@ -40,8 +40,9 @@ export default {
                 this.allCases = resp
             })
         },
-        openCase: function (caseId) {
-            this.$router.push('case/' + caseId);
+        openCase: function (item) {
+            this.$store.commit('addCaseToBeOpened', item)
+            this.$router.push('case/' + item._id);
         }
     }
 
