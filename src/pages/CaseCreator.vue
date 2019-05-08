@@ -28,7 +28,14 @@
         </v-layout>
 
         <v-layout row wrap pa-3 class="items">
-            <v-flex xs12 md4 lg3 class="m-t-3 pointer" v-for="(item, index) in allSkins" :key="index" @click="selectSkin(item)">
+            <v-flex xs12 class="text-xs-center m-t-3" v-if="loading">
+                <v-progress-circular
+                :size="50"
+                color="primary"
+                indeterminate
+                ></v-progress-circular>
+            </v-flex>
+            <v-flex v-else xs12 md4 lg3 class="m-t-3 pointer" v-for="(item, index) in allSkins" :key="index" @click="selectSkin(item)">
                 <div class="skin">
                     <div class="price">
                         <h4 class="t-c capitalize">${{item.price}} <i class="fas fa-coins coins"></i></h4>
@@ -42,8 +49,15 @@
                     </div>
                 </div>
             </v-flex>
-            <v-flex>
-                
+            <v-flex xs12 class="text-xs-center m-t-3">
+                <v-pagination
+                v-model="currentPage"
+                :length="Math.round(totalItems/12)"
+                :total-visible="10"
+                @input="getAllItems"
+                @next="getAllItems"
+                @previous="getAllItems"
+                ></v-pagination>
             </v-flex>
         </v-layout>
 
@@ -94,10 +108,13 @@ export default {
             search_result: [],
             allSkins: [],
             selectedSkins: [],
+            totalItems: null,
             itemOdds: [],
             items: ["Asc", "Desc"],
             success: false,
-            message: ""
+            message: "",
+            loading: false,
+            currentPage: 1
         }
     },
     created: function(){
@@ -124,10 +141,16 @@ export default {
             this.selectedImage = image
         },
         getAllItems: function(){
+            this.loading = true
             let $items = new Api('/items')
-            let params = { p : 1 }
+            let params = { p : this.currentPage }
             $items.getList(params).then(resp => {
                 this.allSkins = resp.items
+                console.log(resp.items)
+                this.totalItems = resp.totalCount
+                this.loading = false
+            }).catch(()=>{
+                this.loading = false
             })
         },
         selectSkin: function(skin){
@@ -206,6 +229,9 @@ export default {
 }
 .selected{
     background: #4caf50;
+}
+.items{
+    min-height: 300px;
 }
 .case-creator{
     h3{
