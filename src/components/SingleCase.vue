@@ -3,8 +3,6 @@
         <div>
             <div class="name-wrapper">
                 <h2 class="uppercase heading">{{oneCase.name}}</h2>
-
-                <v-icon class="speaker-icon">volume_up</v-icon>
                 <p class="red-text">{{oneCase.creator}}</p>
             </div>
             <div class="price-wrapper">
@@ -49,7 +47,7 @@
                 <v-flex xs12>
                     <h3 class="uppercase">This Case Contains</h3>
                 </v-flex>
-                <v-flex xs12 md4 lg3 v-for="(item, index) in $store.state.caseBeingOpened.items" :key="index">
+                <v-flex xs12 md4 lg3 v-for="(item, index) in oneCase.items" :key="index">
                     <div class="skin">
                         <div class="price">
                             <h4 class="t-c capitalize">${{item.price}} <i class="fas fa-coins coins"></i></h4>
