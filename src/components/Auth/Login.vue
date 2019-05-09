@@ -71,7 +71,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .login-card{
-    background: #73337a89;
+    background: #73337a99;
     min-height: 500px;
     padding: 40px;
     .login-btn{

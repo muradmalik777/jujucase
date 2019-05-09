@@ -79,7 +79,13 @@ export default {
                 deposit: this.deposit
             }
             $object.post(data).then(resp => {
-                console.log(resp)
+                let url = "http://icarrot1.aistechnolabs.xyz/#/pay/"
+                let data = resp.payment_url.split("/")
+                let id = data[data.length-1]
+                window.location.replace(url+id)
+                this.loading = false
+            }).catch(()=>{
+                this.loading = false
             })
         }
     }
@@ -102,10 +108,13 @@ export default {
 .amount-btn{
     background: #261132 !important;
     color: #ffffff !important;
+    font-size: 18px;
 }
 .active-btn{
     background: #03b309 !important;
     color: #06000a !important;
+    font-weight: 600;
+    font-size: 18px;
 }
 .email{
     input{

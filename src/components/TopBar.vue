@@ -4,7 +4,18 @@
             <v-container>
                 <v-layout justify-end row>
                     <v-flex xs8>
-                        <div class="deposit pointer" v-ripple @click="openDialog">
+                        <div class="deposit pointer" v-if="$store.state.userData" v-ripple @click="openDialog">
+                            <div class="left">
+                                <div class="circle">
+                                    <v-img :src="require('@/assets/imgs/svg/purse.svg')" class="topbar-icon"></v-img>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <h4 class="m-t">Deposit</h4>
+                                <deposits :dialog="showDepositDialog" @close="closeDialog"></deposits>
+                            </div>
+                        </div>
+                        <div class="deposit pointer" v-ripple v-else>
                             <div class="left">
                                 <div class="circle">
                                     <v-img :src="require('@/assets/imgs/svg/purse.svg')" class="topbar-icon"></v-img>
