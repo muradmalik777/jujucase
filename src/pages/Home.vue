@@ -15,6 +15,14 @@
                 <h4 class="t-c capitalize price m-b-2">${{item.price}} <i class="fas fa-coins coins"></i></h4>
                 <h3 class="capitalize t-c">{{item.name}}</h3>
             </v-flex>
+            <v-flex xs12 class="text-xs-center m-t-3">
+                <v-pagination
+                v-model="currentPage"
+                :length="Math.ceil(totalCases/12)"
+                :total-visible="10"
+                @input="getAllCases">
+                </v-pagination>
+            </v-flex>
         </v-layout>
     </v-container>
 </template>
@@ -26,6 +34,8 @@ export default {
     data: function() {
         return {
             allCases: [],
+            currentPage: 1,
+            totalCases: null,
         }
     },
     created: function() {
@@ -36,8 +46,10 @@ export default {
     methods: {
         getAllCases: function(){
             let $object = new Api('/cases')
-            $object.getList().then(resp => {
-                this.allCases = resp
+            let params = { p : this.currentPage }
+            $object.getList(params).then(resp => {
+                this.allCases = resp.items
+                this.totalCases = resp.totalCount
             })
         },
         openCase: function (item) {

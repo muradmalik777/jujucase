@@ -1,6 +1,5 @@
 <template>
     <v-container grid-list-lg fluid class="case-creator spacing">
-        <v-snackbar v-model="success" :color="'success'" :timeout="3000" :top="true"> {{message}} </v-snackbar>
         <v-layout row>
             <v-flex xs12 class="case-name">
                 <h3 class="uppercase m-b">Case Name</h3>
@@ -52,7 +51,7 @@
             <v-flex xs12 class="text-xs-center m-t-3">
                 <v-pagination
                 v-model="currentPage"
-                :length="Math.round(totalItems/12)"
+                :length="Math.ceil(totalItems/12)"
                 :total-visible="10"
                 @input="getAllItems"
                 @next="getAllItems"
@@ -115,8 +114,6 @@ export default {
             totalItems: null,
             itemOdds: [],
             items: ["Asc", "Desc"],
-            success: false,
-            message: "",
             loading: false,
             currentPage: 1
         }
@@ -171,6 +168,7 @@ export default {
             let data = self.new_case;
             $cases.post(data, {}).then(() => {
                 this.success = true
+                this.showMessage("Case Created Successfully", "success")
             }).catch(() => {})
         }
     }
