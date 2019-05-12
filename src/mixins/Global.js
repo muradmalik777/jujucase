@@ -13,9 +13,8 @@ Vue.mixin({
     showMessage: function(message, type){
       vuetifyToast.show({
         text: message,
-        icon: 'information',
         color: type,
-        timeout: 3000,
+        timeout: 4000,
         dismissible: false
       });
     }

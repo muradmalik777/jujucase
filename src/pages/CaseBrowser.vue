@@ -4,7 +4,7 @@
             <v-flex class="search">
                 <h3 class="uppercase">case browser</h3>
                 <v-autocomplete class="skin-search m-t-2" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
-                <v-select background-color="#73337a" color="#fff" placeholder="Select" class="dropdown"></v-select>
+                <!-- <v-select background-color="#73337a" color="#fff" placeholder="Select" class="dropdown"></v-select> -->
             </v-flex>
         </v-layout>
         <v-layout row pa-2>
@@ -34,6 +34,16 @@
                         <h4 class="t-c capitalize price m-b-2">${{item.price}} <i class="fas fa-coins coins"></i></h4>
                     </div>
                 </v-flex>
+                <v-flex xs12 class="text-xs-center m-t-3">
+                    <v-pagination
+                    v-model="currentPage"
+                    :length="Math.ceil(totalCases/12)"
+                    :total-visible="10"
+                    @input="getAllCases"
+                    @next="getAllCases"
+                    @previous="getAllCases"
+                    ></v-pagination>
+                </v-flex>
             </v-layout>
         </v-container>
     </v-container>
@@ -55,7 +65,9 @@ export default {
                 {name:"support/faq", icon:"support", to: "/faq"},
                 {name:"terms of service", icon:"info", to: "/tos"},
                 {name:"about", icon:"info", to: "/about"}
-            ]
+            ],
+            currentPage: 1,
+            totalCases: null
         }
     },
     created: function() {
@@ -68,8 +80,10 @@ export default {
         },
         getAllCases: function(){
             let $object = new Api('/cases')
-            $object.getList().then(resp => {
-                this.cases = resp
+            let params = { p : this.currentPage}
+            $object.getList(params).then(resp => {
+                this.cases = resp.items
+                this.totalCases = resp.totalCount
             })
         },
     }
@@ -79,7 +93,7 @@ export default {
 .case-browser{
     .search {
         .skin-search {
-            width: calc(100% - 150px - 25px);
+            width: calc(100%);
             display: inline-block !important;
         }
         .dropdown {

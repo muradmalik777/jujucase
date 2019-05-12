@@ -28,17 +28,11 @@
                         </ul>
                     </div>
                 </div>
-                <p style="text-align: center">
-                <div class="win">
-                    <ul>
-                        
-                    </ul>
-                </div>
             </div>
             <div class="spinner-controls">
                 <v-btn class="button green-btn" @click.stop="showDialog = true">Open Case</v-btn>
-                <v-btn color="button" class="button">Test Spin</v-btn>
-                <input class="number-input" type="number" v-model="number">
+                <v-btn color="button" class="button spin-button">Test Spin</v-btn>
+                <!-- <input class="number-input" type="number" v-model="number"> -->
             </div>
         </div>
 
@@ -134,7 +128,7 @@ export default {
         for (i = 0; i < 3; i++) {
             $(".list li").clone().appendTo(".list");
         }
-        $('.button').click(function () {
+        $('.spin-button').click(function () {
             $('.window').css({
                 right: "0"
             })
@@ -203,18 +197,6 @@ export default {
         font-size: 1rem;
         display: inline-block;
     }
-    // .case-name {
-    //     p {
-    //         display: inline-block;
-    //         font-size: 1rem;
-    //     }
-    // }
-    // .case-prices {
-    //     p {
-    //         display: inline-block;
-    //         font-size: 1rem;
-    //     }
-    // }
     .case-hash {
         border-bottom: 1px solid rgba(#fff, 0.15);
     }

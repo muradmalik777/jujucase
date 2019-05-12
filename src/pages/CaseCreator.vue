@@ -1,9 +1,10 @@
 <template>
     <v-container grid-list-lg fluid class="case-creator spacing">
+        <v-form ref="form">
         <v-layout row>
             <v-flex xs12 class="case-name">
                 <h3 class="uppercase m-b">Case Name</h3>
-                <v-text-field class="case-name-input" placeholder="Enter case name" type="text" full-width v-model="new_case.name"></v-text-field>
+                <v-text-field class="case-name-input" :rules="nameRules" required placeholder="Enter case name" type="text" full-width v-model="new_case.name"></v-text-field>
             </v-flex>
         </v-layout>
         <v-layout row wrap>
@@ -74,23 +75,24 @@
                         <h4 class="t-c capitalize">${{item.price}}</h4>
                     </div>
                     <div class="percentage">
-                        <v-text-field class="odd-percentage" placeholder="50%" type="text" full-width v-model="itemOdds[index]"></v-text-field>
+                        <v-text-field class="odd-percentage" :rules="numRules" placeholder="item odds" type="text" full-width v-model="itemOdds[index]"></v-text-field>
                     </div>
                     <div class="action">
                         <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="delete-icon"></v-img>
                     </div>
                 </div>
             </v-flex>
-            <v-flex xs3 class="total_odds">
+            <v-flex xs12 md5 lg5 class="total_odds">
                 <h4 class="t-c capitalize">Total Odds : 100% ({{parseFloat(remaining_odds.toFixed(1))}}% left)</h4>
             </v-flex>
-            <v-flex xs3 class="case_price">
+            <v-flex xs12 md5 lg5 class="case_price">
                 <h4 class="t-c capitalize">Case Price : ${{case_price}}</h4>
             </v-flex>
-            <v-flex xs2>
+            <v-flex xs12 md2 lg2>
                 <v-btn class="button green-btn" @click="createCase">Create Case</v-btn>
             </v-flex>
         </v-layout>
+        </v-form>
     </v-container>
 </template>
 <script>
@@ -106,16 +108,17 @@ export default {
                 items:[]
             },
             page: 1,
-            selectedImage: null,
+            selectedImage: 1,
             search: null,
             search_result: [],
             allSkins: [],
             selectedSkins: [],
             totalItems: null,
             itemOdds: [],
-            items: ["Asc", "Desc"],
             loading: false,
-            currentPage: 1
+            currentPage: 1,
+            nameRules: [v => !!v || "The input is required"],
+            numRules: [v => v > 0 && v <= 100 || "invalid Odds" ]
         }
     },
     created: function(){
@@ -160,16 +163,36 @@ export default {
             this.itemOdds.push(parseFloat(this.remaining_odds.toFixed(1)));
         },
         createCase: function() {
-            let $cases = new Api('/cases');
-            let self = this;
-            self.new_case.items.forEach(function(element, index) {
-                element.odds = String(self.itemOdds[index]);
-            });
-            let data = self.new_case;
-            $cases.post(data, {}).then(() => {
-                this.success = true
-                this.showMessage("Case Created Successfully", "success")
-            }).catch(() => {})
+            if(this.$refs.form.validate()){
+                if(this.new_case.items.length >= 2){
+                    var totalOdds = 0
+                    for(let a = 0; a < this.itemOdds.length; a++){
+                        totalOdds += parseFloat(this.itemOdds[a])
+                        console.log(totalOdds)
+                    }
+                    if(totalOdds > 0 && totalOdds <= 100){
+                        let $cases = new Api('/cases');
+                        let self = this;
+                        self.new_case.items.forEach(function(element, index) {
+                            element.odds = String(self.itemOdds[index]);
+                        });
+                        let data = self.new_case;
+                        $cases.post(data, {}).then(() => {
+                            this.success = true
+                            this.showMessage("Case Created Successfully", "success")
+                            this.$router.push("/")
+                        }).catch(() => {
+                            this.showMessage("There was an error creating case", "error")
+                        })
+                    } else{
+                        this.showMessage("Item odds should sum upto 100 and no item should have zero odds", "error")
+                    }
+                } else {
+                    this.showMessage("Please select atleast 2 skins", "error")
+                }
+            } else {
+                this.showMessage("Please fill in the details", "error")
+            }
         }
     }
 }
@@ -257,14 +280,14 @@ export default {
         }
     }
     .case-image-box{
-        margin: 1rem 1rem;
-        min-height: 150px;
+        margin: 1rem 1.5rem;
+        min-height: 200px;
         .case-picture{
             width: 150px;
             height: 100px;
             cursor: pointer;
             display: block;
-            margin: 1.5rem auto;
+            margin: 3rem auto;
         }
     }
     .select{
