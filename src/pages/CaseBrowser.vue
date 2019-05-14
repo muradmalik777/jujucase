@@ -31,7 +31,7 @@
                     <div class="case">
                         <h4 class="case-name">{{item.name}}</h4>
                         <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="case-image"></v-img>
-                        <h4 class="t-c capitalize price m-b-2">${{item.price}} <i class="fas fa-coins coins"></i></h4>
+                        <h4 class="t-c capitalize price">${{item.price}} <i class="fas fa-coins coins"></i></h4>
                     </div>
                 </v-flex>
                 <v-flex xs12 class="text-xs-center m-t-3">
@@ -83,7 +83,7 @@ export default {
             let params = { p : this.currentPage}
             $object.getList(params).then(resp => {
                 this.cases = resp.items
-                this.totalCases = resp.totalCount
+                this.totalCases = resp.total_count
             })
         },
     }
@@ -104,7 +104,7 @@ export default {
         }
     }
     .browser-btn{
-        background: #612468;
+        background: #61246870;
         color: #ffffff;
         margin: 15px;
         padding: 30px;
@@ -116,17 +116,17 @@ export default {
         margin: 15px;
         float: left;
         display: block;
-        background: #612468;
+        background: #61246870;
     }
     .case {
-        background-color: rgba(#612468, 0.7);
+        background-color: #61246870;
         width: 95%;
         margin: auto;
-        height: 350px;
+        height: 300px;
         display: inline-block;
         margin-right: 2rem;
         .case-name {
-            background-color: #612468;
+            background-color: #61246870;
             width: 100%;
             text-align: center;
             padding: 1.5rem 0;
@@ -134,8 +134,8 @@ export default {
         .case-image{
             display: block;
             margin: 2.5rem auto;
-            max-width: 300px;
-            height: 130px;
+            max-width: 150px;
+            height: 100px;
         }
     }
 }

@@ -150,7 +150,7 @@ export default {
             let params = { p : this.currentPage }
             $items.getList(params).then(resp => {
                 this.allSkins = resp.items
-                this.totalItems = resp.totalCount
+                this.totalItems = resp.total_count
                 this.loading = false
             }).catch(()=>{
                 this.loading = false
@@ -283,7 +283,7 @@ export default {
         margin: 1rem 1.5rem;
         min-height: 200px;
         .case-picture{
-            width: 150px;
+            max-width: 150px;
             height: 100px;
             cursor: pointer;
             display: block;

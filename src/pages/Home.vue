@@ -49,7 +49,7 @@ export default {
             let params = { p : this.currentPage }
             $object.getList(params).then(resp => {
                 this.allCases = resp.items
-                this.totalCases = resp.totalCount
+                this.totalCases = resp.total_count
             })
         },
         openCase: function (item) {

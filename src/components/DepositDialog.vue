@@ -15,9 +15,10 @@
                         <v-flex xs12>
                             <v-btn @click="deposit.amount = 10" :class="{'active-btn': deposit.amount == 10}" class="amount-btn">$10</v-btn>
                             <v-btn @click="deposit.amount = 20" :class="{'active-btn': deposit.amount == 20}" class="amount-btn">$20</v-btn>
-                            <v-btn @click="deposit.amount = 30" :class="{'active-btn': deposit.amount == 30}" class="amount-btn">$30</v-btn>
                             <v-btn @click="deposit.amount = 50" :class="{'active-btn': deposit.amount == 50}" class="amount-btn">$50</v-btn>
                             <v-btn @click="deposit.amount = 100" :class="{'active-btn': deposit.amount == 100}" class="amount-btn">$100</v-btn>
+                            <v-btn @click="deposit.amount = 200" :class="{'active-btn': deposit.amount == 200}" class="amount-btn">$200</v-btn>
+                            <v-btn @click="deposit.amount = 500" :class="{'active-btn': deposit.amount == 500}" class="amount-btn">$500</v-btn>
                         </v-flex>
                         <v-flex xs12>
                             <h3 class="m-t-2 m-b">Your Email</h3>
@@ -56,8 +57,8 @@ export default {
                 amount: 10,
                 currency: "USD",
                 description: "",
-                successUrl: "http://127.0.0.1:8080",
-                cancelUrl: "http://127.0.0.1:8080",
+                successUrl: "http://127.0.0.1:8080/payment/success",
+                cancelUrl: "http://127.0.0.1:8080/payment/failure",
                 customValue: ""
             },
             emailRules: [
@@ -73,7 +74,7 @@ export default {
         },
         confirmDeposit: function(){
             this.loading = true
-            let $object = new Api("/user/deposit")
+            let $object = new Api("/deposit")
             let data = {
                 user: this.$store.state.userData,
                 deposit: this.deposit
