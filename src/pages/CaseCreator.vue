@@ -141,7 +141,7 @@ export default {
             return require("@/assets/imgs/cases/case"+image+".png")
         },
         selectPicture: function(image){
-            this.new_case.case_image = "@/assets/imgs/svg/case"+image+".svg"
+            this.new_case.case_image = "case" + image + ".png"
             this.selectedImage = image
         },
         getAllItems: function(){
