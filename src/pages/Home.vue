@@ -11,7 +11,7 @@
             </v-flex>
             <v-flex xs12 md4 lg3 class="case pointer m-t-3 m-b-3" v-for="(item, index) in allCases" :key="index" @click="openCase(item)">
                 <h4 class="t-c capitalize">Empty Slot</h4>
-                <v-img :src="require('@/assets/imgs/svg/case2.svg')" class="case-image"></v-img>
+                <v-img :src="require('@/assets/imgs/cases/' + item.case_image)" class="case-image"></v-img>
                 <h4 class="t-c capitalize price m-b-2">${{item.price}} <i class="fas fa-coins coins"></i></h4>
                 <h3 class="capitalize t-c">{{item.name}}</h3>
             </v-flex>
