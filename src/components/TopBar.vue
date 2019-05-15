@@ -4,7 +4,7 @@
             <v-container>
                 <v-layout justify-end row>
                     <v-flex xs8>
-                        <div class="deposit pointer" v-ripple>
+                        <div class="deposit pointer" v-if="$store.state.userData" v-ripple @click="openDialog">
                             <div class="left">
                                 <div class="circle">
                                     <v-img :src="require('@/assets/imgs/svg/purse.svg')" class="topbar-icon"></v-img>
@@ -12,6 +12,18 @@
                             </div>
                             <div class="right">
                                 <h4 class="m-t">Deposit</h4>
+                                <deposits :dialog="showDepositDialog" @close="closeDialog"></deposits>
+                            </div>
+                        </div>
+                        <div class="deposit pointer" v-ripple v-else>
+                            <div class="left">
+                                <div class="circle">
+                                    <v-img :src="require('@/assets/imgs/svg/purse.svg')" class="topbar-icon"></v-img>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <h4 class="m-t">Deposit</h4>
+                                <deposits :dialog="showDepositDialog" @close="closeDialog"></deposits>
                             </div>
                         </div>
                         <div class="withdraw pointer" v-ripple>
@@ -36,7 +48,7 @@
                                 <v-menu offset-y max-width="180" min-width="150" >
                                     <template v-slot:activator="{ on }">
                                         <h4 v-ripple v-on="on" class="pointer user-name">{{$store.state.userData.user_name}}</h4>
-                                        <p class="c-green-bright">$0</p>
+                                        <p class="c-green-bright">${{$store.state.userData.balance}}</p>
                                     </template>
                                     <!-- <router-link to="profile"></router-link> -->
                                      <v-list dark>
@@ -62,12 +74,17 @@
 </template>
 <script>
 import Api from '../services/Api.js';
+import DepositDialog from '@/components/DepositDialog'
 
 export default {
     name: 'navbar',
+    components: {
+        'deposits': DepositDialog
+    },
     data: function(){
         return{
             drawer: true,
+            showDepositDialog: false
         }
     },
     mounted: function () {
@@ -92,6 +109,12 @@ export default {
         signout: function(){
             this.user = null
             this.logout()
+        },
+        openDialog: function(){
+            this.showDepositDialog = true
+        },
+        closeDialog: function(){
+            this.showDepositDialog = false
         }
     },
 }

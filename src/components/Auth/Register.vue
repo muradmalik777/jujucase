@@ -29,7 +29,7 @@
                         :rules="passwordRules"
                         required
                         ></v-text-field>
-                        <v-btn @click="submit" dark outline color="#fff" right class="m-t-2 signup-btn">Signup</v-btn>
+                        <v-btn @click="submit" dark outline :loading="loading" color="#fff" right class="m-t-2 signup-btn">Signup</v-btn>
                         <p class="c-white">Already have an account <v-btn flat color="#fff" class="login-btn" :to="'/login'">Login</v-btn></p>
                     </v-form>
                 </v-card>
@@ -54,16 +54,22 @@ export default {
             emailRules: [
                 v => !!v || "E-mail is required",
                 v => /.+@.+/.test(v) || "E-mail must be valid"
-            ]
+            ],
+            loading: false
         }
     },
     methods: {
         submit: function(){
             if(this.$refs.form.validate()){
+                this.loading = true
                 let $object = new Api('/user/register')
                 $object.post(this.user).then(resp => {
                     this.$store.commit('addUser', resp)
                     this.$router.push("/")
+                    this.loading = false
+                }).catch((error) => {
+                    this.loading = false
+                    this.showMessage(error.response.data.message, "error")
                 })
             }
         }
@@ -72,7 +78,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .login-card{
-    background: #73337a89;
+    background: #73337a99;
     min-height: 500px;
     padding: 40px;
     .login-btn{

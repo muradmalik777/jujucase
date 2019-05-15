@@ -1,17 +1,17 @@
 <template>
     <v-container grid-list-lg fluid class="case-creator spacing">
-        <v-snackbar v-model="success" :color="'success'" :timeout="3000" :top="true"> {{message}} </v-snackbar>
+        <v-form ref="form">
         <v-layout row>
             <v-flex xs12 class="case-name">
                 <h3 class="uppercase m-b">Case Name</h3>
-                <v-text-field class="case-name-input" placeholder="Enter case name" type="text" full-width v-model="new_case.name"></v-text-field>
+                <v-text-field class="case-name-input" :rules="nameRules" required placeholder="Enter case name" type="text" full-width v-model="new_case.name"></v-text-field>
             </v-flex>
         </v-layout>
         <v-layout row wrap>
             <v-flex xs12>
                 <h3 class="uppercase">case picture</h3>
             </v-flex>
-            <v-flex xs12 md4 lg2 v-for="image in 1" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
+            <v-flex xs12 md4 lg2 v-for="image in 34" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
                 <v-img :src="casePicture(image+1)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
             </v-flex>
         </v-layout>
@@ -28,7 +28,14 @@
         </v-layout>
 
         <v-layout row wrap pa-3 class="items">
-            <v-flex xs12 md4 lg3 class="m-t-3 pointer" v-for="(item, index) in allSkins" :key="index" @click="selectSkin(item)">
+            <v-flex xs12 class="text-xs-center m-t-3" v-if="loading">
+                <v-progress-circular
+                :size="50"
+                color="primary"
+                indeterminate
+                ></v-progress-circular>
+            </v-flex>
+            <v-flex v-else xs12 md4 lg3 class="m-t-3 pointer" v-for="(item, index) in allSkins" :key="index" @click="selectSkin(item)">
                 <div class="skin">
                     <div class="price">
                         <h4 class="t-c capitalize">${{item.price}} <i class="fas fa-coins coins"></i></h4>
@@ -42,13 +49,22 @@
                     </div>
                 </div>
             </v-flex>
-            <v-flex>
-                
+            <v-flex xs12 class="text-xs-center m-t-3">
+                <v-pagination
+                v-model="currentPage"
+                :length="Math.ceil(totalItems/12)"
+                :total-visible="10"
+                @input="getAllItems"
+                @next="getAllItems"
+                @previous="getAllItems"
+                ></v-pagination>
             </v-flex>
         </v-layout>
 
         <v-layout row pa-3 mt-5 wrap>
-            <h3 class="uppercase">Choose Odds</h3>
+            <v-flex xs12>
+                <h3 class="uppercase m-b">Choose Odds</h3>
+            </v-flex>
             <v-flex v-for="(item, index) in selectedSkins" :key="item.id" xs12>
                 <div class="odd">
                     <v-img contain :src="item.iconUrl" class="odd-image"></v-img>
@@ -59,21 +75,24 @@
                         <h4 class="t-c capitalize">${{item.price}}</h4>
                     </div>
                     <div class="percentage">
-                        <v-text-field class="odd-percentage" placeholder="50%" type="text" full-width v-model="itemOdds[index]"></v-text-field>
+                        <v-text-field class="odd-percentage" :rules="numRules" placeholder="item odds" type="text" full-width v-model="itemOdds[index]"></v-text-field>
                     </div>
                     <div class="action">
                         <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="delete-icon"></v-img>
                     </div>
                 </div>
             </v-flex>
-            <div class="total_odds">
-                <h4 class="t-c capitalize">Total Odds : 100% ({{remaining_odds}}% left)</h4>
-            </div>
-            <div class="case_price">
+            <v-flex xs12 md5 lg5 class="total_odds">
+                <h4 class="t-c capitalize">Total Odds : 100% ({{parseFloat(remaining_odds.toFixed(1))}}% left)</h4>
+            </v-flex>
+            <v-flex xs12 md5 lg5 class="case_price">
                 <h4 class="t-c capitalize">Case Price : ${{case_price}}</h4>
-            </div>
-            <v-btn class="button green-btn" @click="createCase">Create Case</v-btn>
+            </v-flex>
+            <v-flex xs12 md2 lg2>
+                <v-btn class="button green-btn" @click="createCase">Create Case</v-btn>
+            </v-flex>
         </v-layout>
+        </v-form>
     </v-container>
 </template>
 <script>
@@ -89,15 +108,17 @@ export default {
                 items:[]
             },
             page: 1,
-            selectedImage: null,
+            selectedImage: 1,
             search: null,
             search_result: [],
             allSkins: [],
             selectedSkins: [],
+            totalItems: null,
             itemOdds: [],
-            items: ["Asc", "Desc"],
-            success: false,
-            message: ""
+            loading: false,
+            currentPage: 1,
+            nameRules: [v => !!v || "The input is required"],
+            numRules: [v => v > 0 && v <= 100 || "invalid Odds" ]
         }
     },
     created: function(){
@@ -117,50 +138,77 @@ export default {
     },
     methods: {
         casePicture: function(image){
-            return require("@/assets/imgs/svg/case"+image+".svg")
+            return require("@/assets/imgs/cases/case"+image+".png")
         },
         selectPicture: function(image){
             this.new_case.case_image = "@/assets/imgs/svg/case"+image+".svg"
             this.selectedImage = image
         },
         getAllItems: function(){
+            this.loading = true
             let $items = new Api('/items')
-            let params = { p : 1 }
+            let params = { p : this.currentPage }
             $items.getList(params).then(resp => {
                 this.allSkins = resp.items
+                this.totalItems = resp.total_count
+                this.loading = false
+            }).catch(()=>{
+                this.loading = false
             })
         },
         selectSkin: function(skin){
             this.selectedSkins.push(skin);
-            this.new_case.price += skin.price;
+            this.new_case.price += parseFloat(skin.price.toFixed(2));
             this.new_case.items.push(skin);
-            this.itemOdds.push(100 / this.selectedSkins.length);
+            this.itemOdds.push(parseFloat(this.remaining_odds.toFixed(1)));
         },
         createCase: function() {
-            let $cases = new Api('/cases');
-            let self = this;
-            self.new_case.items.forEach(function(element, index) {
-                element.odds = String(self.itemOdds[index]);
-            });
-            let data = self.new_case;
-            $cases.post(data, {}).then(resp => {
-                this.success = true
-                this.message = "Case Created Successfully"
-            }).catch(() => {})
+            if(this.$refs.form.validate()){
+                if(this.new_case.items.length >= 2){
+                    var totalOdds = 0
+                    for(let a = 0; a < this.itemOdds.length; a++){
+                        totalOdds += parseFloat(this.itemOdds[a])
+                        console.log(totalOdds)
+                    }
+                    if(totalOdds > 0 && totalOdds <= 100){
+                        let $cases = new Api('/cases');
+                        let self = this;
+                        self.new_case.items.forEach(function(element, index) {
+                            element.odds = String(self.itemOdds[index]);
+                        });
+                        let data = self.new_case;
+                        $cases.post(data, {}).then(() => {
+                            this.success = true
+                            this.showMessage("Case Created Successfully", "success")
+                            this.$router.push("/")
+                        }).catch(() => {
+                            this.showMessage("There was an error creating case", "error")
+                        })
+                    } else{
+                        this.showMessage("Item odds should sum upto 100 and no item should have zero odds", "error")
+                    }
+                } else {
+                    this.showMessage("Please select atleast 2 skins", "error")
+                }
+            } else {
+                this.showMessage("Please fill in the details", "error")
+            }
         }
     }
 }
 </script>
 <style lang="scss">
 
-.total_odds, .case_price {
+.total_odds h4, .case_price h4{
     background-color: #73337a;
-    padding: 1rem 4rem;
-    margin: 0 2rem 0 0;
+    padding: 1rem 2rem;
+    height: 55px;
+    margin: 4px 2rem 0 0;
 }
 
 .green-btn {
     background-color: #4caf50 !important;
+    height: 50px;
 }
 .odd {
     margin: 1rem 0;
@@ -195,11 +243,11 @@ export default {
         }
     }
     .action {
-        width: 5%;
+        width: 4%;
         text-align: center;
         .delete-icon {
             vertical-align: middle;
-            width: 2rem;
+            width: 1.5rem;
             height: auto;
         }
     }
@@ -207,6 +255,9 @@ export default {
 }
 .selected{
     background: #4caf50;
+}
+.items{
+    min-height: 300px;
 }
 .case-creator{
     h3{
@@ -229,14 +280,13 @@ export default {
         }
     }
     .case-image-box{
-        margin: 1rem 1rem;
-        min-height: 150px;
+        min-height: 200px;
         .case-picture{
-            width: 150px;
-            height: 100px;
+            max-width: 130px;
+            height: 90px;
             cursor: pointer;
             display: block;
-            margin: 1.5rem auto;
+            margin: 3rem auto;
         }
     }
     .select{

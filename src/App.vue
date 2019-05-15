@@ -30,15 +30,14 @@ export default {
 <style lang="scss" scoped>
 .content{
     width: calc(100% - 300px);
-    height: 100%;
-    position: fixed;
+    min-height: 1000px;
     overflow: auto;
     top: 100px;
     left: 300px;
-    padding-bottom: 100px;
+    padding-bottom: 0px;
     background-image: url('assets/imgs/svg/41.svg');
     position: relative;
-    background-size: 100% auto;
+    background-size: auto;
 }
 </style>
 

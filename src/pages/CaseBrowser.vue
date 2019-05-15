@@ -4,7 +4,7 @@
             <v-flex class="search">
                 <h3 class="uppercase">case browser</h3>
                 <v-autocomplete class="skin-search m-t-2" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
-                <v-select background-color="#73337a" color="#fff" placeholder="Select" class="dropdown"></v-select>
+                <!-- <v-select background-color="#73337a" color="#fff" placeholder="Select" class="dropdown"></v-select> -->
             </v-flex>
         </v-layout>
         <v-layout row pa-2>
@@ -31,8 +31,18 @@
                     <div class="case">
                         <h4 class="case-name">{{item.name}}</h4>
                         <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="case-image"></v-img>
-                        <h4 class="t-c capitalize price m-b-2">${{item.price}} <i class="fas fa-coins coins"></i></h4>
+                        <h4 class="t-c capitalize price">${{item.price}} <i class="fas fa-coins coins"></i></h4>
                     </div>
+                </v-flex>
+                <v-flex xs12 class="text-xs-center m-t-3">
+                    <v-pagination
+                    v-model="currentPage"
+                    :length="Math.ceil(totalCases/12)"
+                    :total-visible="10"
+                    @input="getAllCases"
+                    @next="getAllCases"
+                    @previous="getAllCases"
+                    ></v-pagination>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -55,7 +65,9 @@ export default {
                 {name:"support/faq", icon:"support", to: "/faq"},
                 {name:"terms of service", icon:"info", to: "/tos"},
                 {name:"about", icon:"info", to: "/about"}
-            ]
+            ],
+            currentPage: 1,
+            totalCases: null
         }
     },
     created: function() {
@@ -64,12 +76,14 @@ export default {
     methods: {
         browseCase: function (item) {
             this.$store.commit('addBrowsedCase', item)
-            this.$router.push('case/' + item._id)
+            this.$router.push('caseBrowser/' + item._id)
         },
         getAllCases: function(){
             let $object = new Api('/cases')
-            $object.getList().then(resp => {
-                this.cases = resp
+            let params = { p : this.currentPage}
+            $object.getList(params).then(resp => {
+                this.cases = resp.items
+                this.totalCases = resp.total_count
             })
         },
     }
@@ -79,7 +93,7 @@ export default {
 .case-browser{
     .search {
         .skin-search {
-            width: calc(100% - 150px - 25px);
+            width: calc(100%);
             display: inline-block !important;
         }
         .dropdown {
@@ -90,7 +104,7 @@ export default {
         }
     }
     .browser-btn{
-        background: #612468;
+        background: #61246870;
         color: #ffffff;
         margin: 15px;
         padding: 30px;
@@ -102,17 +116,17 @@ export default {
         margin: 15px;
         float: left;
         display: block;
-        background: #612468;
+        background: #61246870;
     }
     .case {
-        background-color: rgba(#612468, 0.7);
+        background-color: #61246870;
         width: 95%;
         margin: auto;
-        height: 350px;
+        height: 300px;
         display: inline-block;
         margin-right: 2rem;
         .case-name {
-            background-color: #612468;
+            background-color: #61246870;
             width: 100%;
             text-align: center;
             padding: 1.5rem 0;
@@ -120,8 +134,8 @@ export default {
         .case-image{
             display: block;
             margin: 2.5rem auto;
-            max-width: 300px;
-            height: 130px;
+            max-width: 150px;
+            height: 100px;
         }
     }
 }
