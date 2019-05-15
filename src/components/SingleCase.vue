@@ -16,15 +16,7 @@
                 <div class="wrapper">
                     <div class="window">
                         <ul class="list">
-                            
-                        </ul>
-                        <ul class="list">
-                            <li><img src="../assets/imgs/case.svg" alt=""></li>
-                            <li><img src="../assets/imgs/case.svg" alt=""></li>
-                            <li><img src="../assets/imgs/case.svg" alt=""></li>
-                            <li><img src="../assets/imgs/case.svg" alt=""></li>
-                            <li><img src="../assets/imgs/case.svg" alt=""></li>
-                            <li><img src="../assets/imgs/case.svg" alt=""></li>
+                            <li v-for="(item, index) in oneCase.items" :key="index"><v-img contain class="skin-image" :src="item.iconUrl"></v-img></li>
                         </ul>
                     </div>
                 </div>
@@ -32,7 +24,6 @@
             <div class="spinner-controls">
                 <v-btn class="button green-btn" @click.stop="showDialog = true">Open Case</v-btn>
                 <v-btn color="button" class="button spin-button">Test Spin</v-btn>
-                <!-- <input class="number-input" type="number" v-model="number"> -->
             </div>
         </div>
 
@@ -67,10 +58,10 @@
             </div>
         </v-container>
 
-        <v-dialog width="50%" v-model="showDialog">
-            <div class="dialog">
+        <v-dialog width="800px" v-model="showDialog">
+            <v-card class="dialog">
                 <h2 class="t-c">Confirm Order</h2>
-                <v-img contain :src="require('@/assets/imgs/case.svg')" class="case-open-img"></v-img>
+                <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="case-open-img"></v-img>
                 <div class="case-name">
                     <div class="left-wrapper">
                         <p class="bold">Case Name:</p>
@@ -84,11 +75,11 @@
                         <p class="bold">Case Price:</p>
                     </div>
                     <div class="right-wrapper">
-                        <p>Case Price: ${{oneCase.price.$numberDecimal}}</p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p>Cases Open Count: {{oneCase.opened}}</p>
+                        <p class="icon">Case Price: ${{oneCase.price}}</p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p>Cases Open Count: {{oneCase.opened}}</p>
                         <br/>
-                        <p v-if="oneCase.tax">Affiliate Tax: ${{oneCase.tax.$numberDecimal}}</p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p v-if="oneCase.tax || oneCase.affiliateCut">Total: ${{oneCase.price.$numberDecimal + oneCase.tax.$numberDecimal + oneCase.affiliateCut.$numberDecimal}}</p>
+                        <p v-if="oneCase.tax">Affiliate Tax: ${{oneCase.tax}}</p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p v-if="oneCase.tax || oneCase.affiliateCut">Total: ${{oneCase.price + oneCase.tax + oneCase}}</p>
                         <br/>
-                        <p v-if="oneCase.affiliateCut">Tax Percentage: {{oneCase.affiliateCut.$numberDecimal}}%</p>
+                        <p v-if="oneCase.affiliateCut">Tax Percentage: {{oneCase.affiliateCut}}%</p>
                     </div>
                 </div>
                 <div class="case-hash">
@@ -105,7 +96,7 @@
                     <v-btn color="button" @click="newHash()">New Hash</v-btn>
                     <v-btn class="button green-btn"  @click="buyCase()">Buy Case</v-btn>
                 </div>
-            </div>
+            </v-card>
         </v-dialog>
     </div>
 </template>
@@ -124,10 +115,10 @@ export default {
         }
     },
     mounted: function() {
-        let i = 0;
-        for (i = 0; i < 3; i++) {
-            $(".list li").clone().appendTo(".list");
-        }
+        // let i = 0;
+        // for (i = 0; i < 6; i++) {
+        //     $(".list li").clone().appendTo(".list");
+        // }
         $('.spin-button').click(function () {
             $('.window').css({
                 right: "0"
@@ -171,7 +162,7 @@ export default {
 
 .dialog {
     background-color: $purple-dull;
-    padding: 2rem 0px;
+    padding: 2rem;
     .case-open-img {
         width: 15rem;
         height: auto;
@@ -206,7 +197,12 @@ export default {
         margin: 1rem auto 1rem auto;
     }
 }
-
+.skin-image{
+    display: block;
+    margin: 20px auto;
+    width: 150px;
+    height: 100px;
+}
 .name-wrapper {
     width: 50%;
     display: inline-block;
@@ -257,7 +253,7 @@ export default {
         .list li {
             border: 4px solid transparent ;
         }
-        .list li img {
+        .list li .v-img {
             width: 130px;
             height: 130px;
         }

@@ -11,7 +11,7 @@
             <v-flex xs12>
                 <h3 class="uppercase">case picture</h3>
             </v-flex>
-            <v-flex xs12 md4 lg2 v-for="image in 1" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
+            <v-flex xs12 md4 lg2 v-for="image in 34" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
                 <v-img :src="casePicture(image+1)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
             </v-flex>
         </v-layout>
@@ -138,7 +138,7 @@ export default {
     },
     methods: {
         casePicture: function(image){
-            return require("@/assets/imgs/svg/case"+image+".svg")
+            return require("@/assets/imgs/cases/case"+image+".png")
         },
         selectPicture: function(image){
             this.new_case.case_image = "@/assets/imgs/svg/case"+image+".svg"
@@ -280,11 +280,10 @@ export default {
         }
     }
     .case-image-box{
-        margin: 1rem 1.5rem;
         min-height: 200px;
         .case-picture{
-            max-width: 150px;
-            height: 100px;
+            max-width: 130px;
+            height: 90px;
             cursor: pointer;
             display: block;
             margin: 3rem auto;

@@ -84,7 +84,6 @@ export default {
                 let data = resp.payment_url.split("/")
                 let id = data[data.length-1]
                 window.location.replace(url+id)
-                this.loading = false
             }).catch(()=>{
                 this.loading = false
             })
