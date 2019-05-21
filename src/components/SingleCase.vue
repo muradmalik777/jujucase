@@ -16,7 +16,7 @@
                 <div class="wrapper">
                     <div class="window">
                         <ul class="list">
-                            <li v-for="(item, index) in oneCase.items" :key="index"><v-img contain class="skin-image" :src="item.iconUrl"></v-img></li>
+                            <li v-for="(item, index) in spinnerItems" :key="index"><v-img contain class="skin-image" :src="item.iconUrl"></v-img></li>
                         </ul>
                     </div>
                 </div>
@@ -111,7 +111,8 @@ export default {
         return {
             number: 1,
             showDialog: false,
-            oneCase: data
+            oneCase: data,
+            spinnerItems: []
         }
     },
     mounted: function() {
@@ -119,6 +120,7 @@ export default {
         // for (i = 0; i < 6; i++) {
         //     $(".list li").clone().appendTo(".list");
         // }
+        this.spinnerItems = this.shuffleItems(this.createCaseItems(this.oneCase.items))
         $('.spin-button').click(function () {
             $('.window').css({
                 right: "0"
@@ -130,12 +132,12 @@ export default {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
             var x = selfRandom(50, 100);
-            $('.list li:eq('+x+')').css({
+            $('.list li:eq('+50+')').css({
                 border:'3px solid #4caf50'
             })
             $('.window').animate({
-                right: ((x*130)+(x*8-12)-119)
-            }, 10000);
+                right: ((50*130)+(120*8-12)-119)
+            }, 5000);
         });
     },
     methods: {

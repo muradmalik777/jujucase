@@ -29,15 +29,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content{
+    position: absolute;
     width: calc(100% - 300px);
-    min-height: 1000px;
-    overflow: auto;
+    min-height: 1500px;
+    overflow-y: auto;
     top: 100px;
     left: 300px;
     padding-bottom: 0px;
     background-image: url('assets/imgs/svg/41.svg');
-    position: relative;
-    background-size: auto;
+    background-size: cover;
 }
 </style>
 

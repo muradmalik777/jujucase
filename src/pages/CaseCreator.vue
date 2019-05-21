@@ -11,8 +11,8 @@
             <v-flex xs12>
                 <h3 class="uppercase">case picture</h3>
             </v-flex>
-            <v-flex xs12 md4 lg2 v-for="image in 34" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
-                <v-img :src="casePicture(image+1)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
+            <v-flex xs12 md4 lg2 v-for="image in 35" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
+                <v-img :src="casePicture(image)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
             </v-flex>
         </v-layout>
         <v-layout row wrap pa-3>
@@ -254,7 +254,7 @@ export default {
 
 }
 .selected{
-    background: #4caf50;
+    background: #319c35;
 }
 .items{
     min-height: 300px;
