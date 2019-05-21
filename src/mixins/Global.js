@@ -21,7 +21,7 @@ Vue.mixin({
     createCaseItems: function(items){
       var skins = []
       for(let a = 0; a < items.length; a++){
-        for(let b = 0; b < items[a].odds; b++){
+        for(let b = 0; b < items[a].odds*3; b++){
           skins.push(items[a])
         }
       }

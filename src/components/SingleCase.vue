@@ -67,7 +67,7 @@
                         <p class="bold">Case Name:</p>
                     </div>
                     <div class="right-wrapper">
-                        <p>{{oneCase.name}}</p>
+                        <h4>{{oneCase.name}}</h4>
                     </div>
                 </div>
                 <div class="case-prices">
@@ -132,12 +132,12 @@ export default {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
             var x = selfRandom(50, 100);
-            $('.list li:eq('+50+')').css({
+            $('.list li:eq('+132+')').css({
                 border:'3px solid #4caf50'
             })
             $('.window').animate({
-                right: ((50*130)+(120*8-12)-119)
-            }, 5000);
+                right: ((150*130)+(120*8-12)-119)
+            }, 13000);
         });
     },
     methods: {
