@@ -12,11 +12,11 @@
             </div>
             <div class="cases-count m-t b-t">
                 <p class="uppercase">cases opened</p>
-                <p class="count c-orange">46328</p>
+                <p class="count c-orange">{{caseCount}}</p>
             </div>
             <div class="user-count b-t">
                 <p class="uppercase">registered users</p>
-                <p class="count c-orange">4834019841</p>
+                <p class="count c-orange">{{userCount}}</p>
             </div>
             <div class="social-links">
                 <i class="fab fa-steam-symbol icon"></i>
@@ -28,11 +28,15 @@
     </div>
 </template>
 <script>
+import Api from '@/services/Api.js';
+
 export default {
     name: 'navbar',
     data: function(){
         return{
             drawer: true,
+            caseCount: 0,
+            userCount: 0,
             menu: [
                 {name:"home", icon:"home", to:"/"}, 
                 {name:"Case creator", icon:"pen", to: "/caseCreator"}, 
@@ -49,6 +53,24 @@ export default {
             if(!this.$store.state.userData && !to.path.includes("register") && !to.path.includes("tos") && !to.path.includes("about") && !to.path.includes("faq")){
                 this.$router.push("/login")
             }
+        }
+    },
+    mounted: function(){
+        this.getCaseCounts()
+        this.getUserCounts()
+    },
+    methods: {
+        getCaseCounts: function(){
+            let $object = new Api('/cases/count')
+            $object.getList().then(resp => {
+                this.caseCount = resp
+            })
+        },
+        getUserCounts: function(){
+            let $object = new Api('/user/count')
+            $object.getList().then(resp => {
+                this.userCount = resp
+            })
         }
     }
 }
