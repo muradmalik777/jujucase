@@ -69,7 +69,7 @@ export default {
                     this.loading = false
                 }).catch((error) => {
                     this.loading = false
-                    this.showMessage(error.response.data.message, "error")
+                    this.showMessage(error.response.data.message)
                 })
             }
         }

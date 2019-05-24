@@ -179,19 +179,19 @@ export default {
                         let data = self.new_case;
                         $cases.post(data, {}).then(() => {
                             this.success = true
-                            this.showMessage("Case Created Successfully", "success")
+                            this.showMessage("Case Created Successfully")
                             this.$router.push("/")
                         }).catch(() => {
-                            this.showMessage("There was an error creating case", "error")
+                            this.showMessage("There was an error creating case")
                         })
                     } else{
-                        this.showMessage("Item odds should sum upto 100 and no item should have zero odds", "error")
+                        this.showMessage("Item odds should sum upto 100 and no item should have zero odds")
                     }
                 } else {
-                    this.showMessage("Please select atleast 2 skins", "error")
+                    this.showMessage("Please select atleast 2 skins")
                 }
             } else {
-                this.showMessage("Please fill in the details", "error")
+                this.showMessage("Please fill in the details")
             }
         }
     }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-container grid-list-md class="section-container p-2">
+        <v-container grid-list-md class="section-container">
             <h3 class="uppercase">Recent Winnings</h3>
             <div class="p-2">
                 <div class="winning m" v-for="i in 15" :key="i">
@@ -28,7 +28,7 @@ export default {
     name: 'cases',
     data: function() {
         return {
-            myCases: []
+            myCases: [],
         }
     },
     computed: {

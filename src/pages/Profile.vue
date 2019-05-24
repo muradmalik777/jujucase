@@ -6,7 +6,7 @@
                 <div class="profile-overview">
                     <v-img contain :src="user.avatar" class="avatar"></v-img>
                     <div class="stats">
-                        <p class="name">{{user.user_name}}<br/><span class="count">{{user.steam_id}}</span></p>
+                        <p class="name">{{user.user_name}}</p>
                     </div>
                 </div>
             </v-flex>
@@ -65,13 +65,10 @@ export default {
     },
     mounted: function(){
         if (!this.user) {
-            let toast = this.$toasted.show("You must be logged in to view profile page!", { 
-                theme: "bubble", 
-                position: "top-right", 
-                duration : 5000
-            });
+            this.showMessage("You must be logged in to view profile page!")
+        } else{
+            this.$router.push("/profile/cases")
         }
-        this.$router.push("/profile/cases")
     }
 }
 </script>
@@ -90,7 +87,6 @@ export default {
     .stats {
         display: inline-block;
         vertical-align: middle;
-        margin-left: 25px;
         p {
             margin: 0px;
             text-align: left;
@@ -98,11 +94,6 @@ export default {
         .name {
             font-size: 1.5rem;
             font-weight: 600;
-        }
-        .count {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.4);
-            font-weight: unset;
         }
     }
 }
