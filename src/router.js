@@ -40,7 +40,7 @@ export default new Router({
         { path: '/about', component: About },
         { path: '/faq', component: FAQ },
         { path: '/tos', component: TOS },
-        { path: '/iw', component: ItemsWon },
+        { path: '/winnings', component: ItemsWon },
         { path: '/profile', component: Profile,
             children: [
                 { path: 'cases', component: ProfileCases },

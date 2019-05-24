@@ -51,8 +51,8 @@
         <v-container grid-list-md class="section-container">
             <h3 class="uppercase">Recent Winnings</h3>
             <div class="p-2">
-                <div class="winning m" v-for="i in 8" :key="i">
-                    <v-img contain :src="require('@/assets/imgs/svg/' + 'Ellipse 22' + '.svg')" class="winning-img"></v-img>
+                <div class="winning m" v-for="(item, index) in itemsWon" :key="index">
+                    <v-img contain :src="item.item.iconUrl" class="winning-img"></v-img>
                 </div>
             </div>
         </v-container>
@@ -96,290 +96,318 @@
     </div>
 </template>
 <script>
-import Api from '../services/Api.js';
-import * as $ from 'jquery';import { error } from 'util';
- window["$"] = $; window["jQuery"] = $;
+import Api from "../services/Api.js";
+import * as $ from "jquery";
+import { error } from "util";
+window["$"] = $;
+window["jQuery"] = $;
 
 export default {
-    name: 'SingleCase',
-    data: function () {
-        let data = this.$store.state.caseBeingOpened
-        return {
-            number: 1,
-            showDialog: false,
-            oneCase: data,
-            spinnerItems: [],
-            clientHash: null,
-            hashLoading: false,
-            purchaseLoading: false,
-            winning: null
-        }
-    },
-    mounted: function() {
-        this.getClientHash()
-        this.spinnerItems = this.shuffleItems(this.createCaseItems(this.oneCase.items))
-        $('.spin-button').click(function () {
-            $('.window').css({
-                right: "0"
-            })
-            $('.list li').css({
-                border: '4px solid transparent'
-            })
-            $('.list li:eq('+132+')').css({
-                border:'3px solid #4caf50'
-            })
-            $('.window').animate({
-                right: ((150*135))
-            }, 13000);
+  name: "SingleCase",
+  data: function() {
+    let data = this.$store.state.caseBeingOpened;
+    return {
+      number: 1,
+      showDialog: false,
+      oneCase: data,
+      spinnerItems: [],
+      clientHash: null,
+      hashLoading: false,
+      purchaseLoading: false,
+      winning: null,
+      itemsWon: []
+    };
+  },
+  mounted: function() {
+    this.getCaseWinnings();
+    this.getClientHash();
+    this.spinnerItems = this.shuffleItems(this.createCaseItems(this.oneCase.items));
+    $(".spin-button").click(function() {
+      $(".window").css({
+        right: "0"
+      });
+      $(".list li").css({
+        border: "4px solid transparent"
+      });
+      $(".list li:eq(" + 132 + ")").css({
+        border: "3px solid #4caf50"
+      });
+      $(".window").animate(
+        {
+          right: 150 * 135
+        },
+        13000
+      );
+    });
+  },
+  methods: {
+    buyCase: function() {
+      this.purchaseLoading = true;
+      let $purchase = new Api("/purchase");
+      let data = {
+        user_id: this.$store.state.userData._id,
+        case_id: this.oneCase._id,
+        hash: this.clientHash
+      }
+      $purchase.post(data).then(response => {
+          if (response.purchased) {
+            this.$store.commit("addUser", response.user);
+            this.winning = response.winning;
+            this.purchaseLoading = false;
+            this.showDialog = false;
+            let item = this.oneCase.items.find(item => (item.marketHashName === this.winning.winningItem))
+            this.spinnerItems[132] = item;
+            var spin = document.getElementById("spin");
+            spin.click();
+          }
+        }).catch(error => {
+          this.purchaseLoading = false;
         });
     },
-    methods: {
-        buyCase: function () {
-            this.purchaseLoading = true
-            let $purchase = new Api('/purchase')
-            let data = {
-                user_id: this.$store.state.userData._id,
-                case_id: this.oneCase._id,
-                hash: this.clientHash,
-            }
-            $purchase.post(data).then(response => {
-                if(response.purchases){
-                    this.$store.commit('addUser', response.user)
-                    this.winning = response.winning
-                    this.purchaseLoading = false
-                    this.showDialog = false
-                    let item  = this.oneCase.items.find(item => item.marketHashName = this.winning.winningItem)
-                    this.spinnerItems[132] = item
-                    var spin = document.getElementById('spin');
-                    spin.click()
-                }
-            }).catch(error => {
-                this.purchaseLoading = false
-            })
-        },
-        getClientHash: function () {
-            this.hashLoading = true
-            let $hash = new Api('/hash')
-            $hash.getList().then(response => {
-                this.clientHash = response
-                this.hashLoading = false
-            }).catch(error => {
-                this.hashLoading = false
-            })
-        },
-        getCaseDetails: function(){
-            let api = new Api('/cases');
-            api.get(this.$route.params.case_id).then(response =>{
-                self.oneCase = response;
-            }).catch(() => {
-
-            })
-        }
+    getClientHash: function() {
+      this.hashLoading = true;
+      let $hash = new Api("/hash");
+      $hash
+        .getList()
+        .then(response => {
+          this.clientHash = response;
+          this.hashLoading = false;
+        })
+        .catch(error => {
+          this.hashLoading = false;
+        });
+    },
+    getCaseDetails: function() {
+      let api = new Api("/cases");
+      api
+        .get(this.$route.params.case_id)
+        .then(response => {
+          self.oneCase = response;
+        })
+        .catch(() => {});
+    },
+    getCaseWinnings: function() {
+      let $object = new Api("/case/winning");
+      let params = { case_id: this.oneCase._id };
+      $object.post(params).then(response => {
+        this.itemsWon = response;
+      });
     }
-}
+  }
+};
 </script>
 <style lang="scss" scoped>
-@import '../assets/scss/variables.scss';
-@import '../assets/scss/util.scss';
+@import "../assets/scss/variables.scss";
+@import "../assets/scss/util.scss";
 
 .dialog {
-    background-color: $purple-dull;
-    padding: 2rem;
-    .case-open-img {
-        width: 15rem;
-        height: auto;
-        display: block;
-        margin: 2rem auto;
-    }
-    .case-name, .case-prices, .case-hash {
-        padding: 1rem;
-        border-top: 1px solid rgba(#fff, 0.15);
-    }
-    .left-wrapper {
-        width: 25%;
-        display: inline-block;
-    }
-    .right-wrapper {
-        width: 75%;
-        display: inline-block;
-        p {
-            vertical-align: top;
-        }
-    }
-    p {
-        font-size: 1rem;
-        display: inline-block;
-    }
-    .case-hash {
-        border-bottom: 1px solid rgba(#fff, 0.15);
-    }
-    .case-buttons {
-        margin-top: 1rem;
-        width: fit-content;
-        margin: 1rem auto 1rem auto;
-    }
-}
-.skin-image{
+  background-color: $purple-dull;
+  padding: 2rem;
+  .case-open-img {
+    width: 15rem;
+    height: auto;
     display: block;
-    margin: 20px auto;
-    width: 150px;
-    height: 100px;
+    margin: 2rem auto;
+  }
+  .case-name,
+  .case-prices,
+  .case-hash {
+    padding: 1rem;
+    border-top: 1px solid rgba(#fff, 0.15);
+  }
+  .left-wrapper {
+    width: 25%;
+    display: inline-block;
+  }
+  .right-wrapper {
+    width: 75%;
+    display: inline-block;
+    p {
+      vertical-align: top;
+    }
+  }
+  p {
+    font-size: 1rem;
+    display: inline-block;
+  }
+  .case-hash {
+    border-bottom: 1px solid rgba(#fff, 0.15);
+  }
+  .case-buttons {
+    margin-top: 1rem;
+    width: fit-content;
+    margin: 1rem auto 1rem auto;
+  }
+}
+.skin-image {
+  display: block;
+  margin: 20px auto;
+  width: 150px;
+  height: 100px;
 }
 .name-wrapper {
-    width: 50%;
-    display: inline-block;
-    text-align: left;
+  width: 50%;
+  display: inline-block;
+  text-align: left;
 }
 
 .price-wrapper {
-    width: 50%;
-    display: inline-block;
-    text-align: right;
+  width: 50%;
+  display: inline-block;
+  text-align: right;
 }
 
 .spinner-wrapper {
-    margin: 4rem 0px;
-    .spinner {
-        width: 100%;
-        height: 163px;
-        background: #73337a77;
-        li {
-            list-style: none;
-            display: inline-block;
-            float: left;
-        }
-
-        .window {
-            overflow: hidden;
-            position: relative;
-            width: 25000px;
-            height: 163px;
-            right: 0px;
-            padding: 10px;
-        }
-
-        .wrapper {
-            position: relative;
-            margin: auto;
-            width: 100%;
-            overflow-x: hidden;
-            overflow-y: hidden;
-        }
-
-        .list {
-            position: relative;
-            margin-left: 230;
-            display: inline-block;
-        }
-
-        .list li {
-            border: 4px solid transparent ;
-        }
-        .list li .v-img {
-            width: 130px;
-            height: 130px;
-        }
+  margin: 4rem 0px;
+  .spinner {
+    width: 100%;
+    height: 163px;
+    background: #73337a77;
+    li {
+      list-style: none;
+      display: inline-block;
+      float: left;
     }
-    .spinner-controls {
-        display: block;
-        width: fit-content;
-        margin: 2rem auto;
+
+    .window {
+      overflow: hidden;
+      position: relative;
+      width: 25000px;
+      height: 163px;
+      right: 0px;
+      padding: 10px;
     }
+
+    .wrapper {
+      position: relative;
+      margin: auto;
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+
+    .list {
+      position: relative;
+      margin-left: 230;
+      display: inline-block;
+    }
+
+    .list li {
+      border: 4px solid transparent;
+    }
+    .list li .v-img {
+      width: 130px;
+      height: 130px;
+    }
+  }
+  .spinner-controls {
+    display: block;
+    width: fit-content;
+    margin: 2rem auto;
+  }
 }
 
 .heading {
-    display: inline-block;
+  display: inline-block;
 }
 .speaker-icon {
-    width: 50px;
-    height: auto;
-    display: inline-block;
-    vertical-align: middle;
-    color: #fff !important;
+  width: 50px;
+  height: auto;
+  display: inline-block;
+  vertical-align: middle;
+  color: #fff !important;
 }
 
 .red-text {
-    color: $red;
-    margin: 0px;
-    font-size: 0.75rem;
+  color: $red;
+  margin: 0px;
+  font-size: 0.75rem;
 }
 
 .case-container {
-    margin: 4rem 0px;
-    h3 {
-        margin: 2rem 0px;
-    }
+  margin: 4rem 0px;
+  h3 {
+    margin: 2rem 0px;
+  }
 }
 .section-container {
-    .winning {
-        display: inline-block;
-        .winning-img {
-            width: 5rem;
-        }
+  .winning {
+    padding-left: 10px;
+    padding-top: 25px; 
+    display: block;
+    float: left;
+    background: url('../assets/imgs/svg/winning-circle.svg');
+    background-size: 120px;
+    width: 120px;
+    height: 120px;
+
+    .winning-img {
+      width: 100%;
     }
+  }
 }
 .button {
-    background-color: $purple-bright-extra !important;
-    color: #fff;
-    border-radius: 0px;
-    font-weight: 600;
-    min-height: 50px;
+  background-color: $purple-bright-extra !important;
+  color: #fff;
+  border-radius: 0px;
+  font-weight: 600;
+  min-height: 50px;
 }
 
 .green-btn {
-    background-color: $green-dull !important;
+  background-color: $green-dull !important;
 }
 
 .number-input {
-    background-color: #fff;
-    color: $purple-dark;
-    padding: 0px 0px 0px 10px;
-    min-height: 50px;
-    width: 50px;
-    margin: 0px 8px;
+  background-color: #fff;
+  color: $purple-dark;
+  padding: 0px 0px 0px 10px;
+  min-height: 50px;
+  width: 50px;
+  margin: 0px 8px;
 }
-.skin{
-        min-height: 370px;
-        background: #67266e77;
-        position: relative;
-        overflow-y: auto;
-        .price{
-            background: #73337a77;
-            padding: 20px 10px;
+.skin {
+  min-height: 370px;
+  background: #67266e77;
+  position: relative;
+  overflow-y: auto;
+  .price {
+    background: #73337a77;
+    padding: 20px 10px;
 
-            .coins{
-                color: gold;
-            }
-        }
-        .skin-image{
-            display: block;
-            margin: 20px auto;
-            width: 200px;
-            height: 200px;
-        }
-        .name{
-            width: 80%;
-            float: left;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .action{
-            position: absolute;
-            bottom: 0px;
-            right: 0px;
-            padding: 10px 20px;
-            background: #99999967;
-            cursor: pointer;
-
-            &:hover{
-                background: #99999911;
-            }
-
-            .delete-icon{
-                width: 20px;
-                height: 30px;
-                display: block;
-            }
-        }
+    .coins {
+      color: gold;
     }
+  }
+  .skin-image {
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+    height: 200px;
+  }
+  .name {
+    width: 80%;
+    float: left;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .action {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    padding: 10px 20px;
+    background: #99999967;
+    cursor: pointer;
+
+    &:hover {
+      background: #99999911;
+    }
+
+    .delete-icon {
+      width: 20px;
+      height: 30px;
+      display: block;
+    }
+  }
+}
 </style>

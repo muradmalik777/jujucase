@@ -1,18 +1,16 @@
 <template>
     <div class="spacing">
-        <v-container grid-list-md class="section-container">
-                <h3 class="uppercase">Items Won</h3>
+        <v-container grid-list-xs class="section-container">
+                <h2 class="uppercase m-b">Items Won</h2>
             <v-layout row wrap>
-                <v-flex v-for="i in 10" :key="i" xs3>
-                    
+                <v-flex v-for="(item, index) in itemsWon" :key="index" xs3>
                     <div class="case-contains">
                         <div class="title-container">
-                            <p class="uppercase">Range: 51.0001% - 100%</p>
-                            <p class="uppercase">Odds: 49%</p>
+                            <p class="uppercase">odds: {{item.item.odds}}%</p>
                         </div>
-                        <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="case-icon"></v-img>
+                        <v-img contain :src="item.item.iconUrl" class="case-icon"></v-img>
                         <div class="footer-wrapper">
-                            <p class="">FAMAS | Commando <br/>(Well-Worn)</p>
+                            <p class="">{{item.item.marketHashName}}</p>
                         </div>
                     </div>
 
@@ -22,13 +20,28 @@
     </div>
 </template>
 <script>
+import Api from "@/services/Api.js";
+
 export default {
     name: 'ItemsWon',
-    // props: [caseId],
-    created: function () {
-    },
     data: function () {
         return {
+            itemsWon: [],
+            totalWinnings: 0
+        }
+    },
+    created: function(){
+        this.getWinnings()
+    },
+    methods: {
+        getWinnings: function(){
+            let $object = new Api('/user/winning')
+            let params = { user_id: this.$store.state.userData._id }
+            $object.post(params).then(response => {
+                console.log(response)
+                this.itemsWon = response.items
+                this.totalWinnings = response.total_count
+            })
         }
     }
 }
@@ -39,13 +52,13 @@ export default {
 .section-container {
     padding: 0px;
     .case-contains {
-        background-color: rgba($purple-dull, 0.75);
+        background-color: #67266e80;
         width: 95%;
-        height: 400px;
+        height: 350px;
         position: relative;
         margin-top: 1.5rem;
         .title-container {
-            background-color: $purple-dull;
+            background-color: #67266e80;
             padding: 1rem;
             p {
                 margin: 0px;
@@ -64,7 +77,7 @@ export default {
             min-height: 50px;
             p {
                 display: inline-block;
-                width: 75%;
+                width: 80%;
                 font-size: 1rem;
                 margin-bottom: 0;
             }
