@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-md fluid class="spacing">
+    <v-container grid-list-xs fluid class="spacing">
         <v-layout mb-3 row wrap class="section-container">
             <v-flex xs12>
                 <h3 class="uppercase">Recent Winnings</h3>
@@ -14,13 +14,13 @@
             <v-flex xs12>
                 <h3 class="uppercase">My Cases</h3>
             </v-flex>
-            <v-flex xs12>
-                <div class="case m-t-2" v-for="i in myCases" :key="i._id">
-                    <h6 class="case-name">{{i.name}}</h6>
-                    <v-img contain :src="require('@/assets/imgs/cases/' + i.case_image)" class="case-img m-a m-t-2 m-b-2"></v-img> <!-- use Case Image -->
-                    <h5 class="case-price">${{i.price}}<v-img contain :src="require('@/assets/imgs/svg/coins.svg')" class="coins"></v-img></h5>
-                    <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="case-delete m-a" @click="deleteCase(i)"></v-img>
-                </div>
+            <v-flex xs12 md4 lg3  v-for="i in myCases" :key="i._id">
+                <v-card class="case m-t-2">
+                <h6 class="case-name">{{i.name}}</h6>
+                <v-img contain :src="require('@/assets/imgs/cases/' + i.case_image)" class="case-img m-a m-t-2 m-b-2"></v-img>
+                <h5 class="case-price">${{i.price}}<v-img contain :src="require('@/assets/imgs/svg/coins.svg')" class="coins"></v-img></h5>
+                <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="case-delete m-a" @click="deleteCase(i)"></v-img>
+                </v-card>
             </v-flex>
         </v-layout>
     </v-container>
@@ -100,14 +100,15 @@ export default {
         }
     }
     .case {
-        width: 200px;
+        width: 100%;
         text-align: center;
         display: inline-block;
+        background: #67266e70;
         .case-name {
             font-size: 1rem;
         }
         .case-img {
-            width: 75%;
+            width: 50%;
             height: auto;
         }
         .case-price {

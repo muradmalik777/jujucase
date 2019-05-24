@@ -10,7 +10,6 @@
                     </div>
                 </div>
             </v-flex>
-
             <v-flex xs3>
                 <router-link to="cases" class="selector" :class="{'active': this.$route.path.includes('/profile/cases')}">
                     <div>
@@ -21,8 +20,7 @@
                     </div>
                 </router-link>
             </v-flex>
-
-            <v-flex xs3>
+            <!-- <v-flex xs3>
                 <router-link to="trades" class="selector" :class="{'active': this.$route.path.includes('/profile/trades')}">
                     <div>
                         <p>Trades</p>
@@ -31,8 +29,7 @@
                         </div>
                     </div>
                 </router-link>
-            </v-flex>
-
+            </v-flex> -->
             <v-flex xs3>
                 <router-link to="transactions" class="selector" :class="{'active': this.$route.path.includes('/profile/transactions')}">
                     <div>
