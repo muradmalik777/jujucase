@@ -9,10 +9,10 @@
         </v-layout>
         <v-layout row wrap>
             <v-flex xs12>
-                <h3 class="uppercase">case picture</h3>
+                <h3 class="uppercase m-b-2 m-t-2">case picture</h3>
             </v-flex>
-            <v-flex xs12 md4 lg2 v-for="image in 34" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
-                <v-img :src="casePicture(image+1)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
+            <v-flex xs12 md4 lg2 v-for="image in 35" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
+                <v-img :src="casePicture(image)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
             </v-flex>
         </v-layout>
         <v-layout row wrap pa-3>
@@ -83,7 +83,7 @@
                 </div>
             </v-flex>
             <v-flex xs12 md5 lg5 class="total_odds">
-                <h4 class="t-c capitalize">Total Odds : 100% ({{parseFloat(remaining_odds.toFixed(1))}}% left)</h4>
+                <h4 class="t-c capitalize">Total Odds : 100% ({{parseFloat(remaining_odds.toFixed(2))}}% left)</h4>
             </v-flex>
             <v-flex xs12 md5 lg5 class="case_price">
                 <h4 class="t-c capitalize">Case Price : ${{case_price}}</h4>
@@ -160,7 +160,7 @@ export default {
             this.selectedSkins.push(skin);
             this.new_case.price += parseFloat(skin.price.toFixed(2));
             this.new_case.items.push(skin);
-            this.itemOdds.push(parseFloat(this.remaining_odds.toFixed(1)));
+            this.itemOdds.push(parseFloat(this.remaining_odds.toFixed(2)));
         },
         createCase: function() {
             if(this.$refs.form.validate()){
@@ -254,7 +254,7 @@ export default {
 
 }
 .selected{
-    background: #4caf50;
+    background: #319c35;
 }
 .items{
     min-height: 300px;

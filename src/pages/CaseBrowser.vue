@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="case-browser spacing">
+    <v-container grid-list-md fluid class="case-browser spacing">
         <v-layout row pa-2>
             <v-flex class="search">
                 <h3 class="uppercase">case browser</h3>
@@ -18,6 +18,9 @@
                         <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
                             <v-list-tile-title>Profile</v-list-tile-title>
                         </v-list-tile>
+                         <v-list-tile to="/faq" class="user-menu pointer c-purple-bright">
+                            <v-list-tile-title>Help</v-list-tile-title>
+                        </v-list-tile>
                         <v-list-tile @click="this.logout" class="user-menu pointer">
                             <v-list-tile-title>Logout</v-list-tile-title>
                         </v-list-tile>
@@ -25,27 +28,25 @@
                 </v-menu>
             </v-flex>
         </v-layout>
-        <v-container grid-list-md>
-            <v-layout row wrap>
-                <v-flex class="search-result m-b-2 pointer" xs12 md4 lg3 v-for="item in cases" :key="item._id" @click="browseCase(item)">
-                    <div class="case">
-                        <h4 class="case-name">{{item.name}}</h4>
-                        <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="case-image"></v-img>
-                        <h4 class="t-c capitalize price">${{item.price}} <i class="fas fa-coins coins"></i></h4>
-                    </div>
-                </v-flex>
-                <v-flex xs12 class="text-xs-center m-t-3">
-                    <v-pagination
-                    v-model="currentPage"
-                    :length="Math.ceil(totalCases/12)"
-                    :total-visible="10"
-                    @input="getAllCases"
-                    @next="getAllCases"
-                    @previous="getAllCases"
-                    ></v-pagination>
-                </v-flex>
-            </v-layout>
-        </v-container>
+        <v-layout row wrap pa-2>
+            <v-flex class="search-result m-b-2 pointer" xs12 md4 lg3 v-for="item in cases" :key="item._id" @click="browseCase(item)">
+                <div class="case">
+                    <h4 class="case-name">{{item.name}}</h4>
+                    <v-img contain :src="require('@/assets/imgs/cases/' + item.case_image)" class="case-image"></v-img>
+                    <h4 class="t-c capitalize price">${{item.price}} <i class="fas fa-coins coins"></i></h4>
+                </div>
+            </v-flex>
+            <v-flex xs12 class="text-xs-center m-t-3" v-if="totalCases && totalCases > 12">
+                <v-pagination
+                v-model="currentPage"
+                :length="Math.ceil(totalCases/12)"
+                :total-visible="10"
+                @input="getAllCases"
+                @next="getAllCases"
+                @previous="getAllCases"
+                ></v-pagination>
+            </v-flex>
+        </v-layout>
     </v-container>
 </template>
 <script>
@@ -106,25 +107,24 @@ export default {
     .browser-btn{
         background: #61246870;
         color: #ffffff;
-        margin: 15px;
+        margin: 5px;
         padding: 30px;
         border-radius: 0px;
     }
     .user-name{
         width: fit-content;
         padding: 18px;
-        margin: 15px;
+        margin: 5px 5px 5px 0px;
         float: left;
         display: block;
         background: #61246870;
     }
     .case {
         background-color: #61246870;
-        width: 95%;
-        margin: auto;
+        width: 100%;
+        margin: 2rem auto;
         height: 300px;
         display: inline-block;
-        margin-right: 2rem;
         .case-name {
             background-color: #61246870;
             width: 100%;

@@ -48,12 +48,15 @@
                                 <v-menu offset-y max-width="180" min-width="150" >
                                     <template v-slot:activator="{ on }">
                                         <h4 v-ripple v-on="on" class="pointer user-name">{{$store.state.userData.user_name}}</h4>
-                                        <p class="c-green-bright">${{$store.state.userData.balance}}</p>
+                                        <p class="c-green-bright">${{parseFloat($store.state.userData.balance).toFixed(2)}}</p>
                                     </template>
                                     <!-- <router-link to="profile"></router-link> -->
                                      <v-list dark>
                                         <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
                                             <v-list-tile-title>Profile</v-list-tile-title>
+                                        </v-list-tile>
+                                        <v-list-tile to="/faq" class="user-menu pointer c-purple-bright">
+                                            <v-list-tile-title>Help</v-list-tile-title>
                                         </v-list-tile>
                                         <v-list-tile @click="signout()" class="user-menu pointer">
                                             <v-list-tile-title>Logout</v-list-tile-title>

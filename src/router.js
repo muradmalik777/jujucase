@@ -14,6 +14,8 @@ import TradeDetails from '@/components/Profile/TradeDetails'
 import CaseDisplay from '@/components/CaseDisplay'
 import SingleCase from '@/components/SingleCase'
 import ItemsWon from '@/components/ItemsWon'
+import Success from '@/components/Success'
+import Failure from '@/components/Failure'
 import Login from '@/components/Auth/Login'
 import Register from '@/components/Auth/Register'
 
@@ -38,13 +40,16 @@ export default new Router({
         { path: '/about', component: About },
         { path: '/faq', component: FAQ },
         { path: '/tos', component: TOS },
-        { path: '/iw', component: ItemsWon },
+        { path: '/winnings', component: ItemsWon },
         { path: '/profile', component: Profile,
             children: [
                 { path: 'cases', component: ProfileCases },
                 { path: 'trades', component: ProfileTrades },
                 { path: 'transactions', component: TradeDetails }
             ]
-        }
+        },
+        { path: '/payment/success', component: Success },
+        { path: '/payment/failure', component: Failure },
+
     ]
 })
