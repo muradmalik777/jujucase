@@ -177,6 +177,7 @@ export default {
                             element.odds = String(self.itemOdds[index]);
                         });
                         let data = self.new_case;
+                        data.user_id = this.$store.state.userData._id
                         $cases.post(data, {}).then(() => {
                             this.success = true
                             this.showMessage("Case Created Successfully")

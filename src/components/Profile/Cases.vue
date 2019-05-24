@@ -1,25 +1,29 @@
 <template>
-    <div>
-        <v-container grid-list-md class="section-container">
-            <h3 class="uppercase">Recent Winnings</h3>
-            <div class="p-2">
-                <div class="winning m" v-for="i in 15" :key="i">
-                    <v-img contain :src="require('@/assets/imgs/svg/' + 'Ellipse 22' + '.svg')" class="winning-img"></v-img>
+    <v-container grid-list-md fluid class="spacing">
+        <v-layout mb-3 row wrap class="section-container">
+            <v-flex xs12>
+                <h3 class="uppercase">Recent Winnings</h3>
+            </v-flex>
+            <v-flex xs12>
+                <div class="winning m" v-for="(item, index) in itemsWon" :key="index">
+                    <v-img contain :src="item.item.iconUrl" class="winning-img"></v-img>
                 </div>
-            </div>
-        </v-container>
-        <v-container grid-list-md class="section-container">
-            <h3 class="uppercase">My Cases</h3>
-            <div class="p-2">
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap class="section-container">
+            <v-flex xs12>
+                <h3 class="uppercase">My Cases</h3>
+            </v-flex>
+            <v-flex xs12>
                 <div class="case m-t-2" v-for="i in myCases" :key="i._id">
                     <h6 class="case-name">{{i.name}}</h6>
-                    <v-img contain :src="require('@/assets/imgs/svg/' + 'case2' + '.svg')" class="case-img m-a m-t-2 m-b-2"></v-img> <!-- use Case Image -->
-                    <h5 class="case-price">${{i.price.$numberdecimal}}<v-img contain :src="require('@/assets/imgs/svg/coins.svg')" class="coins"></v-img></h5>
+                    <v-img contain :src="require('@/assets/imgs/cases/' + i.case_image)" class="case-img m-a m-t-2 m-b-2"></v-img> <!-- use Case Image -->
+                    <h5 class="case-price">${{i.price}}<v-img contain :src="require('@/assets/imgs/svg/coins.svg')" class="coins"></v-img></h5>
                     <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="case-delete m-a" @click="deleteCase(i)"></v-img>
                 </div>
-            </div>
-        </v-container>
-    </div>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 <script>
 import Api from './../../services/Api.js';
@@ -29,6 +33,7 @@ export default {
     data: function() {
         return {
             myCases: [],
+            itemsWon: []
         }
     },
     computed: {
@@ -37,20 +42,25 @@ export default {
         }
     },
     mounted: function() {
-        let self = this;
-        let endpoint = 'user/' + self.user.steam_id;
-        let api = new Api('/cases')
-        api.get(endpoint).then(response =>{
-            self.myCases = response;
-        }).catch(() => {
-            let toast = this.$toasted.show("Failed to fetch your cases! Please Refresh!", { 
-                theme: "bubble", 
-                position: "top-right", 
-                duration : 5000
-            });
-        })
+        this.getWinnings()
+        this.getUserCases()
     },
     methods: {
+        getWinnings: function(){
+            let $object = new Api('/user/winning')
+            let params = { user_id: this.$store.state.userData._id }
+            $object.post(params).then(response => {
+                this.itemsWon = response.items
+                this.totalWinnings = response.total_count
+            })
+        },
+        getUserCases: function(){
+            let $object = new Api('/cases/user')
+            let params = { user_id: this.$store.state.userData._id }
+            $object.post(params).then(response => {
+                this.myCases = response
+            })
+        },
         deleteCase: function(oneCase) {
             let self = this;
             let api = new Api('/cases')
@@ -74,10 +84,19 @@ export default {
 
 .section-container {
     text-align: left !important;
+    
     .winning {
-        display: inline-block;
+        padding-left: 10px;
+        padding-top: 25px; 
+        display: block;
+        float: left;
+        background: url('../../assets/imgs/svg/winning-circle.svg');
+        background-size: 120px;
+        width: 120px;
+        height: 120px;
+
         .winning-img {
-            width: 5rem;
+            width: 100%;
         }
     }
     .case {

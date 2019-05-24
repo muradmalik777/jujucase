@@ -38,7 +38,6 @@ export default {
             let $object = new Api('/user/winning')
             let params = { user_id: this.$store.state.userData._id }
             $object.post(params).then(response => {
-                console.log(response)
                 this.itemsWon = response.items
                 this.totalWinnings = response.total_count
             })

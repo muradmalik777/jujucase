@@ -64,11 +64,7 @@ export default {
         }
     },
     mounted: function(){
-        if (!this.user) {
-            this.showMessage("You must be logged in to view profile page!")
-        } else{
-            this.$router.push("/profile/cases")
-        }
+        this.$router.push("/profile/cases")
     }
 }
 </script>
