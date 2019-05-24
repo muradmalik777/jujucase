@@ -15,7 +15,7 @@
                 <h4 class="t-c capitalize price m-b-2">${{item.price}} <i class="fas fa-coins coins"></i></h4>
                 <h3 class="capitalize t-c">{{item.name}}</h3>
             </v-flex>
-            <v-flex xs12 class="text-xs-center m-t-3" v-if="totalCases">
+            <v-flex xs12 class="text-xs-center m-t-3" v-if="totalCases && totalCases > 12">
                 <v-pagination
                 v-model="currentPage"
                 :length="Math.ceil(totalCases/12)"

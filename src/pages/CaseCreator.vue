@@ -83,7 +83,7 @@
                 </div>
             </v-flex>
             <v-flex xs12 md5 lg5 class="total_odds">
-                <h4 class="t-c capitalize">Total Odds : 100% ({{parseFloat(remaining_odds.toFixed(1))}}% left)</h4>
+                <h4 class="t-c capitalize">Total Odds : 100% ({{parseFloat(remaining_odds.toFixed(2))}}% left)</h4>
             </v-flex>
             <v-flex xs12 md5 lg5 class="case_price">
                 <h4 class="t-c capitalize">Case Price : ${{case_price}}</h4>
@@ -160,7 +160,7 @@ export default {
             this.selectedSkins.push(skin);
             this.new_case.price += parseFloat(skin.price.toFixed(2));
             this.new_case.items.push(skin);
-            this.itemOdds.push(parseFloat(this.remaining_odds.toFixed(1)));
+            this.itemOdds.push(parseFloat(this.remaining_odds.toFixed(2)));
         },
         createCase: function() {
             if(this.$refs.form.validate()){

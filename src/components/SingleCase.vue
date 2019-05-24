@@ -6,8 +6,7 @@
                 <p class="red-text">{{oneCase.creator}}</p>
             </div>
             <div class="price-wrapper">
-                <h1 class="price">${{oneCase.price.$numberDecimal}}</h1>
-                <p class="red-text">Cases Opened: {{oneCase.opened}}</p>    
+                <h1 class="price">${{parseFloat(oneCase.price).toFixed(2)}}</h1>
             </div>
         </div>
 
@@ -23,7 +22,7 @@
             </div>
             <div class="spinner-controls">
                 <v-btn class="button green-btn" @click.stop="showDialog = true">Open Case</v-btn>
-                <v-btn color="button" class="button spin-button">Test Spin</v-btn>
+                <v-btn color="button" class="button spin-button" id="spin">Test Spin</v-btn>
             </div>
         </div>
 
@@ -58,7 +57,7 @@
             </div>
         </v-container>
 
-        <v-dialog width="800px" v-model="showDialog">
+        <v-dialog width="800px" persistent v-model="showDialog">
             <v-card class="dialog">
                 <h2 class="t-c">Confirm Order</h2>
                 <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="case-open-img"></v-img>
@@ -74,27 +73,23 @@
                     <div class="left-wrapper">
                         <p class="bold">Case Price:</p>
                     </div>
-                    <div class="right-wrapper">
-                        <p class="icon">Case Price: ${{oneCase.price}}</p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p>Cases Open Count: {{oneCase.opened}}</p>
-                        <br/>
-                        <p v-if="oneCase.tax">Affiliate Tax: ${{oneCase.tax}}</p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p v-if="oneCase.tax || oneCase.affiliateCut">Total: ${{oneCase.price + oneCase.tax + oneCase}}</p>
-                        <br/>
-                        <p v-if="oneCase.affiliateCut">Tax Percentage: {{oneCase.affiliateCut}}%</p>
+                     <div class="right-wrapper">
+                        <h4>${{oneCase.price}}</h4>
                     </div>
                 </div>
                 <div class="case-hash">
                     <div class="left-wrapper">
-                        <p class="bold">Case Hash #1:</p>
+                        <p class="bold">Case Hash #:</p>
                     </div>
                     <div class="right-wrapper">
-                        <p>{{oneCase.code}}</p>
+                        <p>{{clientHash}}</p>
                     </div>
                 </div>
 
                 <div class="case-buttons">
                     <v-btn class="button" @click="showDialog = false">Close</v-btn>
-                    <v-btn color="button" @click="newHash()">New Hash</v-btn>
-                    <v-btn class="button green-btn"  @click="buyCase()">Buy Case</v-btn>
+                    <v-btn color="button" :loading="hashLoading" @click="getClientHash()">New Hash</v-btn>
+                    <v-btn class="button green-btn" :loading="purchaseLoading"  @click="buyCase()">Buy Case</v-btn>
                 </div>
             </v-card>
         </v-dialog>
@@ -102,7 +97,8 @@
 </template>
 <script>
 import Api from '../services/Api.js';
-import * as $ from 'jquery'; window["$"] = $; window["jQuery"] = $;
+import * as $ from 'jquery';import { error } from 'util';
+ window["$"] = $; window["jQuery"] = $;
 
 export default {
     name: 'SingleCase',
@@ -112,14 +108,15 @@ export default {
             number: 1,
             showDialog: false,
             oneCase: data,
-            spinnerItems: []
+            spinnerItems: [],
+            clientHash: null,
+            hashLoading: false,
+            purchaseLoading: false,
+            winning: null
         }
     },
     mounted: function() {
-        // let i = 0;
-        // for (i = 0; i < 6; i++) {
-        //     $(".list li").clone().appendTo(".list");
-        // }
+        this.getClientHash()
         this.spinnerItems = this.shuffleItems(this.createCaseItems(this.oneCase.items))
         $('.spin-button').click(function () {
             $('.window').css({
@@ -128,24 +125,47 @@ export default {
             $('.list li').css({
                 border: '4px solid transparent'
             })
-            function selfRandom(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
-            var x = selfRandom(50, 100);
             $('.list li:eq('+132+')').css({
                 border:'3px solid #4caf50'
             })
             $('.window').animate({
-                right: ((150*130)+(120*8-12)-119)
+                right: ((150*135))
             }, 13000);
         });
     },
     methods: {
         buyCase: function () {
-            this.showDialog = false;
+            this.purchaseLoading = true
+            let $purchase = new Api('/purchase')
+            let data = {
+                user_id: this.$store.state.userData._id,
+                case_id: this.oneCase._id,
+                hash: this.clientHash,
+            }
+            $purchase.post(data).then(response => {
+                if(response.purchases){
+                    this.$store.commit('addUser', response.user)
+                    this.winning = response.winning
+                    this.purchaseLoading = false
+                    this.showDialog = false
+                    let item  = this.oneCase.items.find(item => item.marketHashName = this.winning.winningItem)
+                    this.spinnerItems[132] = item
+                    var spin = document.getElementById('spin');
+                    spin.click()
+                }
+            }).catch(error => {
+                this.purchaseLoading = false
+            })
         },
-        newHash: function () {
-            this.showDialog = false;
+        getClientHash: function () {
+            this.hashLoading = true
+            let $hash = new Api('/hash')
+            $hash.getList().then(response => {
+                this.clientHash = response
+                this.hashLoading = false
+            }).catch(error => {
+                this.hashLoading = false
+            })
         },
         getCaseDetails: function(){
             let api = new Api('/cases');

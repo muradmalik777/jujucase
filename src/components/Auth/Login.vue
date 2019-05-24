@@ -61,7 +61,8 @@ export default {
                     this.$store.commit('addUser', resp)
                     this.$router.push("/")
                     this.loading = false
-                }).catch(() => {
+                }).catch((error) => {
+                    this.showMessage(error.response.data.message, "error")
                     this.loading = false
                 })
             }

@@ -28,7 +28,10 @@ Vue.mixin({
       return skins
     },
     shuffleItems: function(items){
-        return items.sort(() => Math.random() - 0.5);
+      items = items.sort(() => Math.random() - 0.5);
+      items = items.sort(() => Math.random() - 0.5);
+      items = items.sort(() => Math.random() - 0.5);
+      return items.sort(() => Math.random() - 0.5);
     }
   },
   filters: {
