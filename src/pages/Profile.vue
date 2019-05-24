@@ -6,11 +6,10 @@
                 <div class="profile-overview">
                     <v-img contain :src="user.avatar" class="avatar"></v-img>
                     <div class="stats">
-                        <p class="name">{{user.user_name}}<br/><span class="count">{{user.steam_id}}</span></p>
+                        <p class="name">{{user.user_name}}</p>
                     </div>
                 </div>
             </v-flex>
-
             <v-flex xs3>
                 <router-link to="cases" class="selector" :class="{'active': this.$route.path.includes('/profile/cases')}">
                     <div>
@@ -21,8 +20,7 @@
                     </div>
                 </router-link>
             </v-flex>
-
-            <v-flex xs3>
+            <!-- <v-flex xs3>
                 <router-link to="trades" class="selector" :class="{'active': this.$route.path.includes('/profile/trades')}">
                     <div>
                         <p>Trades</p>
@@ -31,8 +29,7 @@
                         </div>
                     </div>
                 </router-link>
-            </v-flex>
-
+            </v-flex> -->
             <v-flex xs3>
                 <router-link to="transactions" class="selector" :class="{'active': this.$route.path.includes('/profile/transactions')}">
                     <div>
@@ -64,13 +61,6 @@ export default {
         }
     },
     mounted: function(){
-        if (!this.user) {
-            let toast = this.$toasted.show("You must be logged in to view profile page!", { 
-                theme: "bubble", 
-                position: "top-right", 
-                duration : 5000
-            });
-        }
         this.$router.push("/profile/cases")
     }
 }
@@ -90,7 +80,6 @@ export default {
     .stats {
         display: inline-block;
         vertical-align: middle;
-        margin-left: 25px;
         p {
             margin: 0px;
             text-align: left;
@@ -98,11 +87,6 @@ export default {
         .name {
             font-size: 1.5rem;
             font-weight: 600;
-        }
-        .count {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.4);
-            font-weight: unset;
         }
     }
 }

@@ -62,7 +62,7 @@ export default {
                     this.$router.push("/")
                     this.loading = false
                 }).catch((error) => {
-                    this.showMessage(error.response.data.message, "error")
+                    this.showMessage(error.response.data.message)
                     this.loading = false
                 })
             }
