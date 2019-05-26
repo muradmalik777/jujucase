@@ -8,8 +8,8 @@ import "./assets/scss/theme.scss"
 import store from './store'
 import Toasted from 'vue-toasted';
 
+Vue.use(require('vue-moment'));
 Vue.use(Toasted);
-
 Vue.use(Vuetify);
 
 Vue.config.productionTip = false
