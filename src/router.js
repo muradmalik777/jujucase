@@ -10,7 +10,7 @@ import About from '@/pages/About'
 import Profile from '@/pages/Profile'
 import ProfileCases from '@/components/Profile/Cases'
 import ProfileTrades from '@/components/Profile/Trades'
-import TradeDetails from '@/components/Profile/TradeDetails'
+import Transactions from '@/components/Profile/Transactions'
 import CaseDisplay from '@/components/CaseDisplay'
 import SingleCase from '@/components/SingleCase'
 import ItemsWon from '@/components/ItemsWon'
@@ -45,7 +45,7 @@ export default new Router({
             children: [
                 { path: 'cases', component: ProfileCases },
                 { path: 'trades', component: ProfileTrades },
-                { path: 'transactions', component: TradeDetails }
+                { path: 'transactions', component: Transactions }
             ]
         },
         { path: '/payment/success', component: Success },

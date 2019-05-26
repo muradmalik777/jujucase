@@ -60,7 +60,7 @@
         <v-dialog width="800px" persistent v-model="showDialog">
             <v-card class="dialog">
                 <h2 class="t-c">Confirm Order</h2>
-                <v-img contain :src="require('@/assets/imgs/svg/case2.svg')" class="case-open-img"></v-img>
+                <v-img contain :src="require('@/assets/imgs/cases/' + this.oneCase.case_image)" class="case-open-img"></v-img>
                 <div class="case-name">
                     <div class="left-wrapper">
                         <p class="bold">Case Name:</p>
@@ -114,7 +114,6 @@ export default {
       clientHash: null,
       hashLoading: false,
       purchaseLoading: false,
-      winning: null,
       itemsWon: []
     };
   },
@@ -143,7 +142,7 @@ export default {
   methods: {
     buyCase: function() {
       this.purchaseLoading = true;
-      let $purchase = new Api("/purchase");
+      let $purchase = new Api("/purchases");
       let data = {
         user_id: this.$store.state.userData._id,
         case_id: this.oneCase._id,
@@ -152,11 +151,14 @@ export default {
       $purchase.post(data).then(response => {
           if (response.purchased) {
             this.$store.commit("addUser", response.user);
-            this.winning = response.winning;
             this.purchaseLoading = false;
             this.showDialog = false;
-            let item = this.oneCase.items.find(item => (item.marketHashName === this.winning.winningItem))
+            console.log(response.winning)
+            let item = this.oneCase.items.find(item => (item.marketHashName === response.winning.winningItem))
+            console.log("m", item)
+            console.log(this.spinnerItems)
             this.spinnerItems[132] = item;
+            console.log(this.spinnerItems)
             var spin = document.getElementById("spin");
             spin.click();
           }
