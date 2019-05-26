@@ -48,13 +48,13 @@ export default {
             ]
         }
     },
-    watch: {
-        '$route' (to, from) {
-            if(!this.$store.state.userData && !to.path.includes("register") && !to.path.includes("tos") && !to.path.includes("about") && !to.path.includes("faq")){
-                this.$router.push("/login")
-            }
-        }
-    },
+    // watch: {
+    //     '$route' (to, from) {
+    //         if(!this.$store.state.userData && !to.path.includes("register") && !to.path.includes("tos") && !to.path.includes("about") && !to.path.includes("faq")){
+    //             this.$router.push("/login")
+    //         }
+    //     }
+    // },
     mounted: function(){
         this.getCaseCounts()
         this.getUserCounts()

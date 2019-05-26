@@ -21,6 +21,18 @@ import Register from '@/components/Auth/Register'
 
 
 
+import store from './store'
+
+function guard(to, from, next){
+    if (store.state.userData) {
+        next();
+    } else {
+        next('/login');
+    }
+}
+
+
+
 Vue.use(Router);
 
 export default new Router({
@@ -33,15 +45,15 @@ export default new Router({
         { path: '/', component: Home },
         { path: '/login', component: Login },
         { path: '/register', component: Register },
-        { path: '/caseCreator', component: CaseCreator },
-        { path: '/caseBrowser', component: CaseBrowser },
-        { path: '/case/:case_id', component: SingleCase },
-        { path: '/caseBrowser/:case_id', component: CaseDisplay },
+        { path: '/caseCreator', component: CaseCreator, beforeEnter: guard },
+        { path: '/caseBrowser', component: CaseBrowser, beforeEnter: guard },
+        { path: '/case/:case_id', component: SingleCase, beforeEnter: guard },
+        { path: '/caseBrowser/:case_id', component: CaseDisplay,  },
         { path: '/about', component: About },
         { path: '/faq', component: FAQ },
         { path: '/tos', component: TOS },
-        { path: '/winnings', component: ItemsWon },
-        { path: '/profile', component: Profile,
+        { path: '/winnings', component: ItemsWon, beforeEnter: guard },
+        { path: '/profile', component: Profile, beforeEnter: guard,
             children: [
                 { path: 'cases', component: ProfileCases },
                 { path: 'trades', component: ProfileTrades },
