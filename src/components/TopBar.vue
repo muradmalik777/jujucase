@@ -23,7 +23,6 @@
                             </div>
                             <div class="right">
                                 <h4 class="m-t">Deposit</h4>
-                                <deposits :dialog="showDepositDialog" @close="closeDialog"></deposits>
                             </div>
                         </div>
                         <div class="withdraw pointer" v-ripple>
