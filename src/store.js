@@ -10,7 +10,8 @@ export default new Vuex.Store({
         userData: null,
         userDeposits: "",
         caseBeingBrowsed: null,
-        caseBeingOpened: null
+        caseBeingOpened: null,
+        loading: false
     },
     mutations: {
         addUser: function(state, user){
@@ -21,6 +22,12 @@ export default new Vuex.Store({
         },
         addCaseToBeOpened: function (state, data) {
             state.caseBeingOpened = data
+        },
+        startLoader: function(state, data){
+            state.loading = data
+        },
+        endLoader: function (state, data) {
+            state.loading = data
         },
         logout: function(state){
             state.userData = null

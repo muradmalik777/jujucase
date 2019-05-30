@@ -30,6 +30,12 @@ Vue.mixin({
       items = items.sort(() => Math.random() - 0.5);
       items = items.sort(() => Math.random() - 0.5);
       return items.sort(() => Math.random() - 0.5);
+    },
+    startLoader: function(){
+      this.$store.commit('startLoader', true)
+    },
+    endLoader: function () {
+      this.$store.commit('startLoader', false)
     }
   },
   filters: {

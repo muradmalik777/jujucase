@@ -5,20 +5,22 @@
     <div class="content">
         <router-view></router-view>
     </div>
+    <loader v-if="this.$store.state.loading"></loader>
   </v-app>
 </template>
 
 <script>
-import SideBar from '@/components/SideBar'
+import SideBar from '@/components/SideBar';
 import TopBar from '@/components/TopBar';
+import Loader from '@/components/Loader';
 
 
 export default {
   name: 'App',
   components: {
     'sidebar': SideBar,
-    'topbar': TopBar
-
+    'topbar': TopBar,
+    'loader': Loader
   },
   data () {
     return {

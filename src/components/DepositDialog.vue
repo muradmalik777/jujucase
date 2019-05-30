@@ -26,7 +26,7 @@
                             class="email"
                             outline
                             color="#ffffff"
-                            v-model="deposit.email"
+                            v-model="email"
                             :rules="emailRules"
                             required
                             ></v-text-field>
@@ -52,10 +52,10 @@ export default {
     data: function(){
         let data = this.$store.state.userData.email
         return{
+            email: data,
             deposit: {
-                email: data,
                 amount: 10,
-                currency: "USD",
+                currency: "EUR",
                 description: "",
                 successUrl: "http://127.0.0.1:8080/payment/success",
                 cancelUrl: "http://127.0.0.1:8080/payment/failure",
@@ -80,7 +80,7 @@ export default {
                 deposit: this.deposit
             }
             $object.post(data).then(resp => {
-                let url = "http://icarrot1.aistechnolabs.xyz/#/pay/"
+                let url = "https://test.gamerpay.com/pay/"
                 let data = resp.payment_url.split("/")
                 let id = data[data.length-1]
                 window.location.replace(url+id)
