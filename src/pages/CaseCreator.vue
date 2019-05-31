@@ -104,7 +104,7 @@ export default {
             new_case: {
                 name: "",
                 price: 0,
-                case_image: "@/assets/imgs/case/case2.png",
+                case_image: "case2.png",
                 items:[]
             },
             page: 1,
