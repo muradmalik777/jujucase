@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-md fluid class="case-browser spacing">
+    <v-container grid-list-lg fluid class="case-browser spacing">
         <v-layout row pa-2>
             <v-flex class="search">
                 <h3 class="uppercase">case browser</h3>
@@ -29,11 +29,11 @@
             </v-flex>
         </v-layout>
         <v-layout row wrap pa-2>
-            <v-flex class="search-result m-b-2 pointer" xs12 md4 lg3 v-for="item in cases" :key="item._id" @click="browseCase(item)">
+            <v-flex class="search-result m-b-2 pointer" xs12 sm6 md3 lg2 v-for="item in cases" :key="item._id" @click="browseCase(item)">
                 <div class="case">
                     <h4 class="case-name">{{item.name}}</h4>
                     <v-img contain :src="require('@/assets/imgs/cases/' + item.case_image)" class="case-image"></v-img>
-                    <h4 class="t-c capitalize price">${{item.price}} <i class="fas fa-coins coins"></i></h4>
+                    <h4 class="t-c capitalize price">${{parseFloat(item.price).toFixed(2)}} <i class="fas fa-coins coins"></i></h4>
                 </div>
             </v-flex>
             <v-flex xs12 class="text-xs-center m-t-3" v-if="totalCases && totalCases > 12">
@@ -92,6 +92,7 @@ export default {
 </script>
 <style lang="scss">
 .case-browser{
+    max-width: 90% !important;
     .search {
         .skin-search {
             width: calc(100%);

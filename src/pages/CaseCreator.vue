@@ -11,8 +11,12 @@
             <v-flex xs12>
                 <h3 class="uppercase m-b-2 m-t-2">case picture</h3>
             </v-flex>
-            <v-flex xs12 md4 lg2 v-for="image in 35" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
-                <v-img :src="casePicture(image)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
+            <v-flex xs12 md12 lg12>
+                <carousel :autoplay="true" :dots="false" :autoWidth="true">
+                    <div v-for="image in 35" :key="image" class="case-image-box" :class="{'selected': selectedImage==image}">
+                        <v-img :src="casePicture(image)" @click="selectPicture(image)" class="case-picture m-t-3"></v-img>
+                    </div>
+                </carousel>
             </v-flex>
         </v-layout>
         <v-layout row wrap pa-3>
@@ -32,7 +36,7 @@
                 indeterminate
                 ></v-progress-circular>
             </v-flex>
-            <v-flex v-else xs12 md4 lg3 class="m-t-3 pointer" v-for="(item, index) in allSkins" :key="index" @click="selectSkin(item)">
+            <v-flex v-else xs12 sm6 md3 lg3 class="m-t-3 pointer" v-for="(item, index) in allSkins" :key="index" @click="selectSkin(item)">
                 <div class="skin">
                     <div class="price">
                         <h4 class="t-c capitalize">${{item.price}} <i class="fas fa-coins coins"></i></h4>
@@ -94,8 +98,11 @@
 </template>
 <script>
 import Api from '@/services/Api'
+import carousel from 'vue-owl-carousel'
+
 export default {
     name: 'casecreator',
+    components: { carousel },
     data: function(){
         return{
             new_case: {
@@ -255,6 +262,7 @@ export default {
 }
 .selected{
     background: #319c35;
+    padding: 20px;
 }
 .items{
     min-height: 300px;
@@ -280,7 +288,8 @@ export default {
         }
     }
     .case-image-box{
-        min-height: 200px;
+        width: 200px;
+        float: left;
         .case-picture{
             max-width: 130px;
             height: 90px;

@@ -13,6 +13,7 @@
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.6",
+    "vue-owl-carousel": "^2.0.3",
     "vue-router": "^3.0.2",
     "vue-toasted": "^1.1.26",
     "vuetify": "^1.5.7",
