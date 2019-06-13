@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar">
         <v-navigation-drawer class="bg-purple-dull" v-model="drawer" permanent fixed>
-            <v-img :src="require('@/assets/imgs/logo.png')" class="logo"></v-img>
+            <router-link to="/"><v-img :src="require('@/assets/imgs/logo.png')" class="logo pointer"></v-img></router-link>
             <div class="menu">
                 <v-btn flat v-for="(item, index) in menu" :key="index" :to="item.to" class="menu-btn">
                     <v-avatar size="50px">
@@ -39,22 +39,15 @@ export default {
             userCount: 0,
             menu: [
                 {name:"home", icon:"home", to:"/"}, 
-                {name:"Case creator", icon:"pen", to: "/caseCreator"}, 
-                {name:"case browser", icon:"avatar", to: "/caseBrowser"}, 
-                {name:"items Won", icon:"avatar", to: "/winnings"}, 
+                // {name:"Case creator", icon:"pen", to: "/caseCreator"},
+                // {name:"case browser", icon:"avatar", to: "/caseBrowser"}, 
+                // {name:"items Won", icon:"avatar", to: "/winnings"}, 
                 {name:"support/faq", icon:"support", to: "/faq"},
                 {name:"terms of service", icon:"info", to: "/tos"},
                 {name:"about", icon:"info", to: "/about"}
             ]
         }
     },
-    // watch: {
-    //     '$route' (to, from) {
-    //         if(!this.$store.state.userData && !to.path.includes("register") && !to.path.includes("tos") && !to.path.includes("about") && !to.path.includes("faq")){
-    //             this.$router.push("/login")
-    //         }
-    //     }
-    // },
     mounted: function(){
         this.getCaseCounts()
         this.getUserCounts()
@@ -139,5 +132,33 @@ export default {
             }
         }
     }
+}
+
+@media only screen and (max-height: 1366px) {
+    .sidebar{
+        .v-navigation-drawer{
+            width: 300px;
+
+            .logo{
+                width: 110px;
+                height: 110px;
+                display: block;
+                margin: 40px auto;
+            }
+            .menu{
+                margin: 30px 0px;
+                .menu-btn{
+                    width: 100%;
+                    padding: 7px 20px;
+                    height: 45px;
+                    color: #cccccc;
+                    margin: 0px;
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }   
 }
 </style>

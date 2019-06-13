@@ -22,9 +22,6 @@
             <v-flex xs12 class="search">
                 <v-autocomplete class="skin-search m-t" placeholder="search" v-model="search" :items="search_result"></v-autocomplete>
             </v-flex>
-            <!-- <v-flex xs1 class="select">
-                <v-select background-color="#73337a" color="#fff" :value="items[0]" :items="items"></v-select>
-            </v-flex> -->
         </v-layout>
 
         <v-layout row wrap pa-3 class="items">
@@ -199,7 +196,9 @@ export default {
 }
 </script>
 <style lang="scss">
-
+.case-creator{
+    max-width: 90% !important;
+}
 .total_odds h4, .case_price h4{
     background-color: #73337a;
     padding: 1rem 2rem;

@@ -1,73 +1,39 @@
 <template>
     <div class="topbar">
         <v-toolbar flat class="bg-purple-bright">
-            <v-container>
-                <v-layout justify-end row>
-                    <v-flex xs8>
-                        <div class="deposit pointer" v-if="$store.state.userData" v-ripple @click="openDialog">
-                            <div class="left">
-                                <div class="circle">
-                                    <v-img :src="require('@/assets/imgs/svg/purse.svg')" class="topbar-icon"></v-img>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <h4 class="m-t">Deposit</h4>
-                                <deposits :dialog="showDepositDialog" @close="closeDialog"></deposits>
-                            </div>
-                        </div>
-                        <div class="deposit pointer" v-ripple v-else>
-                            <div class="left">
-                                <div class="circle">
-                                    <v-img :src="require('@/assets/imgs/svg/purse.svg')" class="topbar-icon"></v-img>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <h4 class="m-t">Deposit</h4>
-                            </div>
-                        </div>
-                        <div class="withdraw pointer" v-ripple>
-                            <div class="left">
-                                <div class="circle">
-                                    <v-img :src="require('@/assets/imgs/svg/money.svg')" class="topbar-icon money"></v-img>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <h4 class="m-t">Withdraw</h4>
-                            </div>
-                        </div>
-                        <div class="bell pointer" v-ripple>
-                            <v-img :src="require('@/assets/imgs/svg/notification.svg')" class="topbar-icon"></v-img>
-                        </div>
+            <v-container class="nav">
+                <v-layout justify-end row wrap>
+                    <v-flex xs12 sm12 md1 lg1 class="text-xs-left">
 
-                        <div class="user">
-                            <div class="left">
-                                <v-img :src="require('@/assets/imgs/default-icon.png')" class="user-icon"></v-img>
-                            </div>
-                            <div class="right" v-if="$store.state.userData">
-                                <v-menu offset-y max-width="180" min-width="150" >
-                                    <template v-slot:activator="{ on }">
-                                        <h4 v-ripple v-on="on" class="pointer user-name">{{$store.state.userData.user_name}}</h4>
-                                        <p class="c-green-bright">${{parseFloat($store.state.userData.balance).toFixed(2)}}</p>
-                                    </template>
-                                    <!-- <router-link to="profile"></router-link> -->
-                                     <v-list dark>
-                                        <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
-                                            <v-list-tile-title>Profile</v-list-tile-title>
-                                        </v-list-tile>
-                                        <v-list-tile to="/faq" class="user-menu pointer c-purple-bright">
-                                            <v-list-tile-title>Help</v-list-tile-title>
-                                        </v-list-tile>
-                                        <v-list-tile @click="signout()" class="user-menu pointer">
-                                            <v-list-tile-title>Logout</v-list-tile-title>
-                                        </v-list-tile>
-                                    </v-list>
-                                </v-menu>
-                                
-                            </div>
-                            <div v-else>
-                                <v-btn flat outline color="#ffffff" :to="'/login'">Login</v-btn>
-                            </div>
-                        </div>
+                    </v-flex>
+                    <v-flex xs12 sm12 md10 lg10 class="text-xs-center">
+                        <v-btn flat class="nav-link" to="/">Home</v-btn>
+                        <v-btn flat class="nav-link" to="caseCreator">Case Creator</v-btn>
+                        <v-btn flat class="nav-link" to="casebrowser">Case Browser</v-btn>
+                        <deposits :dialog="showDepositDialog" @close="closeDialog"></deposits>
+                    </v-flex>
+                    <v-flex xs1 class="text-xs-center">
+                        <v-menu offset-y max-width="200" min-width="150" v-if="$store.state.userData">
+                            <template v-slot:activator="{ on }">
+                                <h4 v-ripple v-on="on" class="pointer user-name">{{$store.state.userData.user_name}}</h4>
+                                <p class="t-l c-green-bright">${{parseFloat($store.state.userData.balance).toFixed(2)}}</p>
+                            </template>
+                                <v-list dark>
+                                <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
+                                    <v-list-tile-title>Profile</v-list-tile-title>
+                                </v-list-tile>
+                                <v-list-tile @click="openDialog" class="user-menu pointer c-purple-bright">
+                                    <v-list-tile-title>Add Funds</v-list-tile-title>
+                                </v-list-tile>
+                                <v-list-tile to="/faq" class="user-menu pointer c-purple-bright">
+                                    <v-list-tile-title>Help</v-list-tile-title>
+                                </v-list-tile>
+                                <v-list-tile @click="signout()" class="user-menu pointer">
+                                    <v-list-tile-title>Logout</v-list-tile-title>
+                                </v-list-tile>
+                            </v-list>
+                        </v-menu>
+                        <v-btn flat outline color="#ffffff" :to="'/login'" v-else>Login</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -123,80 +89,26 @@ export default {
 </script>
 <style lang="scss">
 .topbar{
+    .nav{
+        max-width: 100%;
+    }
     .v-toolbar{
-        width: calc(100% - 300px);
+        width: 100%;
         height: 100px;
         position: fixed;
-        top: 0;
-        left: 300px;
         z-index: 200;
     }
     .v-toolbar__content{
         padding: 0px 0px !important;
     }
-    .container{
-        padding: 0px;
+    .nav-link{
+        color: white;
+        text-transform: capitalize;
+        font-size: 16px;
+        height: 50px;
     }
-    .flex:first-child{
-        border-left: 1px solid #99999965;
-    }
-    .deposit, .withdraw, .bell{
-        width: 25%;
-        border-right: 1px solid #99999965;
-        height: 100px;
-        padding: 20px 10px;
-        float: left;
-    }
-    .left, .right{
-        width: 50%;
-        float: left;
-    }
-    .circle{
-        width: 65px;
-        height: 65px;
-        padding: 5px;
-        border: 1px solid #99999995;
-        border-radius: 50%;
-        margin: auto;
-    }
-    .topbar-icon{
-        width: 28px;
-        height: 25px;
-        display: block;
-        margin: 10px auto;
-    }
-    .topbar-icon.money{
-        width: 27px;
-        height: 27px;
-    }
-    .bell{
-        width: 15%;
-        .topbar-icon{
-            font-size: 35px !important;
-            width: 22px;
-            height: 25px;
-            display: block;
-            margin: 15px auto;
-        }
-    }
-    .user{
-        width: 35%;
-        height: 100px;
-        float: left;
-        padding: 25px 10px;
-        .left{
-            width: 30%;
-            .user-icon{
-                width: 50px;
-                height: 50px;
-                border-radius: 100%;
-                display: block;
-                margin: auto;
-            }
-        }
-        .right{
-            width: 70%;
-        }
+    .nav-link.v-btn--active{
+        background: #73337a;
     }
     .login{
         margin: 10px;

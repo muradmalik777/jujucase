@@ -1,5 +1,5 @@
 <template>
-    <v-container class="home spacing" fluid>
+    <v-container class="home spacing">
         <v-layout>
             <v-flex class="banner">
                 <h2 class="uppercase t-c">add banner</h2>
@@ -9,11 +9,10 @@
             <v-flex xs12 md12 lg12>
                 <h2 class="uppercase m-t-3">Open cases <span class="uppercase c-purple-bright m-l">view selection</span></h2>
             </v-flex>
-            <v-flex xs12 md4 lg3 class="case pointer m-t-3 m-b-3" v-for="(item, index) in allCases" :key="index" @click="openCase(item)">
-                <h4 class="t-c capitalize">Empty Slot</h4>
-                <v-img :src="require('@/assets/imgs/cases/' + item.case_image)" class="case-image"></v-img>
-                <h4 class="t-c capitalize price m-b-2">${{item.price}} <i class="fas fa-coins coins"></i></h4>
+            <v-flex xs12 sm4 md3 lg2 class="case pointer m-t-3 m-b-3" v-for="(item, index) in allCases" :key="index" @click="openCase(item)">
                 <h3 class="capitalize t-c">{{item.name}}</h3>
+                <v-img :src="require('@/assets/imgs/cases/' + item.case_image)" class="case-image"></v-img>
+                <h4 class="t-c capitalize price">${{parseFloat(item.price).toFixed(2)}}</h4>
             </v-flex>
             <v-flex xs12 class="text-xs-center m-t-3" v-if="totalCases && totalCases > 12">
                 <v-pagination
@@ -62,6 +61,7 @@ export default {
 </script>
 <style lang="scss">
 .home{
+    max-width: 90%;
     overflow: auto;
     min-height: 600px;
     .banner{
@@ -75,7 +75,7 @@ export default {
             }
         }
         .case{
-            min-height: 300px;
+            min-height: 250px;
             padding: 15px;
             &:hover{
                 background: #00cf2099;
@@ -86,9 +86,9 @@ export default {
             }
             .case-image{
                 display: block;
-                margin: 1.5rem auto;
+                margin: 2rem auto;
                 width: 150px;
-                height: 100px;
+                height: auto;
             }
         }
     }
