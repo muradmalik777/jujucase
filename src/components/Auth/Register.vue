@@ -1,8 +1,8 @@
 <template>
-    <v-container>
+    <v-container class="register">
         <v-layout row justify-center mt-5 pt-5>
             <v-flex xs12 md7 lg5>
-                <v-card class="login-card">
+                <v-card class="register-card">
                     <h2 class="m-b-2">User Signup</h2>
                     <v-form ref="form">
                         <v-text-field
@@ -77,7 +77,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.login-card{
+.register{
+    height: 75vh;
+}
+.register-card{
     background: #73337a99;
     min-height: 500px;
     padding: 40px;

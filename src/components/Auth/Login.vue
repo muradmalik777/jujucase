@@ -1,6 +1,6 @@
 <template>
-    <v-container>
-        <v-layout row justify-center mt-5 pt-5>
+    <v-container class="login">
+        <v-layout row justify-center align-center mt-5 pt-5>
             <v-flex xs12 md7 lg5>
                 <v-card class="login-card">
                     <h2 class="m-b-2">User Login</h2>
@@ -71,6 +71,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.login{
+    height: 75vh;
+}
 .login-card{
     background: #73337a99;
     min-height: 500px;
