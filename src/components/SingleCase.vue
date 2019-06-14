@@ -18,6 +18,7 @@
                             <li v-for="(item, index) in spinnerItems" :key="index"><v-img contain class="skin-image" :src="item.iconUrl"></v-img></li>
                         </ul>
                     </div>
+                    <div class="line"></div>
                 </div>
             </div>
             <div class="spinner-controls">
@@ -93,10 +94,13 @@
                 </div>
             </v-card>
         </v-dialog>
+        
+        <win :dialog="showWinningDialog" @closeDialog="closeWinningDialog"></win>
     </div>
 </template>
 <script>
 import Api from "../services/Api.js";
+import WinningDialog from '@/components/WinningDialog'
 import * as $ from "jquery";
 import { error } from "util";
 window["$"] = $;
@@ -104,10 +108,14 @@ window["jQuery"] = $;
 
 export default {
   name: "SingleCase",
+  components: {
+    'win': WinningDialog
+  },
   data: function() {
     let data = this.$store.state.caseBeingOpened;
     return {
       number: 1,
+      showWinningDialog: false,
       showDialog: false,
       oneCase: data,
       spinnerItems: [],
@@ -128,9 +136,9 @@ export default {
       $(".list li").css({
         border: "4px solid transparent"
       });
-      $(".list li:eq(" + 132 + ")").css({
-        border: "3px solid #4caf50"
-      });
+      // $(".list li:eq(" + 133 + ")").css({
+      //   border: "3px solid #4caf50"
+      // });
       $(".window").animate(
         {
           right: 150 * 135
@@ -153,17 +161,19 @@ export default {
             this.$store.commit("addUser", response.user);
             this.purchaseLoading = false;
             this.showDialog = false;
-            console.log(response.winning)
             let item = this.oneCase.items.find(item => (item.marketHashName === response.winning.winningItem))
-            console.log("m", item)
-            console.log(this.spinnerItems)
-            this.spinnerItems[132] = item;
-            console.log(this.spinnerItems)
+            this.$store.commit('refreshWinningItem', response.winning)
+            console.log(response.winning)
+            this.spinnerItems[133] = item;
             var spin = document.getElementById("spin");
             spin.click();
+            setTimeout(function(){
+              this.showWinningDialog = true
+            }.bind(this), 13000);
           }
         }).catch(error => {
           this.purchaseLoading = false;
+          this.showMessage(error.response.data.message)
         });
     },
     getClientHash: function() {
@@ -194,6 +204,12 @@ export default {
       $object.post(params).then(response => {
         this.itemsWon = response;
       });
+    },
+    openWinningDialog: function(){
+      this.showWinningDialog = true
+    },
+    closeWinningDialog: function(){
+      this.showWinningDialog = false
     }
   }
 };
@@ -286,6 +302,15 @@ export default {
       width: 100%;
       overflow-x: hidden;
       overflow-y: hidden;
+    }
+
+    .line{
+      width: 1px;
+      height: 200px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      border: 2px solid #4caf50;
     }
 
     .list {

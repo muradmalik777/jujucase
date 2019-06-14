@@ -4,7 +4,7 @@
             <v-flex xs12 md7 lg5>
                 <v-card class="login-card">
                     <h2 class="m-b-2">User Login</h2>
-                    <v-form ref="form" id="loginForm">
+                    <v-form ref="form" id="loginForm" @keyup.native.enter="login">
                         <v-text-field
                         color="#fff"
                         v-model="user.email"

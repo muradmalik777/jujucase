@@ -11,7 +11,8 @@ export default new Vuex.Store({
         userDeposits: "",
         caseBeingBrowsed: null,
         caseBeingOpened: null,
-        loading: false
+        loading: false,
+        winningItem: null
     },
     mutations: {
         addUser: function(state, user){
@@ -22,6 +23,9 @@ export default new Vuex.Store({
         },
         addCaseToBeOpened: function (state, data) {
             state.caseBeingOpened = data
+        },
+        refreshWinningItem: function (state, data) {
+            state.winningItem = data
         },
         startLoader: function(state, data){
             state.loading = data

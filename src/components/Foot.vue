@@ -2,7 +2,7 @@
     <v-container class="foot bg-purple-bright">
         <v-layout row wrap>
             <v-flex xs12 md3 lg3 class="text-xs-left">
-                <v-img contain :src="require('@/assets/imgs/logo.svg')" class="foot-logo"></v-img>
+                <v-img contain :src="require('@/assets/imgs/logo.png')" class="foot-logo"></v-img>
             </v-flex>
 
             <v-flex xs12 md2 lg2 class="text-xs-center">
@@ -74,9 +74,9 @@ export default {
     height: 150px !important;
 
     .foot-logo{
-        width: 200px;
+        width: 180px;
         height: auto;
-        margin-top: 1rem;
+        margin-left: 2rem;
     }
     .foot-menu{
         width: 100%;

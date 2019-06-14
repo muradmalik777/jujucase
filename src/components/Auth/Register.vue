@@ -4,7 +4,7 @@
             <v-flex xs12 md7 lg5>
                 <v-card class="register-card">
                     <h2 class="m-b-2">User Signup</h2>
-                    <v-form ref="form">
+                    <v-form ref="form" @keyup.native.enter="submit">
                         <v-text-field
                         color="#fff"
                         v-model="user.user_name"
