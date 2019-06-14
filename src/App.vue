@@ -4,6 +4,7 @@
     <div class="content">
         <router-view></router-view>
     </div>
+    <foot></foot>
     <loader v-if="this.$store.state.loading"></loader>
   </v-app>
 </template>
@@ -11,6 +12,7 @@
 <script>
 import SideBar from '@/components/SideBar';
 import TopBar from '@/components/TopBar';
+import Foot from '@/components/Foot';
 import Loader from '@/components/Loader';
 
 
@@ -19,7 +21,8 @@ export default {
   components: {
     'sidebar': SideBar,
     'topbar': TopBar,
-    'loader': Loader
+    'loader': Loader,
+    'foot': Foot
   },
   data () {
     return {
@@ -30,11 +33,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content{
-    width: 100%;
-    min-height: 100vh;
-    margin-top: 100px;
-    overflow-y: auto;
-    padding-bottom: 0px;
     background-image: url('assets/imgs/svg/41.svg');
     background-size: cover;
 }

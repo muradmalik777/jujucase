@@ -4,7 +4,7 @@
             <v-container class="nav">
                 <v-layout justify-end row wrap>
                     <v-flex xs12 sm12 md1 lg1 class="text-xs-left">
-
+                        <v-img contain :src="require('@/assets/imgs/logo.svg')" class="nav-logo"></v-img>
                     </v-flex>
                     <v-flex xs12 sm12 md10 lg10 class="text-xs-center">
                         <v-btn flat class="nav-link" to="/">Home</v-btn>
@@ -92,10 +92,13 @@ export default {
     .nav{
         max-width: 100%;
     }
+    .nav-logo{
+        width: 200px;
+        height: auto;
+    }
     .v-toolbar{
         width: 100%;
         height: 100px;
-        position: fixed;
         z-index: 200;
     }
     .v-toolbar__content{
