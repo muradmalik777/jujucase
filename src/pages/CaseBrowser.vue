@@ -29,7 +29,7 @@
             </v-flex>
         </v-layout>
         <v-layout row wrap pa-2>
-            <v-flex class="search-result m-b-2 pointer" xs12 sm6 md3 lg2 v-for="item in cases" :key="item._id" @click="browseCase(item)">
+            <v-flex class="search-result pointer" xs12 sm6 md3 lg2 v-for="item in cases" :key="item._id" @click="browseCase(item)">
                 <div class="case">
                     <h4 class="case-name">{{item.name}}</h4>
                     <v-img contain :src="require('@/assets/imgs/cases/' + item.case_image)" class="case-image"></v-img>

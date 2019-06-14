@@ -1,5 +1,5 @@
 <template>
-    <v-container fluit grid-list-md class="spacing">
+    <v-container fluit grid-list-xl class="spacing">
         <v-layout row wrap>
             <v-flex>
                 <h1>{{$store.state.caseBeingBrowsed.name}}</h1>

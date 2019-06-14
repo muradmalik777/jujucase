@@ -1,7 +1,7 @@
 <template>
     <div class="text-xs-center">
         <v-dialog
-        v-model="dialog"
+        v-model="val"
         persistent
         width="700">
 
@@ -50,8 +50,10 @@ export default {
     name: "DepositDialog",
     props: ["dialog"],
     data: function(){
+        let data2 = this.$props.dialog
         let data = this.$store.state.userData.email
         return{
+            val: data2,
             email: data,
             deposit: {
                 amount: 10,
@@ -66,6 +68,11 @@ export default {
                 v => /.+@.+/.test(v) || "E-mail must be valid"
             ],
             loading: false
+        }
+    },
+    watch: {
+        dialog: function(newVal, oldVal){
+            this.val = newVal
         }
     },
     methods: {

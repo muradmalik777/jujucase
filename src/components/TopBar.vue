@@ -10,7 +10,7 @@
                         <v-btn flat class="nav-link" to="/">Home</v-btn>
                         <v-btn flat class="nav-link" to="caseCreator">Case Creator</v-btn>
                         <v-btn flat class="nav-link" to="casebrowser">Case Browser</v-btn>
-                        <deposits :dialog="showDepositDialog" @close="closeDialog"></deposits>
+                        <deposits :dialog="showDepositDialog" @close="closeDialog" v-if="$store.state.userData"></deposits>
                     </v-flex>
                     <v-flex xs1 class="text-xs-center">
                         <v-menu offset-y max-width="200" min-width="150" v-if="$store.state.userData">

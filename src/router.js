@@ -48,7 +48,7 @@ export default new Router({
         { path: '/caseCreator', component: CaseCreator, beforeEnter: guard },
         { path: '/caseBrowser', component: CaseBrowser, beforeEnter: guard },
         { path: '/case/:case_id', component: SingleCase, beforeEnter: guard },
-        { path: '/caseBrowser/:case_id', component: CaseDisplay,  },
+        { path: '/caseBrowser/:case_id', component: CaseDisplay, beforeEnter: guard },
         { path: '/about', component: About },
         { path: '/faq', component: FAQ },
         { path: '/tos', component: TOS },
