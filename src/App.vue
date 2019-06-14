@@ -35,6 +35,7 @@ export default {
 .content{
     background-image: url('assets/imgs/svg/41.svg');
     background-size: cover;
+    padding-bottom: 100px;
 }
 </style>
 
