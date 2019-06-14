@@ -163,7 +163,6 @@ export default {
             this.showDialog = false;
             let item = this.oneCase.items.find(item => (item.marketHashName === response.winning.winningItem))
             this.$store.commit('refreshWinningItem', response.winning)
-            console.log(response.winning)
             this.spinnerItems[133] = item;
             var spin = document.getElementById("spin");
             spin.click();
