@@ -103,7 +103,7 @@ export default {
             margin: 0px;
         }
         .count{
-            font-size: 24px;
+            font-size: 28px;
         }
     }
     .social-links{
@@ -116,6 +116,9 @@ export default {
                 cursor: pointer;
             }
         }
+    }
+    p{
+        color: #ffffff90;
     }
 }
 </style>
