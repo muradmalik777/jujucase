@@ -7,7 +7,6 @@
                     <v-img contain :src="user.avatar" class="avatar"></v-img>
                     <div class="stats">
                         <p class="name">{{user.user_name}}</p>
-                        <p class="">{{user._id}}</p>
                     </div>
                 </div>
             </v-flex>

@@ -63,7 +63,7 @@ export default {
 .home{
     max-width: 90%;
     overflow: auto;
-    min-height: 600px;
+    min-height: 100vh;
     .banner{
         padding: 35px;
         background: #73337a65;

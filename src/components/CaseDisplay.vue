@@ -16,9 +16,6 @@
                     <div class="name">
                         <h4>{{item.marketHashName}}</h4>
                     </div>
-                    <div class="action">
-                        <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="delete-icon"></v-img>
-                    </div>
                 </div>
             </v-flex>
         </v-layout>
@@ -55,7 +52,7 @@ export default {
         height: 200px;
     }
     .name{
-        width: 80%;
+        width: 100%;
         float: left;
         padding: 10px;
         cursor: pointer;

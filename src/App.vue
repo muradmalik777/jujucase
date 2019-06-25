@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import SideBar from '@/components/SideBar';
 import TopBar from '@/components/TopBar';
 import Foot from '@/components/Foot';
 import Loader from '@/components/Loader';
@@ -19,7 +18,6 @@ import Loader from '@/components/Loader';
 export default {
   name: 'App',
   components: {
-    'sidebar': SideBar,
     'topbar': TopBar,
     'loader': Loader,
     'foot': Foot

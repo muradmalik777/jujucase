@@ -3,23 +3,38 @@
         <v-toolbar flat class="bg-purple-bright">
             <v-container class="nav">
                 <v-layout justify-end row wrap>
-                    <v-flex xs12 sm12 md1 lg1 class="text-xs-left">
-                        <v-img contain :src="require('@/assets/imgs/logo.png')" class="nav-logo"></v-img>
+                    <v-flex xs2 class="text-xs-left">
+                        <router-link to="/"><v-img contain :src="require('@/assets/imgs/logo.png')" class="nav-logo pointer"></v-img></router-link>
                     </v-flex>
-                    <v-flex xs12 sm12 md10 lg10 class="text-xs-center">
-                        <v-btn flat class="nav-link" to="/">Home</v-btn>
-                        <v-btn flat class="nav-link" to="caseCreator">Case Creator</v-btn>
-                        <v-btn flat class="nav-link" to="casebrowser">Case Browser</v-btn>
-                        <deposits :dialog="showDepositDialog" @close="closeDialog" v-if="$store.state.userData"></deposits>
-                    </v-flex>
-                    <v-flex xs1 class="text-xs-center">
+                    <v-flex xs9 class="text-xs-right">
+                        <v-btn flat class="nav-link" to="/">
+                            <v-avatar size="50px">
+                                <v-img contain :src="require('@/assets/imgs/svg/home.svg')" class="menu-btn-icon"></v-img>
+                            </v-avatar>
+                            Home
+                        </v-btn>
+                        <v-btn flat class="nav-link" to="/caseCreator">
+                            <v-avatar size="50px">
+                                <v-img contain :src="require('@/assets/imgs/svg/pen.svg')" class="menu-btn-icon"></v-img>
+                            </v-avatar>
+                            Case Creator
+                        </v-btn>
+                        <v-btn flat class="nav-link" to="/casebrowser">
+                            <v-avatar size="50px">
+                                <v-img contain :src="require('@/assets/imgs/svg/box.svg')" class="menu-btn-icon"></v-img>
+                            </v-avatar>
+                            Case Browser
+                        </v-btn>
+                        <v-btn flat class="c-green-bright nav-link">${{parseFloat($store.state.userData.balance).toFixed(2)}}</v-btn>
                         <v-menu offset-y max-width="200" min-width="150" v-if="$store.state.userData">
                             <template v-slot:activator="{ on }">
-                                <h4 v-ripple v-on="on" class="pointer user-name">{{$store.state.userData.user_name}}</h4>
-                                <p class="t-l c-green-bright">${{parseFloat($store.state.userData.balance).toFixed(2)}}</p>
+                                <v-btn flat v-on="on" class="nav-link m-0">{{$store.state.userData.user_name}} <span class="verified">[Verified]</span><br></v-btn>
                             </template>
-                                <v-list dark>
-                                <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
+                            <v-list dark>
+                                <!-- <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
+                                    <v-list-tile-title><p class="c-green-bright amount">${{parseFloat($store.state.userData.balance).toFixed(2)}}</p></v-list-tile-title>
+                                </v-list-tile> -->
+                                <v-list-tile class="user-menu pointer c-purple-bright">
                                     <v-list-tile-title>Profile</v-list-tile-title>
                                 </v-list-tile>
                                 <v-list-tile @click="openDialog" class="user-menu pointer c-purple-bright">
@@ -33,7 +48,11 @@
                                 </v-list-tile>
                             </v-list>
                         </v-menu>
-                        <v-btn flat outline color="#ffffff" :to="'/login'" v-else>Login</v-btn>
+                        <v-btn flat outline class="nav-link" :to="'/login'" v-else>Login</v-btn>
+                        <deposits :dialog="showDepositDialog" @close="closeDialog" v-if="$store.state.userData"></deposits>
+                    </v-flex>
+                    <v-flex xs1>
+
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -110,22 +129,21 @@ export default {
         text-transform: capitalize;
         font-size: 16px;
         height: 50px;
+        .menu-btn-icon{
+            width: 22px;
+            height: 25px;
+        }
     }
     .nav-link.v-btn--active{
         background: #73337a;
     }
-    .login{
-        margin: 10px;
-        width: 195px;
-        height: 25px;
-        box-shadow: 0px 2px 2px #333333;
-        border-radius: 5px;
-    }
     .user-menu{
         color: #333333 !important;
     }
-    .user-name{
-        width: fit-content;
+    .verified{
+        font-size: 12px;
+        color: #bbbbbb !important;
+        margin-left: .5rem;
     }
 }
 </style>
