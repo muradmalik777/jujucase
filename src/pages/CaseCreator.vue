@@ -45,9 +45,6 @@
                     <div class="name">
                         <h4>{{item.marketHashName}}</h4>
                     </div>
-                    <div class="action">
-                        <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="delete-icon"></v-img>
-                    </div>
                 </div>
             </v-flex>
             <v-flex xs12 class="text-xs-center m-t-3">
@@ -321,28 +318,10 @@ export default {
             height: 200px;
         }
         .name{
-            width: 80%;
+            width: 100%;
             float: left;
             padding: 10px;
             cursor: pointer;
-        }
-        .action{
-            position: absolute;
-            bottom: 0px;
-            right: 0px;
-            padding: 10px 20px;
-            background: #99999967;
-            cursor: pointer;
-
-            &:hover{
-                background: #99999911;
-            }
-
-            .delete-icon{
-                width: 20px;
-                height: 30px;
-                display: block;
-            }
         }
     }
 }
