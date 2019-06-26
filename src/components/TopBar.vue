@@ -25,16 +25,16 @@
                             </v-avatar>
                             Case Browser
                         </v-btn>
-                        <v-btn flat class="c-green-bright nav-link">${{parseFloat($store.state.userData.balance).toFixed(2)}}</v-btn>
+                        <!-- <v-btn flat class="c-green-bright nav-link">${{parseFloat($store.state.userData.balance).toFixed(2)}}</v-btn> -->
                         <v-menu offset-y max-width="200" min-width="150" v-if="$store.state.userData">
                             <template v-slot:activator="{ on }">
                                 <v-btn flat v-on="on" class="nav-link m-0">{{$store.state.userData.user_name}} <span class="verified">[Verified]</span><br></v-btn>
                             </template>
                             <v-list dark>
-                                <!-- <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
-                                    <v-list-tile-title><p class="c-green-bright amount">${{parseFloat($store.state.userData.balance).toFixed(2)}}</p></v-list-tile-title>
-                                </v-list-tile> -->
                                 <v-list-tile class="user-menu pointer c-purple-bright">
+                                    <v-list-tile-title><p class="c-green-bright amount">${{parseFloat($store.state.userData.balance).toFixed(2)}}</p></v-list-tile-title>
+                                </v-list-tile>
+                                <v-list-tile to="/profile" class="user-menu pointer c-purple-bright">
                                     <v-list-tile-title>Profile</v-list-tile-title>
                                 </v-list-tile>
                                 <v-list-tile @click="openDialog" class="user-menu pointer c-purple-bright">

@@ -8,7 +8,7 @@ import FAQ from '@/pages/FAQ'
 import TOS from '@/pages/TOS'
 import About from '@/pages/About'
 import Profile from '@/pages/Profile'
-import ProfileCases from '@/components/Profile/Cases'
+import ProfileWinnings from '@/components/Profile/Winnings'
 import ProfileTrades from '@/components/Profile/Trades'
 import Transactions from '@/components/Profile/Transactions'
 import CaseDisplay from '@/components/CaseDisplay'
@@ -55,7 +55,7 @@ export default new Router({
         { path: '/winnings', component: ItemsWon, beforeEnter: guard },
         { path: '/profile', component: Profile, beforeEnter: guard,
             children: [
-                { path: 'cases', component: ProfileCases },
+                { path: 'cases', component: ProfileWinnings },
                 { path: 'trades', component: ProfileTrades },
                 { path: 'transactions', component: Transactions }
             ]

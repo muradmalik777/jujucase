@@ -136,14 +136,14 @@ export default {
       $(".list li").css({
         border: "4px solid transparent"
       });
-      // $(".list li:eq(" + 133 + ")").css({
+      // $(".list li:eq(" + 120 + ")").css({
       //   border: "3px solid #4caf50"
       // });
       $(".window").animate(
         {
-          right: 150 * 135
+          right: 135 * 135
         },
-        13000
+        9000
       );
     });
   },
@@ -163,12 +163,12 @@ export default {
             this.showDialog = false;
             let item = this.oneCase.items.find(item => (item.marketHashName === response.winning.winningItem))
             this.$store.commit('refreshWinningItem', response.winning)
-            this.spinnerItems[133] = item;
+            this.spinnerItems[120] = item;
             var spin = document.getElementById("spin");
             spin.click();
             setTimeout(function(){
               this.showWinningDialog = true
-            }.bind(this), 13000);
+            }.bind(this), 9000);
           }
         }).catch(error => {
           this.purchaseLoading = false;

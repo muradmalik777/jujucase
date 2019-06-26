@@ -7,13 +7,14 @@
                     <v-img contain :src="user.avatar" class="avatar"></v-img>
                     <div class="stats">
                         <p class="name">{{user.user_name}}</p>
+                        <p class="name c-green">${{parseFloat(user.balance).toFixed(2)}}</p>
                     </div>
                 </div>
             </v-flex>
             <v-flex xs3>
                 <router-link to="cases" class="selector" :class="{'active': this.$route.path.includes('/profile/cases')}">
                     <div>
-                        <p>Cases</p>
+                        <p>Winnings</p>
                         <div class="icon-container">
                             <v-img contain :src="require('@/assets/imgs/svg/' + 'purse' + '.svg')" class="icon"></v-img>
                         </div>

@@ -1,16 +1,30 @@
 <template>
     <v-container grid-list-xs fluid class="spacing">
-        <v-layout mb-3 row wrap class="section-container">
+        <v-layout mb-5 row wrap class="section-container">
             <v-flex xs12>
-                <h3 class="uppercase">Recent Winnings</h3>
+                <h3 class="uppercase">Unsold Items</h3>
             </v-flex>
             <v-flex xs12>
-                <div class="winning m" v-for="(item, index) in itemsWon" :key="index">
+                <div class="unsold m-r-2 m-b-5" v-for="(item, index) in itemsAvailable" :key="index">
+                    <v-btn :loading="loading" color="#00cf20" @click="sellItem(item)" class="sell-btn">Sell</v-btn>
                     <v-img contain :src="item.item.iconUrl" class="winning-img"></v-img>
+                    <p class="t-c m-t-2">${{item.item.price}}</p>
                 </div>
             </v-flex>
         </v-layout>
-        <v-layout row wrap class="section-container">
+
+        <v-layout mt-5 row wrap class="section-container">
+            <v-flex xs12>
+                <h3 class="uppercase">Sold Items</h3>
+            </v-flex>
+            <v-flex xs12>
+                <div class="sold m-r-2 m-b-5" v-for="(item, index) in itemsSold" :key="index">
+                    <v-img contain :src="item.item.iconUrl" class="winning-img"></v-img>
+                    <p class="t-c m-t-2 c-green">Sold</p>
+                </div>
+            </v-flex>
+        </v-layout>
+        <!-- <v-layout row wrap class="section-container">
             <v-flex xs12>
                 <h3 class="uppercase">My Cases</h3>
             </v-flex>
@@ -22,7 +36,7 @@
                 <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="case-delete m-a" @click="deleteCase(i)"></v-img>
                 </v-card>
             </v-flex>
-        </v-layout>
+        </v-layout> -->
     </v-container>
 </template>
 <script>
@@ -33,24 +47,22 @@ export default {
     data: function() {
         return {
             myCases: [],
-            itemsWon: []
-        }
-    },
-    computed: {
-        user: function() {
-            return this.$store.state.userData;
+            itemsSold: [],
+            itemsAvailable: [],
+            loading: false
         }
     },
     mounted: function() {
         this.getWinnings()
-        this.getUserCases()
+        // this.getUserCases()
     },
     methods: {
         getWinnings: function(){
             let $object = new Api('/user/winning')
             let params = { user_id: this.$store.state.userData._id }
             $object.post(params).then(response => {
-                this.itemsWon = response.items
+                this.itemsSold = response.sold_items
+                this.itemsAvailable = response.unsold_items
                 this.totalWinnings = response.total_count
             })
         },
@@ -75,6 +87,17 @@ export default {
                     duration : 5000
                 });
             })
+        },
+        sellItem: function(item){
+            this.loading= true
+            let $object = new Api('/user/trade')
+            $object.post(item).then(response =>{
+                this.$store.commit('addUser', response.user)
+                this.getWinnings()
+                this.loading = false
+            }).catch(()=>{
+                this.loading = false
+            })
         }
     }
 }
@@ -85,15 +108,48 @@ export default {
 .section-container {
     text-align: left !important;
     
-    .winning {
+    .unsold {
+        position: relative;
         padding-left: 10px;
         padding-top: 25px; 
         display: block;
         float: left;
         background: url('../../assets/imgs/svg/winning-circle.svg');
-        background-size: 120px;
-        width: 120px;
-        height: 120px;
+        background-size: 160px;
+        width: 160px;
+        height: 160px;
+
+        .winning-img {
+            width: 100%;
+        }
+        .sell-btn{
+            position: absolute;
+            top: 35%;
+            left: 20%;
+            font-size: 14px;
+            z-index: 10;
+            display: none;
+        }
+        &:hover{
+            .winning-img{
+                opacity: 0;
+            }
+            .sell-btn{
+                display: block;
+                opacity: 1 !important;
+            }
+        }
+    }
+    .sold {
+        position: relative;
+        padding-left: 10px;
+        padding-top: 25px; 
+        display: block;
+        float: left;
+        background: url('../../assets/imgs/svg/winning-circle.svg');
+        background-size: 160px;
+        width: 160px;
+        height: 160px;
 
         .winning-img {
             width: 100%;
