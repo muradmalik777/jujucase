@@ -42,7 +42,7 @@
                             <h4>{{item.marketHashName}}</h4>
                         </div>
                         <div class="action">
-                            <v-img contain :src="require('@/assets/imgs/svg/waste-bin.svg')" class="delete-icon"></v-img>
+                            <p>{{item.odds}}%</p>
                         </div>
                     </div>
                 </v-flex>
@@ -422,18 +422,6 @@ export default {
     bottom: 0px;
     right: 0px;
     padding: 10px 20px;
-    background: #99999967;
-    cursor: pointer;
-
-    &:hover {
-      background: #99999911;
-    }
-
-    .delete-icon {
-      width: 20px;
-      height: 30px;
-      display: block;
-    }
   }
 }
 </style>
