@@ -42,4 +42,7 @@ export default {
 };
 </script>
 <style lang="scss">
+.payment-failure{
+  min-height: 70vh;
+}
 </style>

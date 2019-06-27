@@ -1,10 +1,10 @@
 <template>
-     <v-container fluid class="payment-failure spacing">
+     <v-container fluid class="payment-success spacing">
         <v-layout justify-center row wrap>
             <v-flex xs12 md8 lg6 class="text-xs-center">
                 <v-card class="bg-purple-dull">
                     <h3>Transaction Successfull</h3>
-                    <h4>Transaction Id: <span class="c-green">{{transaction_id}}</span></h4>
+                    <h4>Transaction Id: <span class="c-green">{{transactionId}}</span></h4>
                     <h4>Transaction Amount: <span class="c-green">{{transaction.amount}}</span></h4>
                 </v-card>
             </v-flex>
@@ -19,6 +19,7 @@ export default {
   data: function() {
     return {
       transactionId: null,
+      transaction: {},
       loading: false
     };
   },
@@ -30,7 +31,7 @@ export default {
       this.startLoader();
       const urlParams = new URLSearchParams(window.location.search);
       this.transactionId = urlParams.get("txn_id");
-      let $object = new Api("/payment/failure");
+      let $object = new Api("/payment/success");
       $object.post({ transaction_id: this.transactionId }).then(response => {
           this.$store.commit('addUser', response.user)
           this.transaction = response.transaction;
@@ -41,4 +42,7 @@ export default {
 };
 </script>
 <style lang="scss">
+.payment-success{
+  min-height: 70vh;
+}
 </style>

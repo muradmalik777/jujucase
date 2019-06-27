@@ -82,7 +82,6 @@ export default {
             let $object = new Api('/purchases/user')
             let params = { id: this.$store.state.userData._id, p:this.currentPage }
             $object.getList(params).then(response => {
-                console.log(response)
                 this.data = response.items
             })
         }

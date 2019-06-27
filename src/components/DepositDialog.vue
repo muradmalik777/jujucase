@@ -57,7 +57,7 @@ export default {
             email: data,
             deposit: {
                 amount: 10,
-                currency: "EUR",
+                currency: "USD",
                 description: "",
                 successUrl: "http://127.0.0.1:8080/payment/success",
                 cancelUrl: "http://127.0.0.1:8080/payment/failure",
@@ -82,6 +82,8 @@ export default {
         confirmDeposit: function(){
             this.loading = true
             let $object = new Api("/deposit")
+            this.deposit.amount = parseFloat(this.deposit.amount).toFixed(2)
+            this.deposit.description = "Depsit " + this.deposit.amount + " user account"
             let data = {
                 user: this.$store.state.userData,
                 deposit: this.deposit
