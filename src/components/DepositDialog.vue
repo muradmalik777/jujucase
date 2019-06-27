@@ -20,17 +20,6 @@
                             <v-btn @click="deposit.amount = 200" :class="{'active-btn': deposit.amount == 200}" class="amount-btn">$200</v-btn>
                             <v-btn @click="deposit.amount = 500" :class="{'active-btn': deposit.amount == 500}" class="amount-btn">$500</v-btn>
                         </v-flex>
-                        <v-flex xs12>
-                            <h3 class="m-t-2 m-b">Your Email</h3>
-                            <v-text-field
-                            class="email"
-                            outline
-                            color="#ffffff"
-                            v-model="email"
-                            :rules="emailRules"
-                            required
-                            ></v-text-field>
-                        </v-flex>
                     </v-card-text>
                     <v-card-actions>
                         <v-flex xs12 class="text-xs-center">
@@ -82,7 +71,7 @@ export default {
         confirmDeposit: function(){
             this.loading = true
             let $object = new Api("/deposit")
-            this.deposit.amount = parseFloat(this.deposit.amount).toFixed(2)
+            this.deposit.amount = "$" + parseFloat(this.deposit.amount).toFixed(2)
             this.deposit.description = "Added Funds " + this.deposit.amount
             let data = {
                 user: this.$store.state.userData,
