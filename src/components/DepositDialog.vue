@@ -83,7 +83,7 @@ export default {
             this.loading = true
             let $object = new Api("/deposit")
             this.deposit.amount = parseFloat(this.deposit.amount).toFixed(2)
-            this.deposit.description = "Depsit " + this.deposit.amount + " user account"
+            this.deposit.description = "Added Funds " + this.deposit.amount
             let data = {
                 user: this.$store.state.userData,
                 deposit: this.deposit
