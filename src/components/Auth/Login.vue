@@ -24,10 +24,6 @@
                         ></v-text-field>
                         <v-btn @click="login" flat outline :loading="loading" color="#fff" right class="m-t-2 login-btn">Login</v-btn>
                         <v-btn flat color="#fff" class="signup-btn" :to="'/register'">Create Account</v-btn>
-                        <br>
-                        <a href="http://localhost:8081/steam">
-                            <v-img contain :src="require('@/assets/imgs/steam.png')" class="pointer steam" ></v-img>
-                        </a>
                     </v-form>
                 </v-card>
             </v-flex>
@@ -72,11 +68,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .login{
-    height: 75vh;
+    min-height: 80vh;
 }
 .login-card{
     background: #73337a99;
-    min-height: 500px;
+    min-height: 400px;
     padding: 40px;
     .login-btn{
         margin-left: 1rem;

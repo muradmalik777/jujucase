@@ -102,7 +102,6 @@
 import Api from "../services/Api.js";
 import WinningDialog from '@/components/WinningDialog'
 import * as $ from "jquery";
-import { error } from "util";
 window["$"] = $;
 window["jQuery"] = $;
 
@@ -149,31 +148,35 @@ export default {
   },
   methods: {
     buyCase: function() {
-      this.purchaseLoading = true;
-      let $purchase = new Api("/purchases");
-      let data = {
-        user_id: this.$store.state.userData._id,
-        case_id: this.oneCase._id,
-        hash: this.clientHash
-      }
-      $purchase.post(data).then(response => {
-          if (response.purchased) {
-            this.$store.commit("addUser", response.user);
-            this.purchaseLoading = false;
-            this.showDialog = false;
-            let item = this.oneCase.items.find(item => (item.marketHashName === response.winning.winningItem))
-            this.$store.commit('refreshWinningItem', response.winning)
-            this.spinnerItems[120] = item;
-            var spin = document.getElementById("spin");
-            spin.click();
-            setTimeout(function(){
-              this.showWinningDialog = true
-            }.bind(this), 9000);
-          }
+      if(this.$store.state.userData){
+        this.purchaseLoading = true;
+        let $purchase = new Api("/purchases");
+        let data = {
+          user_id: this.$store.state.userData._id,
+          case_id: this.oneCase._id,
+          hash: this.clientHash
+        }
+        $purchase.post(data).then(response => {
+            if (response.purchased) {
+              this.$store.commit("addUser", response.user);
+              this.purchaseLoading = false;
+              this.showDialog = false;
+              let item = this.oneCase.items.find(item => (item.marketHashName === response.winning.winningItem))
+              this.$store.commit('refreshWinningItem', response.winning)
+              this.spinnerItems[120] = item;
+              var spin = document.getElementById("spin");
+              spin.click();
+              setTimeout(function(){
+                this.showWinningDialog = true
+              }.bind(this), 9000);
+            }
         }).catch(error => {
           this.purchaseLoading = false;
           this.showMessage(error.response.data.message)
         });
+      } else{
+        this.$router.push('/login')
+      }
     },
     getClientHash: function() {
       this.hashLoading = true;
@@ -184,7 +187,7 @@ export default {
           this.clientHash = response;
           this.hashLoading = false;
         })
-        .catch(error => {
+        .catch(() => {
           this.hashLoading = false;
         });
     },

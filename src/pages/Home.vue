@@ -53,7 +53,7 @@ export default {
         },
         openCase: function (item) {
             this.$store.commit('addCaseToBeOpened', item)
-            this.$router.push('case/' + item._id);
+            this.$router.push('case/' + item.slug);
         }
     }
 

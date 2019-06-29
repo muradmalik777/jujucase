@@ -13,12 +13,12 @@
                             </v-avatar>
                             Home
                         </v-btn>
-                        <v-btn flat class="nav-link" to="/caseCreator">
+                        <!-- <v-btn flat class="nav-link" to="/caseCreator">
                             <v-avatar size="50px">
                                 <v-img contain :src="require('@/assets/imgs/svg/pen.svg')" class="menu-btn-icon"></v-img>
                             </v-avatar>
                             Case Creator
-                        </v-btn>
+                        </v-btn> -->
                         <v-btn flat class="nav-link" to="/casebrowser">
                             <v-avatar size="50px">
                                 <v-img contain :src="require('@/assets/imgs/svg/box.svg')" class="menu-btn-icon"></v-img>

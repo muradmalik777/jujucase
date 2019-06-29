@@ -78,11 +78,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .register{
-    height: 75vh;
+    min-height: 80vh;
 }
 .register-card{
     background: #73337a99;
-    min-height: 500px;
+    min-height: 400px;
     padding: 40px;
     .login-btn{
         text-decoration: underline;
