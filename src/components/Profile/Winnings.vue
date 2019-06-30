@@ -7,6 +7,7 @@
             <v-flex xs12>
                 <div class="unsold m-r-2 m-b-5" v-for="(item, index) in itemsAvailable" :key="index">
                     <v-btn :loading="loading" color="#00cf20" @click="sellItem(item)" class="sell-btn">Sell</v-btn>
+                    <v-btn :loading="loading" color="#ff5151" class="withdraw-btn">Withdraw</v-btn>
                     <v-img contain :src="item.item.iconUrl" class="winning-img"></v-img>
                     <p class="t-c m-t-2">${{item.item.price}}</p>
                 </div>
@@ -115,16 +116,24 @@ export default {
         display: block;
         float: left;
         background: url('../../assets/imgs/svg/winning-circle.svg');
-        background-size: 160px;
-        width: 160px;
-        height: 160px;
+        background-size: 200px;
+        width: 200px;
+        height: 200px;
 
         .winning-img {
             width: 100%;
         }
         .sell-btn{
             position: absolute;
-            top: 35%;
+            top: 25%;
+            left: 27%;
+            font-size: 14px;
+            z-index: 10;
+            display: none;
+        }
+        .withdraw-btn{
+            position: absolute;
+            top: 55%;
             left: 20%;
             font-size: 14px;
             z-index: 10;
@@ -138,6 +147,10 @@ export default {
                 display: block;
                 opacity: 1 !important;
             }
+            .withdraw-btn{
+                display: block;
+                opacity: 1 !important;
+            }
         }
     }
     .sold {
@@ -147,9 +160,9 @@ export default {
         display: block;
         float: left;
         background: url('../../assets/imgs/svg/winning-circle.svg');
-        background-size: 160px;
-        width: 160px;
-        height: 160px;
+        background-size: 200px;
+        width: 200px;
+        height: 200px;
 
         .winning-img {
             width: 100%;
