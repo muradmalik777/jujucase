@@ -15,7 +15,7 @@
                 <div class="wrapper">
                     <div class="window">
                         <ul class="list">
-                            <li v-for="(item, index) in spinnerItems" :key="index"><v-img contain class="skin-image" :src="item.iconUrl"></v-img></li>
+                            <li v-for="(item, index) in spinnerItems" :key="index"><v-img contain class="spinner-image" :src="item.iconUrl"></v-img></li>
                         </ul>
                     </div>
                     <div class="line"></div>
@@ -135,9 +135,9 @@ export default {
       $(".list li").css({
         border: "4px solid transparent"
       });
-      // $(".list li:eq(" + 120 + ")").css({
-      //   border: "3px solid #4caf50"
-      // });
+      $(".list li:eq(" + 124 + ")").css({
+        border: "3px solid #4caf50"
+      });
       $(".window").animate(
         {
           right: 135 * 135
@@ -163,7 +163,7 @@ export default {
               this.showDialog = false;
               let item = this.oneCase.items.find(item => (item.marketHashName === response.winning.winningItem))
               this.$store.commit('refreshWinningItem', response.winning)
-              this.spinnerItems[120] = item;
+              this.spinnerItems[124] = item;
               var spin = document.getElementById("spin");
               spin.click();
               setTimeout(function(){
@@ -324,9 +324,10 @@ export default {
     .list li {
       border: 4px solid transparent;
     }
-    .list li .v-img {
-      width: 130px;
-      height: 130px;
+    .spinner-image {
+      width: 135px;
+      height: 135px;
+      margin: 5px;
     }
   }
   .spinner-controls {
@@ -425,6 +426,30 @@ export default {
     bottom: 0px;
     right: 0px;
     padding: 10px 20px;
+  }
+}
+
+@media only screen and (min-width: 1300px) and (max-width: 1445px){
+  .spinner-wrapper {
+    .spinner {
+      .spinner-image {
+        width: 133.3px;
+        height: 133.3px;
+        margin: 5px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1921px) and (max-width: 2561px){
+  .spinner-wrapper {
+    .spinner {
+      .spinner-image {
+        width: 137.7px;
+        height: 137.7px;
+        margin: 5px;
+      }
+    }
   }
 }
 </style>

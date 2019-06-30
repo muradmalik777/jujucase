@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/pages/Home'
-import CaseCreator from '@/pages/CaseCreator'
+// import CaseCreator from '@/pages/CaseCreator'
 import CaseBrowser from '@/pages/CaseBrowser'
 import FAQ from '@/pages/FAQ'
 import TOS from '@/pages/TOS'
