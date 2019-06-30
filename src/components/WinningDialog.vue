@@ -21,8 +21,8 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-flex xs12 class="text-xs-center">
-                        <v-btn class="confirm" flat>Sell this item for ${{$store.state.winningItem.item.price}}</v-btn>
-                        <v-btn class="close" flat @click="closeDialog">Close</v-btn>
+                        <v-btn :loading="loading" @click="sellItem($store.state.winningItem)" class="confirm" flat>Sell this item for ${{$store.state.winningItem.item.price}}</v-btn>
+                        <v-btn class="close" flat @click="closeDialog">Later</v-btn>
                     </v-flex>
                 </v-card-actions>
             </v-card>
@@ -38,7 +38,8 @@ export default {
   data: function() {
     let data2 = this.$props.dialog;
     return {
-      val: data2
+      val: data2,
+      loading: false
     };
   },
   watch: {
@@ -49,6 +50,17 @@ export default {
   methods: {
     closeDialog: function() {
       this.$emit("closeDialog");
+    },
+    sellItem: function(item){
+      this.loading= true
+      let $object = new Api('/user/trade')
+      $object.post(item).then(response =>{
+          this.$store.commit('addUser', response.user)
+          this.loading = false
+          this.closeDialog()
+      }).catch(()=>{
+          this.loading = false
+      })
     }
   }
 };
