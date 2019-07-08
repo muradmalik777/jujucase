@@ -53,7 +53,7 @@ export default {
     },
     sellItem: function(item){
       this.loading= true
-      let $object = new Api('/user/trade')
+      let $object = new Api('/user/trade/sell')
       $object.post(item).then(response =>{
           this.$store.commit('addUser', response.user)
           this.loading = false

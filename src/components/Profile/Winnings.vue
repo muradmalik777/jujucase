@@ -6,8 +6,8 @@
             </v-flex>
             <v-flex xs12>
                 <div class="unsold m-r-2 m-b-5" v-for="(item, index) in itemsAvailable" :key="index">
-                    <v-btn :loading="loading" color="#00cf20" @click="sellItem(item)" class="sell-btn">Sell</v-btn>
-                    <v-btn :loading="loading" color="#ff5151" class="withdraw-btn">Withdraw</v-btn>
+                    <v-btn :loading="soldLoading" color="#00cf20" @click="sellItem(item)" class="sell-btn">Sell</v-btn>
+                    <v-btn :loading="withdrawLoading" color="#ff5151" @click="withdrawItem(item)" class="withdraw-btn">Withdraw</v-btn>
                     <v-img contain :src="item.item.iconUrl" class="winning-img"></v-img>
                     <p class="t-c m-t-2">${{item.item.price}}</p>
                 </div>
@@ -21,7 +21,19 @@
             <v-flex xs12>
                 <div class="sold m-r-2 m-b-5" v-for="(item, index) in itemsSold" :key="index">
                     <v-img contain :src="item.item.iconUrl" class="winning-img"></v-img>
-                    <p class="t-c m-t-2 c-green">Sold</p>
+                    <p class="t-c m-t-3 c-green">Sold</p>
+                </div>
+            </v-flex>
+        </v-layout>
+
+        <v-layout mt-5 row wrap class="section-container">
+            <v-flex xs12>
+                <h3 class="uppercase">Withdrawn Items</h3>
+            </v-flex>
+            <v-flex xs12>
+                <div class="sold m-r-2 m-b-5" v-for="(item, index) in itemsWithdrawn" :key="index">
+                    <v-img contain :src="item.item.iconUrl" class="winning-img"></v-img>
+                    <p class="t-c m-t-3 c-green">Withdrawn</p>
                 </div>
             </v-flex>
         </v-layout>
@@ -49,8 +61,10 @@ export default {
         return {
             myCases: [],
             itemsSold: [],
+            itemsWithdrawn: [],
             itemsAvailable: [],
-            loading: false
+            soldLoading: false,
+            withdrawLoading: false
         }
     },
     mounted: function() {
@@ -63,8 +77,8 @@ export default {
             let params = { user_id: this.$store.state.userData._id }
             $object.post(params).then(response => {
                 this.itemsSold = response.sold_items
+                this.itemsWithdrawn = response.withdrawn_items
                 this.itemsAvailable = response.unsold_items
-                this.totalWinnings = response.total_count
             })
         },
         getUserCases: function(){
@@ -90,14 +104,25 @@ export default {
             })
         },
         sellItem: function(item){
-            this.loading= true
-            let $object = new Api('/user/trade')
+            this.soldLoading= true
+            let $object = new Api('/user/trade/sell')
             $object.post(item).then(response =>{
                 this.$store.commit('addUser', response.user)
                 this.getWinnings()
-                this.loading = false
+                this.soldLoading = false
             }).catch(()=>{
-                this.loading = false
+                this.soldLoading = false
+            })
+        },
+        withdrawItem: function(item){
+            this.withdrawLoading= true
+            let $object = new Api('/user/trade/withdraw')
+            $object.post(item).then(response =>{
+                this.withdrawLoading = false
+                window.location.replace(response.url)
+            }).catch((error)=>{
+                this.withdrawLoading = false
+                this.showMessage(error.response.data.message)
             })
         }
     }
@@ -141,15 +166,13 @@ export default {
         }
         &:hover{
             .winning-img{
-                opacity: 0;
+                opacity: .35;
             }
             .sell-btn{
                 display: block;
-                opacity: 1 !important;
             }
             .withdraw-btn{
                 display: block;
-                opacity: 1 !important;
             }
         }
     }
