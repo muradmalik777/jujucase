@@ -21,7 +21,8 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-flex xs12 class="text-xs-center">
-                        <v-btn :loading="loading" @click="sellItem($store.state.winningItem)" class="confirm" flat>Sell this item for ${{$store.state.winningItem.item.price}}</v-btn>
+                        <v-btn :loading="loading1" @click="sellItem($store.state.winningItem)" class="confirm" flat>Sell this item for ${{$store.state.winningItem.item.price}}</v-btn>
+                        <v-btn :loading="loading2" @click="$router.push('/verifyWinning')" class="confirm" flat>Verify Winning</v-btn>
                         <v-btn class="close" flat @click="closeDialog">Later</v-btn>
                     </v-flex>
                 </v-card-actions>
@@ -39,7 +40,7 @@ export default {
     let data2 = this.$props.dialog;
     return {
       val: data2,
-      loading: false
+      loading: false,
     };
   },
   watch: {
@@ -61,7 +62,7 @@ export default {
       }).catch(()=>{
           this.loading = false
       })
-    }
+    },
   }
 };
 </script>
@@ -74,6 +75,7 @@ export default {
   background: #4caf50 !important;
   color: #000 !important;
   float: right !important;
+  margin-right: 1rem !important;
 }
 .close {
   color: #ffffff !important;

@@ -15,6 +15,7 @@ import CaseDisplay from '@/components/CaseDisplay'
 import SingleCase from '@/components/SingleCase'
 import ItemsWon from '@/components/ItemsWon'
 import Success from '@/components/Success'
+import VerifyWinning from '@/components/VerifyWinning'
 import Failure from '@/components/Failure'
 import Login from '@/components/Auth/Login'
 import Register from '@/components/Auth/Register'
@@ -53,6 +54,7 @@ export default new Router({
         { path: '/faq', component: FAQ },
         { path: '/tos', component: TOS },
         { path: '/winnings', component: ItemsWon, beforeEnter: guard },
+        { path: '/verifyWinning', component: VerifyWinning, beforeEnter: guard },
         { path: '/profile', component: Profile, beforeEnter: guard,
             children: [
                 { path: 'cases', component: ProfileWinnings },
