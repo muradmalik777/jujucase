@@ -15,7 +15,7 @@
                             <h2 class="c-white">{{$store.state.winningItem.item.marketHashName}}</h2>
                             <h4 class="c-white">Ticket: {{$store.state.winningItem.ticketNumber}}</h4>
                             <h4 class="c-white">Hash: {{$store.state.winningItem.clientHash}}</h4>
-                            <h4 class="c-white" style="word-wrap: break-word;">Secret: <v-icon @click="showSecret" color="#fff" class="m-l">{{this.show ? 'arrow_drop_up' : 'arrow_drop_down'}}</v-icon></h4>
+                            <h4 class="c-white" style="word-wrap: break-word;">Secret: <v-icon @click="showSecret" color="#fff" class="m-l m-t">{{this.show ? 'arrow_drop_up' : 'arrow_drop_down'}}</v-icon></h4>
                             <h4 class="c-white" v-if="show" style="word-wrap: break-word;">{{$store.state.winningItem.roundSecret}}</h4>
                         </v-flex>
                     </v-layout>
