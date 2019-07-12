@@ -166,6 +166,7 @@ export default {
               this.spinnerItems[124] = item;
               var spin = document.getElementById("spin");
               spin.click();
+              this.$store.commit('refreshLastCaseOpened', this.$store.state.caseBeingOpened)
               setTimeout(function(){
                 this.showWinningDialog = true
               }.bind(this), 9000);

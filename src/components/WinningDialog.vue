@@ -21,8 +21,8 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-flex xs12 class="text-xs-center">
-                        <v-btn :loading="loading1" @click="sellItem($store.state.winningItem)" class="confirm" flat>Sell this item for ${{$store.state.winningItem.item.price}}</v-btn>
-                        <v-btn :loading="loading2" @click="$router.push('/verifyWinning')" class="confirm" flat>Verify Winning</v-btn>
+                        <v-btn :loading="loading" @click="sellItem($store.state.winningItem)" class="confirm" flat>Sell this item for ${{$store.state.winningItem.item.price}}</v-btn>
+                        <v-btn @click="$router.push('/verifyWinning')" class="verify" flat>Verify Winning</v-btn>
                         <v-btn class="close" flat @click="closeDialog">Later</v-btn>
                     </v-flex>
                 </v-card-actions>
@@ -72,7 +72,13 @@ export default {
     height: auto;
 }
 .confirm {
-  background: #4caf50 !important;
+  background: linear-gradient(to right, #00cf20 0%,#4caf50 100%) !important;
+  color: #000 !important;
+  float: right !important;
+  margin-right: 1rem !important;
+}
+.verify {
+  background: linear-gradient(to right, rgb(84, 224, 218) 0%,rgb(1, 154, 151) 100%) !important;
   color: #000 !important;
   float: right !important;
   margin-right: 1rem !important;

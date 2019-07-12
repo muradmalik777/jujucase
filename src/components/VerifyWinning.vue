@@ -5,7 +5,7 @@
                 <h2 class="uppercase m-b-2">verify your result</h2>
                 <v-form ref="verifyForm">
                     <label>Case</label>
-                    <v-text-field color="#fff" v-model="verify.case_id" background-color="#67266e" readonly :rules="dataRules" required></v-text-field>
+                    <v-text-field color="#fff" v-model="box.name" background-color="#67266e" readonly :rules="dataRules" required></v-text-field>
                     <label>Client Hash</label>
                     <v-text-field color="#fff" v-model="verify.clientHash" background-color="#67266e" :rules="dataRules" required></v-text-field>
                     <label>Round Secret</label>
@@ -20,10 +20,11 @@
                         <v-layout row>
                             <v-flex xs12>
                                 <h3 class="m-b-2 uppercase">Results</h3>
-                                <h4 class="c-white m-b">Ticket Number: {{$store.state.winningItem.ticketNumber}}</h4>
+                                <h4 class="c-white m-b">Original Ticket Number: {{$store.state.winningItem.ticketNumber}}</h4>
                                 <h4 class="c-white m-b">Item Won: <br> {{$store.state.winningItem.item.marketHashName}}</h4>
 
                                 <h3 class="m-b-2 m-t-2 uppercase">Ticket Ranges</h3>
+                                <h4 class="c-white m-b" v-if="this.winningTicket">Winning Ticket Number: {{winningTicket}}</h4>
                                 <h4 v-for="(item, i) in result" :key="i" class="c-white m-b">{{item.firstTicket}} - {{item.lastTicket}} : {{item.name}}</h4>
                             </v-flex>
                         </v-layout>
@@ -40,9 +41,12 @@ export default {
   name: "VerifyWinning",
   data: function() {
     let data = this.$store.state.winningItem;
+    let data2 = this.$store.state.lastCaseOpened
     return {
       verify: data,
+      box: data2,
       result: [],
+      winningTicket: null,
       loading: false,
       dataRules: [v => !!v || "The input is required"]
     };
@@ -52,6 +56,7 @@ export default {
       this.loading = true;
       let $object = new Api("/user/winning/verify");
       $object.post(this.verify).then(resp => {
+          this.winningTicket = resp.roll
           this.result = resp.tickets
           this.loading = false;
       }).catch(() => {
