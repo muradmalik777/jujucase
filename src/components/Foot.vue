@@ -54,7 +54,7 @@ export default {
     },
     methods: {
         getCaseCounts: function(){
-            let $object = new Api('/cases/count')
+            let $object = new Api('/purchases/count')
             $object.getList().then(resp => {
                 this.caseCount = resp
             })
