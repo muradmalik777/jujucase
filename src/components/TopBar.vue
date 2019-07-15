@@ -19,12 +19,12 @@
                             </v-avatar>
                             Case Creator
                         </v-btn> -->
-                        <v-btn flat class="nav-link" to="/casebrowser">
+                        <!-- <v-btn flat class="nav-link" to="/casebrowser">
                             <v-avatar size="50px">
                                 <v-img contain :src="require('@/assets/imgs/svg/box.svg')" class="menu-btn-icon"></v-img>
                             </v-avatar>
                             Case Browser
-                        </v-btn>
+                        </v-btn> -->
                         <!-- <v-btn flat class="c-green-bright nav-link">${{parseFloat($store.state.userData.balance).toFixed(2)}}</v-btn> -->
                         <v-menu offset-y max-width="200" min-width="150" v-if="$store.state.userData">
                             <template v-slot:activator="{ on }">

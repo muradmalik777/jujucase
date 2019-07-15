@@ -29,6 +29,15 @@
                         :rules="passwordRules"
                         required
                         ></v-text-field>
+                        <v-text-field
+                        color="#fff"
+                        @change="matchPassword"
+                        v-model="user.confirm_password"
+                        type="password"
+                        label="Confirm Password"
+                        :rules="confirmPasswordRules"
+                        required
+                        ></v-text-field>
                         <v-btn @click="submit" dark outline :loading="loading" color="#fff" right class="m-t-2 signup-btn">Signup</v-btn>
                         <p class="c-white">Already have an account <v-btn flat color="#fff" class="login-btn" :to="'/login'">Login</v-btn></p>
                     </v-form>
@@ -50,6 +59,7 @@ export default {
                 password: ""
             },
             passwordRules: [v => !!v || "The input is required"],
+            confirmPasswordRules: [v => !!v || "The input is required", v => v === this.user.password || 'Passwords do not match'],
             nameRules: [v => !!v || "The input is required"],
             emailRules: [
                 v => !!v || "E-mail is required",
@@ -72,6 +82,9 @@ export default {
                     this.showMessage(error.response.data.message)
                 })
             }
+        },
+        matchPassword: function(){
+            this
         }
     }
 }

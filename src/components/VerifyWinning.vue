@@ -52,9 +52,9 @@ export default {
     };
   },
   methods: {
-    verifyWinning: function(item) {
+    verifyWinning: function() {
       this.loading = true;
-      let $object = new Api("/user/winning/verify");
+      let $object = new Api("/winning/verify");
       $object.post(this.verify).then(resp => {
           this.winningTicket = resp.roll
           this.result = resp.tickets

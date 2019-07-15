@@ -7,7 +7,7 @@
             <v-flex xs12>
                 <div class="unsold m-r-2 m-b-5" v-for="(item, index) in itemsAvailable" :key="index">
                     <v-btn :loading="soldLoading" color="#00cf20" @click="sellItem(item)" class="sell-btn">Sell</v-btn>
-                    <v-btn :loading="withdrawLoading" color="#ff5151" @click="withdrawItem(item)" class="withdraw-btn">Withdraw</v-btn>
+                    <v-btn :loading="withdrawLoading" color="#ff5151" @click="$router.push('/user/verification')" class="withdraw-btn">Withdraw</v-btn>
                     <v-img contain :src="item.item.iconUrl" class="winning-img"></v-img>
                     <p class="t-c m-t-2">${{item.item.price}}</p>
                 </div>
@@ -114,17 +114,6 @@ export default {
                 this.soldLoading = false
             })
         },
-        withdrawItem: function(item){
-            this.withdrawLoading= true
-            let $object = new Api('/user/trade/withdraw')
-            $object.post(item).then(response =>{
-                this.withdrawLoading = false
-                window.location.replace(response.url)
-            }).catch((error)=>{
-                this.withdrawLoading = false
-                this.showMessage(error.response.data.message)
-            })
-        }
     }
 }
 </script>
