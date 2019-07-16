@@ -46,11 +46,6 @@ export default {
             email: data,
             deposit: {
                 amount: 10,
-                currency: "USD",
-                description: "",
-                successUrl: "http://127.0.0.1:8080/payment/success",
-                cancelUrl: "http://127.0.0.1:8080/payment/failure",
-                customValue: ""
             },
             emailRules: [
                 v => !!v || "E-mail is required",
@@ -71,17 +66,13 @@ export default {
         confirmDeposit: function(){
             this.loading = true
             let $object = new Api("/deposit")
-            this.deposit.amount = "$" + parseFloat(this.deposit.amount).toFixed(2)
-            this.deposit.description = "Added Funds " + this.deposit.amount
+            this.deposit.amount = parseFloat(this.deposit.amount).toFixed(2)
             let data = {
                 user: this.$store.state.userData,
                 deposit: this.deposit
             }
             $object.post(data).then(resp => {
-                let url = "https://test.gamerpay.com/pay/"
-                let data = resp.payment_url.split("/")
-                let id = data[data.length-1]
-                window.location.replace(url+id)
+                window.location.replace(resp.payment_url)
             }).catch(()=>{
                 this.loading = false
             })
