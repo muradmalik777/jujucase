@@ -6,7 +6,7 @@
           <h3 class="m-b-2">We will verify your age based upon the document you uploaded, after that you can withdraw your items.</h3>
         </v-flex>
       </v-layout>
-      <v-layout row wrap justify-center >
+      <v-layout row wrap justify-center v-else>
           <v-flex xs12 md8 lg5 class="verify-form">
               <h2 class="uppercase m-b-2">verify your result</h2>
               <v-form ref="verifyForm">
