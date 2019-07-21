@@ -61,7 +61,7 @@
         <v-dialog width="800px" persistent v-model="showDialog">
             <v-card class="dialog">
                 <h2 class="t-c">Confirm Order</h2>
-                <v-img contain :src="require('@/assets/imgs/cases/' + this.oneCase.case_image)" class="case-open-img"></v-img>
+                <v-img contain :src="oneCase.case_image" class="case-open-img"></v-img>
                 <div class="case-name">
                     <div class="left-wrapper">
                         <p class="bold">Case Name:</p>
