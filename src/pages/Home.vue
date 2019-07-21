@@ -11,7 +11,7 @@
             </v-flex>
             <v-flex xs12 sm4 md3 lg2 class="case pointer m-t-3 m-b-3" v-for="(item, index) in allCases" :key="index" @click="openCase(item)">
                 <h3 class="capitalize t-c">{{item.name}}</h3>
-                <v-img :src="require('@/assets/imgs/cases/' + item.case_image)" class="case-image"></v-img>
+                <v-img :src="item.case_image" class="case-image"></v-img>
                 <h4 class="t-c capitalize price">${{parseFloat(item.price).toFixed(2)}}</h4>
             </v-flex>
             <v-flex xs12 class="text-xs-center m-t-3" v-if="totalCases && totalCases > 12">
