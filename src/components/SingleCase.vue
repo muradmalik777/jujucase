@@ -135,9 +135,9 @@ export default {
       $(".list li").css({
         border: "4px solid transparent"
       });
-      $(".list li:eq(" + 124 + ")").css({
-        border: "3px solid #4caf50"
-      });
+      // $(".list li:eq(" + 124 + ")").css({
+      //   border: "3px solid #4caf50"
+      // });
       $(".window").animate(
         {
           right: 135 * 135
