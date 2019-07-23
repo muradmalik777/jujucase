@@ -95,7 +95,7 @@
             </v-card>
         </v-dialog>
         
-        <win :dialog="showWinningDialog" @closeDialog="closeWinningDialog"></win>
+        <win v-if="$store.state.winningItem" :dialog="showWinningDialog" @closeDialog="closeWinningDialog"></win>
     </div>
 </template>
 <script>
@@ -135,9 +135,9 @@ export default {
       $(".list li").css({
         border: "4px solid transparent"
       });
-      // $(".list li:eq(" + 124 + ")").css({
-      //   border: "3px solid #4caf50"
-      // });
+      $(".list li:eq(" + 124 + ")").css({
+        border: "3px solid #4caf50"
+      });
       $(".window").animate(
         {
           right: 135 * 135
@@ -163,7 +163,7 @@ export default {
               this.showDialog = false;
               let item = this.oneCase.items.find(item => (item.marketHashName === response.winning.winningItem))
               this.$store.commit('refreshWinningItem', response.winning)
-              this.spinnerItems[124] = item;
+              this.spinnerItems[123] = item;
               var spin = document.getElementById("spin");
               spin.click();
               this.$store.commit('refreshLastCaseOpened', this.$store.state.caseBeingOpened)
