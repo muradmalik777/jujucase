@@ -18,6 +18,14 @@
                     </template>
                 </v-data-table>
             </v-flex>
+            <v-flex>
+                <v-pagination
+                v-model="currentPage"
+                :length="Math.floor(totalTransactions/12)"
+                :total-visible="10"
+                @input="getTransactions">
+                </v-pagination>
+            </v-flex>
         </v-layout>
     </v-container>
 </template>
@@ -27,6 +35,8 @@ export default {
     name: 'transactions',
     data: function(){
         return{
+            currentPage: 1,
+            totalTransactions: null,
             data: [],
             headers: [
                 {
@@ -83,6 +93,7 @@ export default {
             let params = { id: this.$store.state.userData._id, p:this.currentPage }
             $object.getList(params).then(response => {
                 this.data = response.items
+                this.totalTransactions = response.total_count
             })
         }
     }
