@@ -91,6 +91,7 @@
                     <v-btn class="button" @click="showDialog = false">Close</v-btn>
                     <v-btn color="button" :loading="hashLoading" @click="getClientHash()">New Hash</v-btn>
                     <v-btn class="button green-btn" :loading="purchaseLoading"  @click="buyCase()">Buy Case</v-btn>
+                    <v-btn class="buy-button" id="buy" style="visibility:hidden"></v-btn>
                 </div>
             </v-card>
         </v-dialog>
@@ -145,10 +146,31 @@ export default {
         9000
       );
     });
+
+    $(".buy-button").click(function() {
+      $(".window").css({
+        right: "0"
+      });
+      $(".list li").css({
+        border: "4px solid transparent"
+      });
+      // $(".list li:eq(" + 124 + ")").css({
+      //   border: "3px solid #4caf50"
+      // });
+      $(".window").animate(
+        {
+          right: 135 * 135
+        },
+        9000
+      );
+    });
   },
   methods: {
     buyCase: function() {
       if(this.$store.state.userData){
+        $(".window").css({
+          right: "0"
+        });
         this.purchaseLoading = true;
         let $purchase = new Api("/purchases");
         let data = {
@@ -157,20 +179,19 @@ export default {
           hash: this.clientHash
         }
         $purchase.post(data).then(response => {
-            if (response.purchased) {
-              this.$store.commit("addUser", response.user);
-              this.purchaseLoading = false;
-              this.showDialog = false;
-              let item = this.oneCase.items.find(item => (item.marketHashName === response.winning.winningItem))
-              this.$store.commit('refreshWinningItem', response.winning)
-              this.spinnerItems[123] = item;
-              var spin = document.getElementById("spin");
-              spin.click();
-              this.$store.commit('refreshLastCaseOpened', this.$store.state.caseBeingOpened)
-              setTimeout(function(){
-                this.showWinningDialog = true
-              }.bind(this), 9000);
-            }
+          if (response.purchased) {
+            this.$store.commit("addUser", response.user);
+            this.purchaseLoading = false;
+            this.showDialog = false;
+            this.$store.commit('refreshWinningItem', response.winning)
+            this.spinnerItems[124] = response.winning.item;
+            var spin = document.getElementById("buy");
+            spin.click();
+            this.$store.commit('refreshLastCaseOpened', this.$store.state.caseBeingOpened)
+            setTimeout(function(){
+              this.showWinningDialog = true
+            }.bind(this), 9000);
+          }
         }).catch(error => {
           this.purchaseLoading = false;
           this.showMessage(error.response.data.message)
@@ -215,7 +236,7 @@ export default {
       this.showWinningDialog = false
     },
     mixItems: function(){
-      this.spinnerItems = this.shuffleItems(this.createCaseItems(this.oneCase.items));
+      this.spinnerItems = this.shuffleItems(this.spinnerItems);
     }
   }
 };
