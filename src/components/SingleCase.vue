@@ -171,6 +171,7 @@ export default {
         $(".window").css({
           right: "0"
         });
+        this.mixItems()
         this.purchaseLoading = true;
         let $purchase = new Api("/purchases");
         let data = {
@@ -186,6 +187,7 @@ export default {
             this.$store.commit('refreshWinningItem', response.winning)
             this.spinnerItems[124] = response.winning.item;
             var spin = document.getElementById("buy");
+            this.getClientHash()
             spin.click();
             this.$store.commit('refreshLastCaseOpened', this.$store.state.caseBeingOpened)
             setTimeout(function(){
